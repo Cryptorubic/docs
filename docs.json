@@ -18,7 +18,7 @@
         "tab": "API Documentation",
         "groups": [
           {
-            "group": "api-docs",
+            "group": "docs/api-docs",
             "pages": [
               "docs/api-docs/supported-chains",
               "docs/api-docs/supported-providers",
