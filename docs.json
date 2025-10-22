@@ -20,16 +20,40 @@
           {
             "group": "api-docs",
             "pages": [
-              "api-docs/supported-chains",
-              "api-docs/supported-providers",
-              "api-docs/request-quote",
-              "api-docs/request-data",
-              "api-docs/get-crosschain-status",
-              "api-docs/integration-examples",
-              "api-docs/swagger",
-              "api-docs/models",
-              "api-docs/errors",
-              "api-docs/dangerous-routes"
+              "docs/api-docs/supported-chains",
+              "docs/api-docs/supported-providers",
+              "docs/api-docs/request-quote",
+              "docs/api-docs/request-data",
+              "docs/api-docs/get-crosschain-status",
+              "docs/api-docs/integration-examples",
+              "docs/api-docs/swagger",
+              "docs/api-docs/models",
+              "docs/api-docs/errors",
+              "docs/api-docs/dangerous-routes"
+            ]
+          },
+          {
+            "group": "Monetization and Fees",
+            "pages": [
+              "docs/monetization/evm",
+              "docs/monetization/non-evm"
+            ]
+          },
+          {
+            "group": "Referrer and Rate Limit",
+            "pages": [
+              "essentials/markdown",
+              "essentials/code",
+              "essentials/images",
+              "essentials/reusable-snippets"
+            ]
+          },
+          {
+            "group": "Toke API",
+            "pages": [
+              "ai-tools/cursor",
+              "ai-tools/claude-code",
+              "ai-tools/windsurf"
             ]
           },
           {
