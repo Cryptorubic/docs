@@ -6,8 +6,8 @@ Using the swap method, you can get a transaction data for swap, obtained on prev
 
 Here is an example of requesting data 1.05 ETH in Ethereum Blockchain for Matic in Polygon Blockchain
 
-{% tabs %}
-{% tab title="Node.js (axios) example" %}
+<Tabs>
+<Tab title="Node.js (axios) example"></Tab>
 
 ```typescript
 const quoteParams = {
@@ -39,10 +39,9 @@ console.log(tradeWithData.transaction);
 }
 */
 ```
+</Tab>
 
-{% endtab %}
-
-{% tab title="Example Response" %}
+<Tab title="Example Response">
 
 ```json
 {
@@ -193,13 +192,10 @@ console.log(tradeWithData.transaction);
   "warnings": []
 }
 ```
+</Tab>
+</Tabs>
 
-{% endtab %}
-{% endtabs %}
-
-{% embed url="<https://api-v2.rubic.exchange/api/swagger/#/Router/RouterController_getSwap>" %}
-Swagger link
-{% endembed %}
+[Open Rubic Swagger](https://api-v2.rubic.exchange/api/swagger/)
 
 ## Swap request params
 
