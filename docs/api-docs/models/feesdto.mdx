@@ -1,5 +1,41 @@
----
-title: 'New file'
-description: 'Description of your new file.'
----
+# FeesDto
 
+```typescript
+interface FeesDto {
+    gasTokenFees: {
+        gas: {
+            gasPrice: string;
+            gasLimit: string;
+            totalWeiAmount: string;
+            totalUsdAmount: number;
+        };
+        protocol: {
+            fixedAmount: string;
+            fixedWeiAmount: string;
+            fixedUsdAmount: number;
+        };
+        provider: {
+            fixedAmount: string;
+            fixedWeiAmount: string;
+            fixedUsdAmount: number;
+        };
+        nativeToken: {
+            address: string;
+            decimals: number;
+            symbol: string;
+            name: string;
+            blockchainId: number;
+        };
+    };
+    percentFees: {
+        percent: number;
+        token: {
+            address: string;
+            decimals: number;
+            symbol: string;
+            name: string;
+            blockchainId: number;
+        } | null;
+    };
+}
+```
