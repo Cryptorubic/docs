@@ -1,24 +1,30 @@
 ---
-Title: 'Fee sharing from EVM chains'
-Icon: 'coins'
+title: "Fee sharing from EVM chains"
+icon: 'coins'
 ---
 
 To start the process of receiving commissions, please provide our [team](https://t.me/RubicPartnershipBot) with the following details:
 
 1. An EVM address for fee sharing.
 
-<Note>If you’d like to use various fee models, please provide different EVM wallets for each fee value.</Note>
+<Note>
+  If you’d like to use various fee models, please provide different EVM wallets for each fee value.
+</Note>
 
 2. The fee model you would like to use: Percentage-based, Fixed Amount, or Mixed.
 
-<Note>Please find a detailed description of each model [here](https://docs.rubic.finance/rubic-api/monetization-and-fees).</Note>
+<Note>
+  Please find a detailed description of each model [here](https://docs.rubic.finance/rubic-api/monetization-and-fees).
+</Note>
 
 3. The fee value:
 
-a) *amount in USD* for the Fixed Amount model;  
-b) *percentage* for the Percentage-Based model;  
-с) *amount in USD* and *percentage* for the Mixed model.
+a) _amount in USD_ for the Fixed Amount model;\
+b) _percentage_ for the Percentage-Based model;\
+с) _amount in USD_ and _percentage_ for the Mixed model.
 
 After receiving the required details, we'll list your address(es) on our side, and it will be necessary to set it as the `integratorAddress` in the requests to the Rubic API.
 
-<Warning>If the `integratorAddress` is not specified, the default fixed fee in native tokens will be deducted from each transaction.</Warning>
+<Warning>
+  If the `integratorAddress` is not specified, the default fixed fee in native tokens will be deducted from each transaction.
+</Warning>
