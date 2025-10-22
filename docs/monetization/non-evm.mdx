@@ -1,7 +1,6 @@
 # Fee Sharing from non-EVM chains via ChangeNOW
 
->
->Fee sharing from non-EVM chains is currently available only via the ChangeNOW provider. Fees are shared for cross-chain swaps across all networks supported by ChangeNOW, including both EVM and non-EVM networks.
+<Note>Fee sharing from non-EVM chains is currently available only via the ChangeNOW provider. Fees are shared for cross-chain swaps across all networks supported by ChangeNOW, including both EVM and non-EVM networks.</Note>
 
 
 ### How does fee sharing via ChangeNOW work?
@@ -14,8 +13,7 @@ Fee sharing for transactions performed via ChangeNOW consists of several **key s
 4. Rubic calculates the integrator’s share based on internal swap statistics.
 5. The commission is transferred manually once per month to the `integratorAddress`, based on the internal swap statistics.
 
->
->Fees for all networks are credited in the **Binance Smart Chain (BNB Chain)** network, in **USDT**.
+<Note>Fees for all networks are credited in the **Binance Smart Chain (BNB Chain)** network, in **USDT**.</Note>
 
 The percentage-based fee model is applied, where the total fee is 1%. **This fee is split equally**: 0.5% to Rubic and 0.5% to the integrator.
 
