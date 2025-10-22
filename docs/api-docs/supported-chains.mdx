@@ -2,8 +2,8 @@
 
 This endpoint returns a list of supported blockchains available for exchange and transactions in the Rubic API. Each blockchain object contains a name, an identifier, list of providers that support this blockchain, the type of blockchain and whether fee collection is available in this blockchain (proxyAvailable field)
 
-{% tabs %}
-{% tab title="Node.JS (Axios) Request" %}
+<Tabs>
+  <Tab title="Node.JS (Axios) Request">
 
 ```typescript
 
@@ -12,9 +12,8 @@ const response = await axios.get(
 );
 ```
 
-{% endtab %}
-
-{% tab title="cURL Request" %}
+<Tab>
+  <Tab title="cURL Request">
 
 ```bash
 curl -X 'GET' \
@@ -22,9 +21,8 @@ curl -X 'GET' \
   -H 'accept: application/json'
 ```
 
-{% endtab %}
-
-{% tab title="Example Response" %}
+<Tab>
+  <Tab title="Example Response">
 
 ```json
 [
@@ -657,8 +655,7 @@ curl -X 'GET' \
 ]
 ```
 
-{% endtab %}
-{% endtabs %}
+</Tabs>
 
 ## Response params
 
