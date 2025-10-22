@@ -2,34 +2,25 @@
 
 ## **What revenue sharing models do we have?**
 
-{% hint style="success" %}
-**Percentage-Based Commission:**
-{% endhint %}
+### **Percentage-Based Commission:**
 
 You can set any percentage (e.g., 0.01% or 2.1%) of the total swap amount. There are no limits. The fee is deducted in the user's initial asset.
 
-* Example #1: A user swaps ARB (Arbitrum) for USDC (Base). The fee is paid in ARB, and the integrator earns income in ARB.
-* Example #2: If a user swaps 100 USDT on Polygon with a 1% commission, 99 USDT goes into the trade, and 1 USDT is sent to Rubic’s contract, where it is shared between the integrator and Rubic.
+- Example #1: A user swaps ARB (Arbitrum) for USDC (Base). The fee is paid in ARB, and the integrator earns income in ARB.
+- Example #2: If a user swaps 100 USDT on Polygon with a 1% commission, 99 USDT goes into the trade, and 1 USDT is sent to Rubic’s contract, where it is shared between the integrator and Rubic.
 
-{% hint style="success" %}
-**Fixed Amount Commission:**
-{% endhint %}
+### **Fixed Amount Commission:**
 
 The fee is charged in the native gas token of the source network. Integrators can define the fee in USD, and we will automatically convert it into the corresponding native asset of the respective blockchain.
 
-* Example: A user swaps USDT (Polygon) for ETH (Blast). The fee is paid in POL (excluding gas fees), and the integrator earns income in POL.
+- Example: A user swaps USDT (Polygon) for ETH (Blast). The fee is paid in POL (excluding gas fees), and the integrator earns income in POL.
 
-{% hint style="success" %}
-**Percentage + Fixed Amount Commission:**
-{% endhint %}
+### **Percentage + Fixed Amount Commission:**
 
 The fee combines a percentage of the user's initial asset token and the source network’s native gas token.
 
-* Example: A user swaps DAI (BNB Chain) for USDT (Optimism). The fees are paid in both BNB (BNB Chain gas token) and DAI (user's initial asset), excluding gas fees (network fee). The integrator earns income in both BNB and DAI.
+- Example: A user swaps DAI (BNB Chain) for USDT (Optimism). The fees are paid in both BNB (BNB Chain gas token) and DAI (user's initial asset), excluding gas fees (network fee). The integrator earns income in both BNB and DAI.
 
-{% hint style="warning" %}
+> 
+
 In case models for on-chain and cross-chain transactions are different, you should send us two wallet addresses. One will be used for on-chain commission receiving, the second one for cross-chain.
-{% endhint %}
-
-\
-\\
