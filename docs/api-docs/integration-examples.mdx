@@ -26,11 +26,9 @@ async function connectWallet() {
     }
 }
 ```
-
 </Tab>
 
 <Tab title="Web3.js">
-
 ```javascript
 import Web3 from "web3";
 
@@ -45,8 +43,7 @@ async function connectWallet() {
     }
 }
 ```
-
-</Tab>.
+</Tab>
 
 <Tab title="Viem">
 
@@ -133,8 +130,8 @@ Before sending a transaction, you need to approve the token. `Approve` allows a 
 
 Below are examples for different libraries.&#x20;
 
-{% tabs %}
-{% tab title="Ethers.js" %}
+<Tabs>
+<Tab title="Ethers.js">
 
 ```javascript
 import { ethers } from "ethers";
@@ -160,9 +157,9 @@ async function approveToken(
 }
 ```
 
-{% endtab %}
+</Tab>
 
-{% tab title="Web3.js" %}
+<Tab title="Web3.js">
 
 ```javascript
 import Web3 from "web3";
@@ -188,9 +185,9 @@ async function approveToken(
 }
 ```
 
-{% endtab %}
+</Tab>
 
-{% tab title="Viem" %}
+<Tab title="Viem">
 
 ```javascript
 import { createWalletClient, encodeFunctionData } from 'viem';
@@ -221,8 +218,8 @@ async function approveToken(
 }
 ```
 
-{% endtab %}
-{% endtabs %}
+</Tab>
+</Tabs>
 
 ### Retrieving Data to Execute a Transaction
 
@@ -271,8 +268,8 @@ You get more information about swap endpoint here:
 
 Using the data obtained from the Rubic API, you can now execute the transaction.
 
-{% tabs %}
-{% tab title="Ethers.js" %}
+<Tabs>
+<Tab title="Ethers.js">
 
 ```javascript
 async function executeSwap(
@@ -291,9 +288,9 @@ async function executeSwap(
 }
 ```
 
-{% endtab %}
+</Tab>
 
-{% tab title="Web3.js" %}
+<Tab title="Web3.js">
 
 ```javascript
 async function executeSwap(
@@ -313,9 +310,9 @@ async function executeSwap(
 }
 ```
 
-{% endtab %}
+</Tab>
 
-{% tab title="Viem" %}
+<Tab title="Viem">
 
 ```javascript
 async function executeSwap(
@@ -335,9 +332,9 @@ async function executeSwap(
     console.log("Transaction executed:", txHash);
 }
 ```
+</Tab>
 
-{% endtab %}
-{% endtabs %}
+</Tabs>
 
 ### Track your transaction
 
