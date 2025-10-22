@@ -15,7 +15,7 @@
         "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json"
       },
       {
-        "tab": "Guides",
+        "tab": "Docs",
         "groups": [
           {
             "group": "Getting started",

@@ -1,0 +1,180 @@
+# Errors
+
+## Description
+
+Error code consists of two parts - <mark>**Number(error domain + error code)**</mark>. For instance if you'll try to fetch not supported pair of tokens - you get an error with code "<mark>**2001**</mark>", because <mark style="color:purple;">Number(''002" + "001")</mark> equals <mark style="color:purple;">2001</mark>.  Every error is related with particular stage of interaction with API (ex. making quote request, making swap request, interaction with Rubic smart contracts).
+
+## Error domains
+
+```
+const ERROR_DOMAINS = {
+    PARAMS_ERRORS: '001',
+    CALCULATION_ERRORS: '002',
+    SWAP_ERRORS: '003',
+    RUBIC_CONTRACT_ERRORS: '004',
+    UNKNOWN_ERRORS: '999'
+}
+```
+
+## Error codes
+
+Currently errors list contains 5 main issues like invalid params, calculation restrictions etc. In future this list will grow as we develop and scale our API. To receive all actual data or mention any discrepency or incorrectness in errors list - contact our BD via [Telegram](https://t.me/RubicPartnershipBot).&#x20;
+
+```
+const SPECIFIC_ERROR_CODES = {
+    // 001
+    [ERROR_DOMAINS.PARAMS_ERRORS]: {
+        REQUIRED_RECEIVER: '001',
+        EQUAL_TOKENS: '002',
+        DIFFERENT_QUOTES: '003',
+        MISS_ID: '004',
+        NO_REQUIRED_FIELD: '005',
+        NOT_CORRECT_WALLET_ADDRESS: '006',
+
+        WRONG_OR_MISSED_FIELD: '999'
+    },
+    // 002
+    [ERROR_DOMAINS.CALCULATION_ERRORS]: {
+        NO_ROUTES: '001',
+        BLOCKCHAIN_TEMPORARILY_DOWN: '002',
+        PROVIDER_RATE_LIMIT: '003',
+        MAX_AMOUNT: '004',
+        MIN_AMOUNT: '005',
+        MAX_DECIMALS: '006',
+        NO_AUTH_WALLET: '007',
+
+        UNKNOWN: '999'
+    },
+    // 003
+    [ERROR_DOMAINS.SWAP_ERRORS]: {
+        NEED_APPROVE: '001',
+        NEED_PERMIT2_APPROVE: '002',
+        NOT_ENOUGH_BALANCE: '003',
+        NOT_ENOUGH_NATIVE_BALANCE: '004',
+        SIMULATION_FAILED: '005',
+        UNSUPPORTED_RECEIVER: '006',
+        NO_DATA: '007',
+
+        WRONG_ARB_BRIDGE_HASH: '100',
+
+        UNKNOWN: '999'
+    },
+    //004
+    [ERROR_DOMAINS.RUBIC_CONTRACT_ERRORS]: {
+        NO_DIRECT_ROUTES: '001',
+        NO_SELECTOR: '002',
+        NO_CONTRACT: '003',
+        UNLISTED: '004'
+    },
+    // 999
+    [ERROR_DOMAINS.UNKNOWN_ERRORS]: {
+        UNKNOWN: '999'
+    }
+}
+```
+
+## Example API error responses
+
+Errors may have different structures. <mark style="color:red;">**PARAMS\_ERRORS is an array of errors**</mark>(it's related with NestJS exceptions of validation pipes)
+
+### PARAMS\_ERROR example
+
+```
+{
+    errors: [
+        {
+            code: 1999,
+            reason: "fromAddress with value 0x12esa isn't a correct wallet address for ETH network"
+        },
+        {
+            code: 1999,
+            reason: "receiver with value 0x12esa isn't a correct address in POLYGON"
+        }
+    ]
+}
+```
+
+### Common error example
+
+A usual(<mark style="color:red;">**except**</mark> <mark style="color:red;">**PARAMS\_ERRORS**</mark>) error body has a type like
+
+```
+{
+    error: {
+        code: number,
+        reason: string,
+        // Error specific data
+        data?: object
+    },
+    id: string
+}
+```
+
+#### NO\_ROUTES
+
+```
+{
+    error: {
+        code: 2001,
+        reason:"No routes found. Try to use other tokens" 
+    },
+    // used to fetch status of successfull cross-chain transaction in destinatio chain
+    id: "0367294f-2866-43b6-a937-5e928e8350b7" 
+}
+```
+
+### Error with additional "data" field example
+
+Errors can have optional field "data" (object), this field contains additional useful data and details about error cause.
+
+#### NEED\_APPROVE
+
+```
+{
+    error: {
+        code: 3001,
+        reason: "Trade can not be executed. You have not enough allowance for 0x3335733c454805df6a77f825f266e136FB4a3333 spender address",
+        data: {
+            contractAddress: "0x3335733c454805df6a77f825f266e136FB4a3333"        
+        }
+    },
+    // used to fetch status of successfull cross-chain transaction in destination chain
+    id: "0367294f-2866-43b6-a937-5e928e8350b7" 
+}
+```
+
+#### NOT\_ENOUGH\_NATIVE\_BALANCE (EVM chains)
+
+```
+{
+    error: {
+        code: 3004,
+        reason: "Transaction simulation failed. You probably have not enough native currency to pay for transaction on 0x7E1FdF03Eb3aC35BF0256694D7fBe6B6d7b3E0c8 wallet address. You can find approximate gas data for tx in "data".",
+        data: {
+            gasLimit: "562800",
+            gasPrice: "2285283281",
+            //tx value
+            value: "1050000000000000000"      
+        }
+    },
+    // used to fetch status of successfull cross-chain transaction in destination chain
+    id: "0367294f-2866-43b6-a937-5e928e8350b7" 
+}
+```
+
+#### NOT\_ENOUGH\_NATIVE\_BALANCE (TON)
+
+```
+{
+    error: {
+        code: 3004,
+        reason: "Transaction simulation failed. You probably have not enough native currency to pay for transaction on EQBsSItDkR-1_2CiAMxl7MDraJuEopRcw0qQZjso9pAhaVbF wallet address. You can find approximate gas data for tx in "data".",
+        data: {
+            gas: "200000000",
+            value: "1050000000000000000"      
+        }
+    },
+    // used to fetch status of successfull cross-chain transaction in destination chain
+    id: "0367294f-2866-43b6-a937-5e928e8350b7" 
+}
+```
