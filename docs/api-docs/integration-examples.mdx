@@ -8,8 +8,8 @@ This page explains how to connect a Web3 wallet, retrieve token quotes, approve 
 
 To interact with the blockchain, we first need to connect a wallet. Here are examples using `ethers.js`, `web3.js`, and `viem`.
 
-{% tabs %}
-{% tab title="Ethers.js" %}
+<Tabs>
+<Tab title="Ethers.js">
 
 ```javascript
 import { ethers } from "ethers";
@@ -27,9 +27,9 @@ async function connectWallet() {
 }
 ```
 
-{% endtab %}
+</Tab>
 
-{% tab title="Web3.js" %}
+<Tab title="Web3.js">
 
 ```javascript
 import Web3 from "web3";
@@ -46,9 +46,9 @@ async function connectWallet() {
 }
 ```
 
-{% endtab %}
+</Tab>.
 
-{% tab title="Viem" %}
+<Tab title="Viem">
 
 ```javascript
 import { createWalletClient, custom } from 'viem';
@@ -68,8 +68,8 @@ async function connectWallet() {
 }
 ```
 
-{% endtab %}
-{% endtabs %}
+</Tab>
+</Tabs>
 
 ### Retrieving Token Quotes
 
