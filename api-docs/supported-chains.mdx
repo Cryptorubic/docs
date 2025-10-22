@@ -1,5 +1,665 @@
----
-title: 'New file'
-description: 'Description of your new file.'
----
+# Supported chains
 
+This endpoint returns a list of supported blockchains available for exchange and transactions in the Rubic API. Each blockchain object contains a name, an identifier, list of providers that support this blockchain, the type of blockchain and whether fee collection is available in this blockchain (proxyAvailable field)
+
+{% tabs %}
+{% tab title="Node.JS (Axios) Request" %}
+
+```typescript
+
+const response = await axios.get(
+    'https://api-v2.rubic.exchange/api/info/chains?includeTestnets=false'
+);
+```
+
+{% endtab %}
+
+{% tab title="cURL Request" %}
+
+```bash
+curl -X 'GET' \
+  'https://api-v2.rubic.exchange/api/info/chains?includeTestnets=false' \
+  -H 'accept: application/json'
+```
+
+{% endtab %}
+
+{% tab title="Example Response" %}
+
+```json
+[
+  {
+    "id": 1,
+    "name": "ETH",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "xy",
+        "squidrouter",
+        "celer_bridge",
+        "rango",
+        "dln",
+        "bridgers",
+        "changenow",
+        "orbiter_bridge",
+        "meson",
+        "owl_to_bridge",
+        "arbitrum",
+        "stargate_v2",
+        "archon_bridge",
+        "pulsechain_bridge",
+        "router"
+      ],
+      "onChain": [
+        "LIFI",
+        "XY_DEX",
+        "RANGO",
+        "SUSHI_SWAP",
+        "UNISWAP_V2",
+        "VERSE",
+        "DLN",
+        "ONE_INCH",
+        "OPEN_OCEAN",
+        "BRIDGERS",
+        "NATIVE_ROUTER",
+        "ODOS",
+        "UNI_SWAP_V3"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 10,
+    "name": "OPTIMISM",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "xy",
+        "squidrouter",
+        "celer_bridge",
+        "rango",
+        "dln",
+        "changenow",
+        "orbiter_bridge",
+        "meson",
+        "owl_to_bridge",
+        "stargate_v2",
+        "router"
+      ],
+      "onChain": [
+        "LIFI",
+        "XY_DEX",
+        "RANGO",
+        "DLN",
+        "ONE_INCH",
+        "OPEN_OCEAN",
+        "ODOS"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 30,
+    "name": "ROOTSTOCK",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "router"
+      ],
+      "onChain": [
+        "OPEN_OCEAN",
+        "OKU_SWAP"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 56,
+    "name": "BSC",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "xy",
+        "squidrouter",
+        "celer_bridge",
+        "rango",
+        "dln",
+        "bridgers",
+        "changenow",
+        "orbiter_bridge",
+        "meson",
+        "owl_to_bridge",
+        "stargate_v2",
+        "router"
+      ],
+      "onChain": [
+        "LIFI",
+        "XY_DEX",
+        "RANGO",
+        "SUSHI_SWAP",
+        "PANCAKE_SWAP",
+        "DLN",
+        "ONE_INCH",
+        "OPEN_OCEAN",
+        "BRIDGERS",
+        "NATIVE_ROUTER",
+        "ODOS",
+        "IZUMI"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 100,
+    "name": "GNOSIS",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "meson"
+      ],
+      "onChain": [
+        "LIFI",
+        "ONE_INCH",
+        "OPEN_OCEAN"
+      ]
+    },
+    "proxyAvailable": false,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 122,
+    "name": "FUSE",
+    "providers": {
+      "crossChain": [
+        "lifi"
+      ],
+      "onChain": [
+        "LIFI"
+      ]
+    },
+    "proxyAvailable": false,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 137,
+    "name": "POLYGON",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "xy",
+        "squidrouter",
+        "celer_bridge",
+        "rango",
+        "dln",
+        "bridgers",
+        "changenow",
+        "orbiter_bridge",
+        "meson",
+        "owl_to_bridge",
+        "stargate_v2",
+        "router"
+      ],
+      "onChain": [
+        "LIFI",
+        "XY_DEX",
+        "RANGO",
+        "SUSHI_SWAP",
+        "QUICK_SWAP",
+        "DLN",
+        "ONE_INCH",
+        "OPEN_OCEAN",
+        "BRIDGERS",
+        "NATIVE_ROUTER",
+        "ODOS",
+        "UNI_SWAP_V3",
+        "ALGEBRA",
+        "QUICK_SWAP_V3"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 250,
+    "name": "FANTOM",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "xy",
+        "squidrouter",
+        "celer_bridge",
+        "bridgers",
+        "changenow",
+        "meson",
+        "router"
+      ],
+      "onChain": [
+        "LIFI",
+        "XY_DEX",
+        "SUSHI_SWAP",
+        "SOUL_SWAP",
+        "SPIRIT_SWAP",
+        "SPOOKY_SWAP",
+        "ONE_INCH",
+        "OPEN_OCEAN",
+        "BRIDGERS",
+        "ODOS"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 324,
+    "name": "ZK_SYNC",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "xy",
+        "rango",
+        "changenow",
+        "orbiter_bridge",
+        "meson",
+        "owl_to_bridge",
+        "router"
+      ],
+      "onChain": [
+        "LIFI",
+        "XY_DEX",
+        "RANGO",
+        "MUTE_SWAP",
+        "ONE_INCH",
+        "OPEN_OCEAN",
+        "ODOS",
+        "IZUMI",
+        "SYNC_SWAP"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 1101,
+    "name": "POLYGON_ZKEVM",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "xy",
+        "rango",
+        "orbiter_bridge",
+        "meson",
+        "owl_to_bridge",
+        "router"
+      ],
+      "onChain": [
+        "LIFI",
+        "XY_DEX",
+        "RANGO",
+        "OPEN_OCEAN"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 1284,
+    "name": "MOONBEAM",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "squidrouter",
+        "meson"
+      ],
+      "onChain": [
+        "LIFI"
+      ]
+    },
+    "proxyAvailable": false,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 1285,
+    "name": "MOONRIVER",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "xy",
+        "meson"
+      ],
+      "onChain": [
+        "LIFI",
+        "XY_DEX",
+        "SUSHI_SWAP",
+        "SOLAR_BEAM"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 5000,
+    "name": "MANTLE",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "xy",
+        "squidrouter",
+        "orbiter_bridge",
+        "meson",
+        "owl_to_bridge",
+        "stargate_v2",
+        "router"
+      ],
+      "onChain": [
+        "LIFI",
+        "XY_DEX",
+        "OPEN_OCEAN",
+        "NATIVE_ROUTER",
+        "ODOS",
+        "IZUMI",
+        "FUSIONX"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 8453,
+    "name": "BASE",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "xy",
+        "squidrouter",
+        "rango",
+        "dln",
+        "changenow",
+        "orbiter_bridge",
+        "meson",
+        "owl_to_bridge",
+        "stargate_v2",
+        "router"
+      ],
+      "onChain": [
+        "LIFI",
+        "XY_DEX",
+        "RANGO",
+        "AERODROME",
+        "BASE_SWAP",
+        "DLN",
+        "ONE_INCH",
+        "OPEN_OCEAN",
+        "NATIVE_ROUTER",
+        "ODOS",
+        "IZUMI"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 34443,
+    "name": "MODE",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "orbiter_bridge",
+        "meson",
+        "owl_to_bridge",
+        "router"
+      ],
+      "onChain": [
+        "LIFI",
+        "EDDY_FINANCE",
+        "OPEN_OCEAN",
+        "ODOS",
+        "IZUMI",
+        "KIM"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 42161,
+    "name": "ARBITRUM",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "xy",
+        "squidrouter",
+        "celer_bridge",
+        "rango",
+        "dln",
+        "changenow",
+        "orbiter_bridge",
+        "meson",
+        "owl_to_bridge",
+        "arbitrum",
+        "stargate_v2",
+        "router"
+      ],
+      "onChain": [
+        "LIFI",
+        "XY_DEX",
+        "RANGO",
+        "SUSHI_SWAP",
+        "DLN",
+        "ONE_INCH",
+        "OPEN_OCEAN",
+        "NATIVE_ROUTER",
+        "ODOS",
+        "IZUMI",
+        "UNI_SWAP_V3",
+        "CAMELOT"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 42220,
+    "name": "CELO",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "squidrouter",
+        "changenow",
+        "meson"
+      ],
+      "onChain": []
+    },
+    "proxyAvailable": false,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 43114,
+    "name": "AVALANCHE",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "xy",
+        "squidrouter",
+        "celer_bridge",
+        "rango",
+        "dln",
+        "changenow",
+        "meson",
+        "stargate_v2",
+        "archon_bridge",
+        "router"
+      ],
+      "onChain": [
+        "LIFI",
+        "XY_DEX",
+        "RANGO",
+        "SUSHI_SWAP",
+        "JOE",
+        "PANGOLIN",
+        "DLN",
+        "ONE_INCH",
+        "OPEN_OCEAN",
+        "NATIVE_ROUTER",
+        "ODOS"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 59144,
+    "name": "LINEA",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "xy",
+        "squidrouter",
+        "rango",
+        "dln",
+        "orbiter_bridge",
+        "meson",
+        "owl_to_bridge",
+        "stargate_v2",
+        "router"
+      ],
+      "onChain": [
+        "LIFI",
+        "XY_DEX",
+        "RANGO",
+        "DLN",
+        "OPEN_OCEAN",
+        "NATIVE_ROUTER",
+        "ODOS",
+        "IZUMI",
+        "VOOI",
+        "SYNC_SWAP"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 81457,
+    "name": "BLAST",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "xy",
+        "squidrouter",
+        "rango",
+        "orbiter_bridge",
+        "meson",
+        "owl_to_bridge",
+        "router"
+      ],
+      "onChain": [
+        "XY_DEX",
+        "RANGO",
+        "FENIX_V2",
+        "OPEN_OCEAN",
+        "IZUMI",
+        "FENIX_V3"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 534352,
+    "name": "SCROLL",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "symbiosis",
+        "xy",
+        "squidrouter",
+        "rango",
+        "orbiter_bridge",
+        "meson",
+        "owl_to_bridge",
+        "stargate_v2",
+        "router"
+      ],
+      "onChain": [
+        "LIFI",
+        "XY_DEX",
+        "RANGO",
+        "OPEN_OCEAN",
+        "NATIVE_ROUTER",
+        "IZUMI",
+        "SYNC_SWAP"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  },
+  {
+    "id": 1313161554,
+    "name": "AURORA",
+    "providers": {
+      "crossChain": [
+        "lifi",
+        "celer_bridge",
+        "rango",
+        "meson",
+        "stargate_v2",
+        "router"
+      ],
+      "onChain": [
+        "RANGO",
+        "TRISOLARIS",
+        "WANNA_SWAP"
+      ]
+    },
+    "proxyAvailable": true,
+    "testnet": false,
+    "type": "EVM"
+  }
+]
+```
+
+{% endtab %}
+{% endtabs %}
+
+## Response params
+
+<table><thead><tr><th width="157">Field</th><th width="263">Type</th><th width="138">Description</th><th>Example</th></tr></thead><tbody><tr><td>id</td><td>number</td><td>Blockchain identifier</td><td>1</td></tr><tr><td>name</td><td>string</td><td>Blockchain name used by Rubic</td><td>ETH</td></tr><tr><td>providers</td><td><p><code>{</code></p><p>  <code>crossChain: string[];</code><br>  <code>onChain: string[];</code><br><code>}</code></p></td><td>A list of providers supported by this blockchain </td><td><p><code>{</code></p><p>  <code>crossChain: ['symbiosis'],</code><br>  <code>onChain: ['ONE_INCH', 'OPEN_OCEAN']</code> <br><code>}</code></p></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>proxyAvailable</td><td>boolean</td><td>Do we able to collect fees on network with our contracts or not</td><td>true</td></tr><tr><td>type</td><td><code>'EVM' | 'TRON' | 'SOLANA' | 'Other'</code></td><td>Type of blockchain</td><td>EVM</td></tr><tr><td>testnet</td><td>boolean</td><td>Include testnets in list or not<br>default: false</td><td>false</td></tr></tbody></table>
