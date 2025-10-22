@@ -43,18 +43,13 @@
           {
             "group": "Referrer and Rate Limit",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "docs/referrer/request-data"
             ]
           },
           {
             "group": "Tokens API",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "docs/token-api/token-api"
             ]
           },
           {
