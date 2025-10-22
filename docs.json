@@ -43,7 +43,7 @@
           {
             "group": "Referrer and Rate Limit",
             "pages": [
-              "docs/referrer/request-data"
+              "docs/referrer/referrer"
             ]
           },
           {
