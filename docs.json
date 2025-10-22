@@ -20,10 +20,10 @@
           {
             "group": "API Documentation",
             "pages": [
-              "docs/api-docs/supported-chains.mdx",
-              "docs/api-docs/supported-providers.mdx",
-              "docs/api-docs/request-quote.mdx",
-              "docs/api-docs/request-data.mdx",
+              "docs/api-docs/supported-chains",
+              "docs/api-docs/supported-providers",
+              "docs/api-docs/request-quote",
+              "docs/api-docs/request-data",
               "docs/api-docs/get-crosschain-status",
               "docs/api-docs/integration-examples",
               "docs/api-docs/swagger",

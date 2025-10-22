@@ -1,6 +1,6 @@
 ---
-title: Get Cross-Chain Status
-icon: 'info'
+title: "Get Cross-Chain Status"
+icon: "circle-info"
 ---
 
 ## Check transaction status
@@ -32,13 +32,13 @@ curl -X 'GET' \
 
 ## Possible statuses
 
-| Status             | Explanation                                                                                              |
-| ------------------ | -------------------------------------------------------------------------------------------------------- |
-| 💤 PENDING         | Transaction in progress                                                                                  |
-| 💤 LONG\_PENDING   | Transaction in progress, probably stuck                                                                  |
-| 💤 NOT\_FOUND      | Transaction indexing in progress                                                                         |
-| ✴️ REVERT          | Transaction on the destination chain was successful. You should revert the transaction and collect funds |
-| ✴️ REVERTED        | Transaction on the destination chain was failed. Your funs will be reverted to                           |
-| ✅ READY\_TO\_CLAIM | Transaction on the destination chain was successful. You can now claim tokens                            |
-| ✅ SUCCESS          | Transaction on the destination chain was successful                                                      |
-| ❌ FAIL             | Transaction on the destination chain failed                                                              |
+| Status           | Explanation                                                                                              |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| 💤 PENDING       | Transaction in progress                                                                                  |
+| 💤 LONG_PENDING  | Transaction in progress, probably stuck                                                                  |
+| 💤 NOT_FOUND     | Transaction indexing in progress                                                                         |
+| ✴️ REVERT        | Transaction on the destination chain was successful. You should revert the transaction and collect funds |
+| ✴️ REVERTED      | Transaction on the destination chain was failed. Your funs will be reverted to                           |
+| ✅ READY_TO_CLAIM | Transaction on the destination chain was successful. You can now claim tokens                            |
+| ✅ SUCCESS        | Transaction on the destination chain was successful                                                      |
+| ❌ FAIL           | Transaction on the destination chain failed                                                              |
