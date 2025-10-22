@@ -4,26 +4,21 @@ To start the process of receiving commissions, please provide our [team](https:/
 
 1. An EVM address for fee sharing.
 
-{% box %}
-If you’d like to use various fee models, please provide different EVM wallets for each fee value.
-{% endhint %}
+>
+> If you’d like to use various fee models, please provide different EVM wallets for each fee value.
 
 2. The fee model you would like to use: Percentage-based, Fixed Amount, or Mixed.
 
-{% hint style="info" %}
-Please find a detailed description of each model [here](https://docs.rubic.finance/rubic-api/monetization-and-fees).
-{% endhint %}
+>
+> Please find a detailed description of each model [here](https://docs.rubic.finance/rubic-api/monetization-and-fees).
 
 3. The fee value:
 
-a) *amount in USD* for the Fixed Amount model;
+a) *amount in USD* for the Fixed Amount model;  
+b) *percentage* for the Percentage-Based model;  
+с) *amount in USD* and *percentage* for the Mixed model.
 
-b) *percentage* for the Percentage-Based model;
+After receiving the required details, we'll list your address(es) on our side, and it will be necessary to set it as the `integratorAddress` in the requests to the Rubic API.
 
-с) *amount is USD* and *percentage* for the Mixed model.
-
-After receiving the required details, we'll list your address(es) on our side, and it will be necessary to set it as the `integratorAddress` in the requests to the Rubic API.&#x20;
-
-{% hint style="warning" %}
-If the `integratorAddress` is not specified, the default fixed fee in native tokens will be deducted from each transaction.
-{% endhint %}
+>
+> If the `integratorAddress` is not specified, the default fixed fee in native tokens will be deducted from each transaction.

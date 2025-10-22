@@ -18,7 +18,7 @@
         "tab": "API Documentation",
         "groups": [
           {
-            "group": "docs/api-docs",
+            "group": "API Documentation",
             "pages": [
               "docs/api-docs/supported-chains",
               "docs/api-docs/supported-providers",
@@ -35,6 +35,7 @@
           {
             "group": "Monetization and Fees",
             "pages": [
+              "docs/monetization/monetization",
               "docs/monetization/evm",
               "docs/monetization/non-evm"
             ]
@@ -49,7 +50,7 @@
             ]
           },
           {
-            "group": "Toke API",
+            "group": "Tokens API",
             "pages": [
               "ai-tools/cursor",
               "ai-tools/claude-code",
