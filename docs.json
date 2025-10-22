@@ -15,25 +15,32 @@
         "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json"
       },
       {
-        "tab": "Docs",
+        "tab": "api-docs",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "api-docs",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "api-docs/supported-chains",
+              "api-docs/supported-providers",
+              "api-docs/request-quote",
+              "api-docs/request-data",
+              "api-docs/get-crosschain-status",
+              "api-docs/integration-examples",
+              "api-docs/swagger",
+              "api-docs/models",
+              "api-docs/errors",
+              "api-docs/dangerous-routes"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Monetization and Fees",
             "pages": [
               "essentials/settings",
               "essentials/navigation"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Referrer and Rate Limit",
             "pages": [
               "essentials/markdown",
               "essentials/code",
@@ -42,7 +49,7 @@
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Toke API",
             "pages": [
               "ai-tools/cursor",
               "ai-tools/claude-code",
