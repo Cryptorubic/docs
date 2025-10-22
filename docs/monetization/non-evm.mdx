@@ -1,10 +1,12 @@
 ---
-Title: 'Fee Sharing from non-EVM chains via ChangeNOW'
-Icon: 'bitcoin-sign'
+Title: "Fee Sharing from non-EVM chains via ChangeNOW"
+Icon: "bitcoin-sign"
+title: "Fee Sharing from non-EVM chains via ChangeNOW"
 ---
 
-<Note>Fee sharing from non-EVM chains is currently available only via the ChangeNOW provider. Fees are shared for cross-chain swaps across all networks supported by ChangeNOW, including both EVM and non-EVM networks.</Note>
-
+<Note>
+  Fee sharing from non-EVM chains is currently available only via the ChangeNOW provider. Fees are shared for cross-chain swaps across all networks supported by ChangeNOW, including both EVM and non-EVM networks.
+</Note>
 
 ### How does fee sharing via ChangeNOW work?
 
@@ -16,7 +18,9 @@ Fee sharing for transactions performed via ChangeNOW consists of several **key s
 4. Rubic calculates the integrator’s share based on internal swap statistics.
 5. The commission is transferred manually once per month to the `integratorAddress`, based on the internal swap statistics.
 
-<Note>Fees for all networks are credited in the **Binance Smart Chain (BNB Chain)** network, in **USDT**.</Note>
+<Note>
+  Fees for all networks are credited in the **Binance Smart Chain (BNB Chain)** network, in **USDT**.
+</Note>
 
 The percentage-based fee model is applied, where the total fee is 1%. **This fee is split equally**: 0.5% to Rubic and 0.5% to the integrator.
 
@@ -32,7 +36,7 @@ Binance Smart Chain (BNB Chain).
 
 USDT on BNB Chain.
 
-3. **What’s the size of the commission?**&#x20;
+3. **What’s the size of the commission?** 
 
 The total commission for transactions via ChangeNOW is 1%, shared equally between Rubic (0.5%) and the integrator (0.5%).
 
@@ -46,7 +50,7 @@ No - commissions are always paid in USDT on BNB Chain, so non-EVM addresses are 
 
 6. **Should integrators continue passing the whitelisted EVM address even for transactions from non-EVM chains?**
 
-Yes - the listed  EVM wallet address is used by Rubic to link swaps to the integrator. This address should be passed consistently across all chains.&#x20;
+Yes - the listed  EVM wallet address is used by Rubic to link swaps to the integrator. This address should be passed consistently across all chains. 
 
 In addition, including the `referrer` parameter in API requests is required to properly track the origin of each transaction.
 
