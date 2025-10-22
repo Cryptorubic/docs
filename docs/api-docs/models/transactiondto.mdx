@@ -1,5 +1,13 @@
----
-title: 'New file'
-description: 'Description of your new file.'
----
+# TransactionDto
 
+```typescript
+interface TransactionDto {
+    approvalAddress?: string;
+    data?: string;
+    to?: string;
+    value?: string;
+    depositAddress?: string;
+    extraFields?: unknown;
+    feeLimit?: string;
+}
+```
