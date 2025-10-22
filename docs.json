@@ -53,14 +53,14 @@
             ]
           },
           {
-            "group": "Monetization and Fees",
+            "group": "Settings",
             "pages": [
               "essentials/settings",
               "essentials/navigation"
             ]
           },
           {
-            "group": "Referrer and Rate Limit",
+            "group": "Edits",
             "pages": [
               "essentials/markdown",
               "essentials/code",
@@ -69,7 +69,7 @@
             ]
           },
           {
-            "group": "Toke API",
+            "group": "AI",
             "pages": [
               "ai-tools/cursor",
               "ai-tools/claude-code",
