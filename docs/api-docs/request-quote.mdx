@@ -6,8 +6,8 @@ Using the quote method, you can get a preview of the best route for this cross-c
 
 Here is an example of quoting swap 1.05 ETH in Ethereum Blockchain for Matic in Polygon Blockchain
 
-{% tabs %}
-{% tab title="Node.JS (Axios) Request" %}
+<Tabs>
+<Tab title="Node.JS (Axios) Request">
 
 <pre class="language-typescript"><code class="lang-typescript"><strong>const response = await axios.post('https://api-v2.rubic.exchange/api/routes/quoteBest', {
 </strong>  params: {
@@ -21,9 +21,9 @@ Here is an example of quoting swap 1.05 ETH in Ethereum Blockchain for Matic in 
 });
 </code></pre>
 
-{% endtab %}
+</Tab>
 
-{% tab title="cURL Request" %}
+<Tab title="cURL Request">
 
 ```bash
 curl -X 'POST' \
@@ -40,9 +40,9 @@ curl -X 'POST' \
 }'
 ```
 
-{% endtab %}
+</Tab>
 
-{% tab title="Example Response" %}
+<Tab title="Example Response">
 
 ```json
 {
@@ -189,8 +189,9 @@ curl -X 'POST' \
 }
 ```
 
-{% endtab %}
-{% endtabs %}
+</Tab>
+
+</Tabs>
 
 {% embed url="https://api-v2.rubic.exchange/api/swagger/#/Router/RouterController_getQuoteBest" %}
 Swagger Link
