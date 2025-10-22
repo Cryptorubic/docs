@@ -1,5 +1,18 @@
----
-title: 'New file'
-description: 'Description of your new file.'
----
+# RoutingDto
 
+```typescript
+interface TokenAmountDto {
+    amount: string;
+    address: string;
+    decimals: number;
+    symbol: string;
+    name: string;
+    blockchainId: number;
+}
+
+interface {
+    type: 'cross-chain' | 'on-chain';
+    provider: string;
+    path: TokenAmountDto[];
+}
+```
