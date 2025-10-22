@@ -1,5 +1,2625 @@
----
-title: 'New file'
-description: 'Description of your new file.'
----
+# Supported providers
 
+This endpoint returns a list of supported providers available for swaps in the Rubic API. Each provider object contains list of supported by provider blockchains and provider name used in the API. Contains separate information for cross-chain providers and on-chain providers
+
+{% tabs %}
+{% tab title="Node.JS (Axios) Request" %}
+
+```typescript
+
+const response = await axios.get(
+    'https://api-v2.rubic.exchange/api/info/providers?includeTestnets=false'
+);
+```
+
+{% endtab %}
+
+{% tab title="cURL Request" %}
+
+```bash
+curl -X 'GET' \
+  'https://api-v2.rubic.exchange/api/info/providers?includeTestnets=false' \
+  -H 'accept: application/json'
+```
+
+{% endtab %}
+
+{% tab title="Example Response" %}
+
+```json
+{
+  "crossChain": [
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MOONRIVER",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "GNOSIS",
+          "proxyAvailable": false
+        },
+        {
+          "name": "FUSE",
+          "proxyAvailable": false
+        },
+        {
+          "name": "MOONBEAM",
+          "proxyAvailable": false
+        },
+        {
+          "name": "CELO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON_ZKEVM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MODE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ROOTSTOCK",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AURORA",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "lifi"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BOBA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BOBA_BSC",
+          "proxyAvailable": false
+        },
+        {
+          "name": "TELOS",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON_ZKEVM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "TRON",
+          "proxyAvailable": false
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "METIS",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BITCOIN",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MERLIN",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ROOTSTOCK",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MODE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_LINK",
+          "proxyAvailable": true
+        },
+        {
+          "name": "TAIKO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "SEI",
+          "proxyAvailable": false
+        },
+        {
+          "name": "CORE",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BAHAMUT",
+          "proxyAvailable": false
+        },
+        {
+          "name": "ZETACHAIN",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTA_PACIFIC",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "symbiosis"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "CRONOS",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ASTAR_EVM",
+          "proxyAvailable": false
+        },
+        {
+          "name": "MOONRIVER",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON_ZKEVM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        },
+        {
+          "name": "XLAYER",
+          "proxyAvailable": true
+        },
+        {
+          "name": "TAIKO",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "xy"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MOONBEAM",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "CELO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "KAVA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "squidrouter"
+    },
+    {
+      "chains": [
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AURORA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ASTAR_EVM",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "celer_bridge"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "CRONOS",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON_ZKEVM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AURORA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "METIS",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "rango"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SOLANA",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "dln"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "TRON",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "bridgers"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BITGERT",
+          "proxyAvailable": false
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "CELO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "ETHEREUM_CLASSIC",
+          "proxyAvailable": false
+        },
+        {
+          "name": "ETHW",
+          "proxyAvailable": false
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "IOTEX",
+          "proxyAvailable": false
+        },
+        {
+          "name": "KLAYTN",
+          "proxyAvailable": false
+        },
+        {
+          "name": "ONTOLOGY",
+          "proxyAvailable": false
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OASIS",
+          "proxyAvailable": false
+        },
+        {
+          "name": "SYSCOIN",
+          "proxyAvailable": false
+        },
+        {
+          "name": "XDC",
+          "proxyAvailable": false
+        },
+        {
+          "name": "PULSECHAIN",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "THETA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "FLARE",
+          "proxyAvailable": false
+        },
+        {
+          "name": "FILECOIN",
+          "proxyAvailable": false
+        },
+        {
+          "name": "EOS",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BITCOIN_CASH",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BITCOIN",
+          "proxyAvailable": false
+        },
+        {
+          "name": "ICP",
+          "proxyAvailable": false
+        },
+        {
+          "name": "CARDANO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "AION",
+          "proxyAvailable": false
+        },
+        {
+          "name": "ALGORAND",
+          "proxyAvailable": false
+        },
+        {
+          "name": "APTOS",
+          "proxyAvailable": false
+        },
+        {
+          "name": "ARDOR",
+          "proxyAvailable": false
+        },
+        {
+          "name": "ASTAR",
+          "proxyAvailable": false
+        },
+        {
+          "name": "ARK",
+          "proxyAvailable": false
+        },
+        {
+          "name": "COSMOS",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BAND_PROTOCOL",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BITCOIN_DIAMOND",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BSV",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BITCOIN_GOLD",
+          "proxyAvailable": false
+        },
+        {
+          "name": "CASPER",
+          "proxyAvailable": false
+        },
+        {
+          "name": "DASH",
+          "proxyAvailable": false
+        },
+        {
+          "name": "DECRED",
+          "proxyAvailable": false
+        },
+        {
+          "name": "DIGI_BYTE",
+          "proxyAvailable": false
+        },
+        {
+          "name": "DIVI",
+          "proxyAvailable": false
+        },
+        {
+          "name": "DOGECOIN",
+          "proxyAvailable": false
+        },
+        {
+          "name": "POLKADOT",
+          "proxyAvailable": false
+        },
+        {
+          "name": "MULTIVERS_X",
+          "proxyAvailable": false
+        },
+        {
+          "name": "FIO_PROTOCOL",
+          "proxyAvailable": false
+        },
+        {
+          "name": "FIRO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "FLOW",
+          "proxyAvailable": false
+        },
+        {
+          "name": "HEDERA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "HELIUM",
+          "proxyAvailable": false
+        },
+        {
+          "name": "ICON",
+          "proxyAvailable": false
+        },
+        {
+          "name": "IOST",
+          "proxyAvailable": false
+        },
+        {
+          "name": "IOTA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "KADENA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "KOMODO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "KUSAMA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "LISK",
+          "proxyAvailable": false
+        },
+        {
+          "name": "LITECOIN",
+          "proxyAvailable": false
+        },
+        {
+          "name": "TERRA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "TERRA_CLASSIC",
+          "proxyAvailable": false
+        },
+        {
+          "name": "MINA_PROTOCOL",
+          "proxyAvailable": false
+        },
+        {
+          "name": "NANO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "NEAR",
+          "proxyAvailable": false
+        },
+        {
+          "name": "NEO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "OSMOSIS",
+          "proxyAvailable": false
+        },
+        {
+          "name": "PIVX",
+          "proxyAvailable": false
+        },
+        {
+          "name": "POLYX",
+          "proxyAvailable": false
+        },
+        {
+          "name": "QTUM",
+          "proxyAvailable": false
+        },
+        {
+          "name": "THOR_CHAIN",
+          "proxyAvailable": false
+        },
+        {
+          "name": "RAVENCOIN",
+          "proxyAvailable": false
+        },
+        {
+          "name": "SIA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "SECRET",
+          "proxyAvailable": false
+        },
+        {
+          "name": "SOLANA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "STEEM",
+          "proxyAvailable": false
+        },
+        {
+          "name": "STRATIS",
+          "proxyAvailable": false
+        },
+        {
+          "name": "STACKS",
+          "proxyAvailable": false
+        },
+        {
+          "name": "SOLAR",
+          "proxyAvailable": false
+        },
+        {
+          "name": "TON",
+          "proxyAvailable": false
+        },
+        {
+          "name": "VE_CHAIN",
+          "proxyAvailable": false
+        },
+        {
+          "name": "WAVES",
+          "proxyAvailable": false
+        },
+        {
+          "name": "WAX",
+          "proxyAvailable": false
+        },
+        {
+          "name": "DX_CHAIN",
+          "proxyAvailable": false
+        },
+        {
+          "name": "E_CASH",
+          "proxyAvailable": false
+        },
+        {
+          "name": "NEM",
+          "proxyAvailable": false
+        },
+        {
+          "name": "STELLAR",
+          "proxyAvailable": false
+        },
+        {
+          "name": "MONERO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "RIPPLE",
+          "proxyAvailable": false
+        },
+        {
+          "name": "TEZOS",
+          "proxyAvailable": false
+        },
+        {
+          "name": "VERGE",
+          "proxyAvailable": false
+        },
+        {
+          "name": "SYMBOL",
+          "proxyAvailable": false
+        },
+        {
+          "name": "ZCASH",
+          "proxyAvailable": false
+        },
+        {
+          "name": "HORIZEN",
+          "proxyAvailable": false
+        },
+        {
+          "name": "ZILLIQA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "TRON",
+          "proxyAvailable": false
+        },
+        {
+          "name": "KAVA_COSMOS",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "changenow"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON_ZKEVM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTA_PACIFIC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZETACHAIN",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        },
+        {
+          "name": "KROMA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "STARKNET",
+          "proxyAvailable": false
+        },
+        {
+          "name": "MODE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_FAIR",
+          "proxyAvailable": true
+        },
+        {
+          "name": "XLAYER",
+          "proxyAvailable": true
+        },
+        {
+          "name": "TAIKO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "CORE",
+          "proxyAvailable": false
+        },
+        {
+          "name": "ZK_LINK",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MERLIN",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BITLAYER",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "orbiter_bridge"
+    },
+    {
+      "chains": [
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AURORA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MOONBEAM",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "CELO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "CRONOS",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "GNOSIS",
+          "proxyAvailable": false
+        },
+        {
+          "name": "KAVA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTA_PACIFIC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MERLIN",
+          "proxyAvailable": true
+        },
+        {
+          "name": "METIS",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MODE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MOONRIVER",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "XLAYER",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZETACHAIN",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON_ZKEVM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_FAIR",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_LINK",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "CORE",
+          "proxyAvailable": false
+        },
+        {
+          "name": "KROMA",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "meson"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_FAIR",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON_ZKEVM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "KROMA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTA_PACIFIC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "METIS",
+          "proxyAvailable": true
+        },
+        {
+          "name": "XLAYER",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZETACHAIN",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MERLIN",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MODE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "TAIKO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "CORE",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "owl_to_bridge"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "arbitrum"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "METIS",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "KAVA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AURORA",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "stargate_v2"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "HORIZEN_EON",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "archon_bridge"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "PULSECHAIN",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "pulsechain_bridge"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ROOTSTOCK",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTA_PACIFIC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "XLAYER",
+          "proxyAvailable": true
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BOBA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "METIS",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON_ZKEVM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MODE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        },
+        {
+          "name": "TAIKO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "TRON",
+          "proxyAvailable": false
+        },
+        {
+          "name": "AURORA",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "router"
+    }
+  ],
+  "onChain": [
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MOONRIVER",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "GNOSIS",
+          "proxyAvailable": false
+        },
+        {
+          "name": "FUSE",
+          "proxyAvailable": false
+        },
+        {
+          "name": "MOONBEAM",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON_ZKEVM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MODE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "LIFI"
+    },
+    {
+      "chains": [
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MOONRIVER",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON_ZKEVM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        },
+        {
+          "name": "XLAYER",
+          "proxyAvailable": true
+        },
+        {
+          "name": "TAIKO",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "XY_DEX"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "CRONOS",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON_ZKEVM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AURORA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "METIS",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "RANGO"
+    },
+    {
+      "chains": [
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ETHW",
+          "proxyAvailable": false
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "HARMONY",
+          "proxyAvailable": false
+        },
+        {
+          "name": "MOONRIVER",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "TELOS",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZETACHAIN",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "SUSHI_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "ASTAR_EVM",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "ARTH_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "AURORA",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "TRISOLARIS"
+    },
+    {
+      "chains": [
+        {
+          "name": "AURORA",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "WANNA_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "JOE"
+    },
+    {
+      "chains": [
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "PANGOLIN"
+    },
+    {
+      "chains": [
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "AERODROME"
+    },
+    {
+      "chains": [
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "BASE_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "FENIX_V2"
+    },
+    {
+      "chains": [
+        {
+          "name": "BOBA",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "OOLONG_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "PANCAKE_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "DEFIKINGDOMS",
+          "proxyAvailable": false
+        },
+        {
+          "name": "HARMONY",
+          "proxyAvailable": false
+        },
+        {
+          "name": "HARMONY",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "TRADER"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ETHW",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "UNISWAP_V2"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "VERSE"
+    },
+    {
+      "chains": [
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "SOUL_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "SPIRIT_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "HORIZEN_EON",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "SPOOKY_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "HORIZEN_EON",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "ASCENT"
+    },
+    {
+      "chains": [
+        {
+          "name": "KAVA",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "ELK"
+    },
+    {
+      "chains": [
+        {
+          "name": "KAVA",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "JUPITER_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "KAVA",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "PHOTON_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "KAVA",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "SURFDEX"
+    },
+    {
+      "chains": [
+        {
+          "name": "KLAYTN",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "CLAIM_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "METIS",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "NET_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "MODE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZETACHAIN",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "EDDY_FINANCE"
+    },
+    {
+      "chains": [
+        {
+          "name": "MOONRIVER",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "SOLAR_BEAM"
+    },
+    {
+      "chains": [
+        {
+          "name": "OASIS",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "YUZU_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "QUICK_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "PULSECHAIN",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "PULSEX_V1"
+    },
+    {
+      "chains": [
+        {
+          "name": "PULSECHAIN",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "PULSEX_V2"
+    },
+    {
+      "chains": [
+        {
+          "name": "SEI",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "DRAGON_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "SYSCOIN",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "PEGASYS"
+    },
+    {
+      "chains": [
+        {
+          "name": "TELOS",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "APE_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "TELOS",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "OMNIDEX"
+    },
+    {
+      "chains": [
+        {
+          "name": "TELOS",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "ZAPPY"
+    },
+    {
+      "chains": [
+        {
+          "name": "VELAS",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "ASTRO_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "VELAS",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "WAGYU_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "MUTE_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "BITLAYER",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "MACARON"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SOLANA",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "DLN"
+    },
+    {
+      "chains": [
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "KLAYTN",
+          "proxyAvailable": false
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "PULSECHAIN",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "GNOSIS",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "ONE_INCH"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "HARMONY",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BOBA",
+          "proxyAvailable": false
+        },
+        {
+          "name": "GNOSIS",
+          "proxyAvailable": false
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON_ZKEVM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTA_PACIFIC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "METIS",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MODE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ROOTSTOCK",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "OPEN_OCEAN"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "TRON",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "BRIDGERS"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTA_PACIFIC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_LINK",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "NATIVE_ROUTER"
+    },
+    {
+      "chains": [
+        {
+          "name": "ZETACHAIN",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "ZETA_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "OPTIMISM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "AVALANCHE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "FANTOM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MODE",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "ODOS"
+    },
+    {
+      "chains": [
+        {
+          "name": "BSC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "BASE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MANTA_PACIFIC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZETACHAIN",
+          "proxyAvailable": true
+        },
+        {
+          "name": "KROMA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_FAIR",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ZK_LINK",
+          "proxyAvailable": true
+        },
+        {
+          "name": "MODE",
+          "proxyAvailable": true
+        },
+        {
+          "name": "TAIKO",
+          "proxyAvailable": false
+        },
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        },
+        {
+          "name": "XLAYER",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "IZUMI"
+    },
+    {
+      "chains": [
+        {
+          "name": "MERLIN",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "MERLIN_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "VOOI"
+    },
+    {
+      "chains": [
+        {
+          "name": "ZK_SYNC",
+          "proxyAvailable": true
+        },
+        {
+          "name": "LINEA",
+          "proxyAvailable": true
+        },
+        {
+          "name": "SCROLL",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "SYNC_SWAP"
+    },
+    {
+      "chains": [
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        },
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ETH",
+          "proxyAvailable": true
+        },
+        {
+          "name": "ETHW",
+          "proxyAvailable": false
+        }
+      ],
+      "name": "UNI_SWAP_V3"
+    },
+    {
+      "chains": [
+        {
+          "name": "MANTLE",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "FUSIONX"
+    },
+    {
+      "chains": [
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "ALGEBRA"
+    },
+    {
+      "chains": [
+        {
+          "name": "POLYGON",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "QUICK_SWAP_V3"
+    },
+    {
+      "chains": [
+        {
+          "name": "BLAST",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "FENIX_V3"
+    },
+    {
+      "chains": [],
+      "name": "ALGEBRA_INTEGRAL"
+    },
+    {
+      "chains": [
+        {
+          "name": "ARBITRUM",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "CAMELOT"
+    },
+    {
+      "chains": [
+        {
+          "name": "MODE",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "KIM"
+    },
+    {
+      "chains": [
+        {
+          "name": "ROOTSTOCK",
+          "proxyAvailable": true
+        }
+      ],
+      "name": "OKU_SWAP"
+    }
+  ]
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+## Response params
+
+<table><thead><tr><th width="157">Field</th><th width="263">Type</th><th width="138">Description</th><th>Example</th></tr></thead><tbody><tr><td>crossChain</td><td><code>{ name: string, chains: { ... } }[]</code></td><td>Contains list of supported cross-chain providers</td><td>[ name: 'xy', chains: [{ name: 'ETH', isProxyAvailable: true }, { name: 'POLYGON', isProxyAvailable: true }]</td></tr><tr><td>onChain</td><td><code>{ name: string, chains: { ... } }[]</code></td><td>Contains list of supported on-chain providers</td><td>[ name: 'xy', chains: [{ name: 'ETH', isProxyAvailable: true }, { name: 'POLYGON', isProxyAvailable: true }]</td></tr></tbody></table>
