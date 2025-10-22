@@ -1,5 +1,55 @@
----
-title: 'New file'
-description: 'Description of your new file.'
----
+# Get Cross-Chain Status
 
+## Check transaction status
+
+You can easily check your transaction status. Just provider source transaction hash and you will see the status in destination chain, as well as a hash in destination blockchain in case of transactrion success
+
+{% tabs %}
+{% tab title="Node.js (axios) Example" %}
+
+```javascript
+// Your source transaction hash
+const srcTxHash = '0x6a851726e31e207dcea611424c194fb3ce132404598646b6903ee43fe8930e95';
+const status = await axios.get(
+    `https://api-v2.rubic.exchange/api/info/status?srcTxHash=${srcTxHash}`
+);
+```
+
+{% endtab %}
+
+{% tab title="cURL Example" %}
+
+```bash
+curl -X 'GET' \
+  'https://api-v2.rubic.exchange/api/info/status?srcTxHash=0x6a851726e31e207dcea611424c194fb3ce132404598646b6903ee43fe8930e95' \
+  -H 'accept: application/json'
+```
+
+{% endtab %}
+
+{% tab title="Response example" %}
+
+```json
+{
+  "status": "SUCCESS",
+  "destinationTxHash": "0x5e8c67f32c11d5f5a44dd6e9a9f92bb5762ea0e41bda01c6a77228365b614e02",
+  "destinationNetworkTitle": "POLYGON",
+  "destinationNetworkChainId": 137
+}
+```
+
+{% endtab %}
+{% endtabs %}
+
+## Possible statuses
+
+| Status             | Explanation                                                                                              |
+| ------------------ | -------------------------------------------------------------------------------------------------------- |
+| 💤 PENDING         | Transaction in progress                                                                                  |
+| 💤 LONG\_PENDING   | Transaction in progress, probably stuck                                                                  |
+| 💤 NOT\_FOUND      | Transaction indexing in progress                                                                         |
+| ✴️ REVERT          | Transaction on the destination chain was successful. You should revert the transaction and collect funds |
+| ✴️ REVERTED        | Transaction on the destination chain was failed. Your funs will be reverted to                           |
+| ✅ READY\_TO\_CLAIM | Transaction on the destination chain was successful. You can now claim tokens                            |
+| ✅ SUCCESS          | Transaction on the destination chain was successful                                                      |
+| ❌ FAIL             | Transaction on the destination chain failed                                                              |
