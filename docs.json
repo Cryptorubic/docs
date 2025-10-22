@@ -53,14 +53,14 @@
             ]
           },
           {
-            "group": "Settings",
+            "group": "Mintlify Settings",
             "pages": [
               "essentials/settings",
               "essentials/navigation"
             ]
           },
           {
-            "group": "Edits",
+            "group": "Mintlify Edits",
             "pages": [
               "essentials/markdown",
               "essentials/code",
@@ -69,7 +69,7 @@
             ]
           },
           {
-            "group": "AI",
+            "group": "Mintlify AI",
             "pages": [
               "ai-tools/cursor",
               "ai-tools/claude-code",
