@@ -1,13 +1,12 @@
 ---
-title: 'Errors'
-description: 'This page provides details on specific error codes and their meanings, returned by the Rubic API server in different scenarios'
-icon: 'circle-exclamation'
+title: "Errors"
+description: "This page provides details on specific error codes and their meanings, returned by the Rubic API server in different scenarios"
+icon: "circle-exclamation"
 ---
 
 ## Description
 
 Error code consists of two parts – `Number(error domain + error code)`. For example, if you try to fetch a not supported pair of tokens, you get an error with code `2001`, because `Number("002" + "001") = 2001`. Every error is related to a particular stage of interaction with the API (e.g., making quote requests, making swap requests, or interacting with Rubic smart contracts).
-
 
 ## Error domains
 
@@ -23,7 +22,7 @@ const ERROR_DOMAINS = {
 
 ## Error codes
 
-Currently errors list contains 5 main issues like invalid params, calculation restrictions etc. In future this list will grow as we develop and scale our API. To receive all actual data or mention any discrepency or incorrectness in errors list - contact our BD via [Telegram](https://t.me/RubicPartnershipBot). 
+Currently errors list contains 5 main issues like invalid params, calculation restrictions etc. In future this list will grow as we develop and scale our API. To receive all actual data or mention any discrepency or incorrectness in errors list - contact our BD via [Telegram](https://t.me/RubicPartnershipBot).
 
 ```
 const SPECIFIC_ERROR_CODES = {
@@ -80,10 +79,9 @@ const SPECIFIC_ERROR_CODES = {
 
 ## Example API error responses
 
-Errors may have different structures. <mark style="color:red;">**PARAMS_ERRORS is an array of errors**</mark>
-(it's related with NestJS exceptions of validation pipes)
+Errors may have different structures. `PARAMS_ERRORS is an array of errors` (it's related with NestJS exceptions of validation pipes)
 
-### PARAMS_ERROR example
+### 1. PARAMS_ERROR example
 
 ```
 {
@@ -100,11 +98,9 @@ Errors may have different structures. <mark style="color:red;">**PARAMS_ERRORS i
 }
 ```
 
-### Common error example
+### 2. Common error example
 
-A usual(<mark style="color:red;">**except**</mark>
- <mark style="color:red;">**PARAMS_ERRORS**</mark>
-) error body has a type like
+A usual (except `PARAMS_ERRORS`) error body has a type as follows:
 
 ```
 {
@@ -118,7 +114,7 @@ A usual(<mark style="color:red;">**except**</mark>
 }
 ```
 
-#### NO_ROUTES
+#### 3. NO_ROUTES
 
 ```
 {
@@ -131,11 +127,11 @@ A usual(<mark style="color:red;">**except**</mark>
 }
 ```
 
-### Error with additional "data" field example
+### 4. Error with additional "data" field example
 
 Errors can have optional field "data" (object), this field contains additional useful data and details about error cause.
 
-#### NEED_APPROVE
+#### 5. NEED_APPROVE
 
 ```
 {
@@ -151,7 +147,7 @@ Errors can have optional field "data" (object), this field contains additional u
 }
 ```
 
-#### NOT_ENOUGH_NATIVE_BALANCE (EVM chains)
+#### 6. NOT_ENOUGH_NATIVE_BALANCE (EVM chains)
 
 ```
 {
@@ -170,7 +166,7 @@ Errors can have optional field "data" (object), this field contains additional u
 }
 ```
 
-#### NOT_ENOUGH_NATIVE_BALANCE (TON)
+#### 7. NOT_ENOUGH_NATIVE_BALANCE (TON)
 
 ```
 {
