@@ -100,8 +100,8 @@
     }
   },
   "logo": {
-    "light": "rubic-logo.svg",
-    "dark": "rubic-logo.svg"
+    "light": "logo/rubic-logo-light.svg",
+    "dark": "logo/rubic-logo-light.svg"
   },
   "navbar": {
     "links": [
