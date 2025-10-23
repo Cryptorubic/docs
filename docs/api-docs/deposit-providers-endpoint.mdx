@@ -1,5 +1,29 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Endpoints for deposit providers: quoteDepositTrades & swapDepositTrade"
+description: "These are specific endpoints where only deposit providers are available: ChangeNOW, Changelly, SimpleSwap & Exolix."
 ---
 
+<Tip>
+   There are no checks for approval, native token balance, or overall balance. Wallet connection is not required. 
+</Tip>
+
+1. In the request to the `quoteDepositTrades` the `fromAddress` and `receiver` fields are optional.
+
+   In the `quoteDepositTrades` response, the transaction field must be an empty object:
+
+```json
+{}
+```
+
+2. In the request to the `swapDepositTrade` the `fromAddress` field is optional, the `receiver` field is required.
+
+   In the `swapDepositTrade` response, the transaction field must contain the following structure:
+
+```json
+{
+  "depositAddress": "string",
+  "amountToSend": "string",
+  "exchangeId": "string",
+  "extraFields": {} // optional
+}
+```
