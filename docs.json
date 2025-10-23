@@ -100,8 +100,8 @@
     }
   },
   "logo": {
-    "light": "favicon.ico",
-    "dark": "favicon.ico"
+    "light": "rubic-logo.svg",
+    "dark": "rubic-logo.svg"
   },
   "navbar": {
     "links": [
