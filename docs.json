@@ -29,7 +29,8 @@
               "docs/api-docs/swagger",
               "docs/api-docs/models",
               "docs/api-docs/errors",
-              "docs/api-docs/dangerous-routes"
+              "docs/api-docs/dangerous-routes",
+              "docs/api-docs/deposit-providers-endpoint"
             ]
           },
           {
