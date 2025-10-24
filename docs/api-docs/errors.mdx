@@ -10,7 +10,7 @@ Error code consists of two parts – `Number(error domain + error code)`. For ex
 
 ## Error domains
 
-```
+```javascript
 const ERROR_DOMAINS = {
     PARAMS_ERRORS: '001',
     CALCULATION_ERRORS: '002',
@@ -24,7 +24,7 @@ const ERROR_DOMAINS = {
 
 Currently errors list contains 5 main issues like invalid params, calculation restrictions etc. In future this list will grow as we develop and scale our API. To receive all actual data or mention any discrepency or incorrectness in errors list - contact our BD via [Telegram](https://t.me/RubicPartnershipBot).
 
-```
+```javascript
 const SPECIFIC_ERROR_CODES = {
     // 001
     [ERROR_DOMAINS.PARAMS_ERRORS]: {
@@ -83,7 +83,7 @@ Errors may have different structures. `PARAMS_ERRORS is an array of errors` (it'
 
 ### 1. PARAMS_ERROR example
 
-```
+```javascript
 {
     errors: [
         {
@@ -102,7 +102,7 @@ Errors may have different structures. `PARAMS_ERRORS is an array of errors` (it'
 
 A usual (except `PARAMS_ERRORS`) error body has a type as follows:
 
-```
+```javascript
 {
     error: {
         code: number,
@@ -116,7 +116,7 @@ A usual (except `PARAMS_ERRORS`) error body has a type as follows:
 
 #### 3. NO_ROUTES
 
-```
+```javascript
 {
     error: {
         code: 2001,
@@ -133,7 +133,7 @@ Errors can have optional field "data" (object), this field contains additional u
 
 #### 5. NEED_APPROVE
 
-```
+```javascript
 {
     error: {
         code: 3001,
@@ -149,7 +149,7 @@ Errors can have optional field "data" (object), this field contains additional u
 
 #### 6. NOT_ENOUGH_NATIVE_BALANCE (EVM chains)
 
-```
+```javascript
 {
     error: {
         code: 3004,
@@ -168,7 +168,7 @@ Errors can have optional field "data" (object), this field contains additional u
 
 #### 7. NOT_ENOUGH_NATIVE_BALANCE (TON)
 
-```
+```javascript
 {
     error: {
         code: 3004,

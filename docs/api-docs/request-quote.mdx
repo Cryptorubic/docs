@@ -12,7 +12,8 @@ Here is an example of quoting swap 1.05 ETH in Ethereum Blockchain for Matic in 
 <Tabs>
 <Tab title="Node.JS (Axios) Request">
 
-<pre class="language-typescript"><code class="lang-typescript"><strong>const response = await axios.post('https://api-v2.rubic.exchange/api/routes/quoteBest', {
+```typescript
+const response = await axios.post('https://api-v2.rubic.exchange/api/routes/quoteBest', {
 </strong>  params: {
     "dstTokenAddress": "0x0000000000000000000000000000000000000000",
     "dstTokenBlockchain": "POLYGON",
@@ -22,7 +23,7 @@ Here is an example of quoting swap 1.05 ETH in Ethereum Blockchain for Matic in 
     "srcTokenBlockchain": "ETH"
   }
 });
-</code></pre>
+```
 
 </Tab>
 
@@ -207,7 +208,8 @@ Here is an example of quoting swap 1.05 ETH in Ethereum Blockchain for Matic in 
 <Tabs>
 <Tab title="Node.JS (Axios) Request">
 
-<pre class="language-typescript"><code class="lang-typescript"><strong>const response = await axios.post('https://api-v2.rubic.exchange/api/routes/quoteAll', {
+```typescript
+const response = await axios.post('https://api-v2.rubic.exchange/api/routes/quoteAll', {
 </strong>  params: {
     "dstTokenAddress": "0x0000000000000000000000000000000000000000",
     "dstTokenBlockchain": "POLYGON",
@@ -217,7 +219,7 @@ Here is an example of quoting swap 1.05 ETH in Ethereum Blockchain for Matic in 
     "srcTokenBlockchain": "ETH"
   }
 });
-</code></pre>
+```
 
 </Tab>
 </Tabs>
