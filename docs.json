@@ -83,18 +83,18 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "Rubic Application",
+          "href": "https://rubic.exchange/",
+          "icon": "cube"
         },
         {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
+          "anchor": "Contact BD Team",
+          "href": "https://t.me/RubicPartnershipBot",
+          "icon": "comment-dots"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
+          "anchor": "API Announcements",
+          "href": "https://t.me/+lNMUcuqwsZk3MWU6",
           "icon": "newspaper"
         }
       ]
