@@ -1,0 +1,164 @@
+---
+title: "Swaps from Solana"
+description: "This page explains how to connect a Web3 wallet, retrieve token quotes, approve tokens, and execute a transaction using Rubic API, with examples using @solana/web3.js."
+---
+
+## Connecting a Web3 Wallet
+
+To interact with the blockchain, we first need to connect a wallet. Here are examples using `@solana/web3.js`.
+
+```javascript
+async function connectWallet() {
+    if (window.solana) {
+        try {
+            const response = await window.solana.connect();
+            return response.publicKey;
+        } catch (err) {
+            console.error('Connection error:', err.message);
+        }
+    } else {
+          console.log('Solana provider not found. Please install MetaMask');
+    }
+}
+```
+
+## Retrieving Token Quotes
+
+Now that the wallet is connected, we can request token quotes from Rubic API.
+
+**Endpoint:** `POST https://api-v2.rubic.exchange/api/routes/quoteBest`
+
+```javascript
+async function quoteBest() {
+    const response = await fetch("https://api-v2.rubic.exchange/api/routes/quoteBest", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: {
+            "srcTokenAddress": "So11111111111111111111111111111111111111111",
+            "srcTokenAmount": "1.05",
+            "srcTokenBlockchain": "SOL"
+            "dstTokenAddress": "0x0000000000000000000000000000000000000000",
+            "dstTokenBlockchain": "POLYGON",
+            "referrer": "rubic.exchange"
+          }
+    });
+    const data = await response.json();
+    const { estimate, transaction, id } = data;
+    console.log(estimate);
+    // {
+    //     This is an estimated amount you will get after the swap.
+    //     "destinationTokenAmount": "451.4591",
+    //     "destinationTokenMinAmount": "437.915327",
+    //
+    //     "destinationUsdAmount": 233.63,
+    //     "destinationUsdMinAmount": 226.63,
+    //
+    //     "destinationWeiAmount": "451459000000",
+    //     "destinationWeiMinAmount": "437915327000",
+    //
+    //     "durationInMinutes": 5,
+    //     "priceImpact": 0.23,
+    //     "slippage": 0.03
+    // }
+    console.log(id);
+    // This is the swap ID. It will be needed later for swap request.
+    return data;
+}
+```
+
+You can get more information about quote endpoint here:
+[Request Quote](https://dev-docs.rubic.exchange/docs/api-docs/request-quote)
+
+## Retrieving Data to Execute a Transaction
+
+To perform a token swap through Rubic API, we need to get the necessary data for the transaction.
+
+**Endpoint:** `POST https://api-v2.rubic.exchange/api/routes/swap`
+
+```javascript
+async function getSwapData() {
+    const response = await fetch("https://api-v2.rubic.exchange/api/routes/swap", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: {
+            "srcTokenAddress": "So11111111111111111111111111111111111111111",
+            "srcTokenAmount": "1.05",
+            "srcTokenBlockchain": "SOL"
+            "dstTokenAddress": "0x0000000000000000000000000000000000000000",
+            "dstTokenBlockchain": "POLYGON",
+            "referrer": "rubic.exchange",
+            "fromAddress": "USER WALLET ADDRESS",
+            "id": "ID FROM QUOTE STEP",
+            "receiver": "RECEIVER ADDRESS"
+          }
+    });
+    const result = await response.json();
+    const { transaction } = result;
+    console.log(transaction);
+    // api/routes/swap always returns solana data in base64 format
+    // {
+    //     "data": "AQAAAAAAAAAAA...SeOpIqnPIXvhm6MAcerlewmVsjBtvc2eDf4gKc2g==",
+    // },
+    return result;
+}
+```
+
+You can get more information about swap endpoint here:
+[Request Data](https://dev-docs.rubic.exchange/docs/api-docs/request-data)
+
+## Executing a Transaction with the API Response Data
+
+Using the data obtained from the Rubic API, you can now execute the transaction.
+
+```javascript
+import { base64 } from 'ethers/lib/utils';
+import { VersionedTransaction } from '@solana/web3.js';
+
+async function executeSwap(
+    // Transaction object, obtained on previous step from Rubic API
+    transaction,
+    // Connection object
+    connection
+) {
+    const decodedData = base64.decode(options.data)
+    const tx = VersionedTransaction.deserialize(decodedData);
+    const { blockhash } = await connection.getRecentBlockhash();
+    tx.message.recentBlockhash = blockhash;
+
+    const { signature } = await window.solana.signAndSendTransaction(tx);
+    console.log("Transaction executed:", tx.hash);
+}
+```
+
+## Track your transaction
+
+Now you can track your transaction status
+
+**Endpoint:** `GET https://api-v2.rubic.exchange/api/routes/status`
+
+```javascript
+async function getStatus(
+    // Your transaction hash, otained while executing transaction
+    hash
+) {
+    const response = await fetch(`https://api-v2.rubic.exchange/api/info/status?srcTxHash=${hash}`);
+    const data = await response.json();
+    const { status, destinationTxHash } = data;
+    console.log(status);
+    // Current TX status can be one of
+    // 'PENDING' | 'LONG_PENDING' | 'REVERT' |
+    // 'REVERTED' | 'FAIL' | 'READY_TO_CLAIM' |
+    // 'SUCCESS' | 'NOT_FOUND';
+    console.log(status);
+    // shows the hash on the target network if the transaction
+    // is successfully completed
+    return status;
+}
+```
+
+You can get more information about status endpoint here:
+[Get cross-chain status](https://dev-docs.rubic.exchange/docs/api-docs/get-crosschain-status)

@@ -1,0 +1,170 @@
+---
+title: "Swaps from TON"
+description: "This page explains how to connect a Web3 wallet, retrieve token quotes, approve tokens, and execute a transaction using Rubic API, with examples using TonConnectUI."
+---
+
+## Connecting a Web3 Wallet
+
+To interact with the blockchain, we first need to connect a wallet. Here are examples using `TonConnectUI.`
+
+```javascript
+import { TonConnectUI } from '@tonconnect/ui';
+</strong>
+async function connectWallet() {
+    const tonConnect = new TonConnectUI(...);
+
+    try {
+          await this.tonConnect.connector.restoreConnection();
+      } catch {}
+      const isConnected = (await this.tonConnect.connectionRestored) &#x26;&#x26; 
+          tonConnect.connected;
+
+      if (!isConnected) {
+        const payload = await RetroBridgeApiService.getMessageToAuthWallet();
+        this.tonConnect.setConnectRequestParameters({
+          state: 'ready',
+          value: { tonProof: this.window.btoa(payload) }
+        });
+        await this.openWalletModal();
+      }
+}
+```
+
+## Retrieving Token Quotes
+
+Now that the wallet is connected, we can request token quotes from Rubic API.
+
+**Endpoint:** `POST https://api-v2.rubic.exchange/api/routes/quoteBest`
+
+```javascript
+async function quoteBest() {
+    const response = await fetch("https://api-v2.rubic.exchange/api/routes/quoteBest", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: {
+            "srcTokenAddress": "0x0000000000000000000000000000000000000000",
+            "srcTokenAmount": "10",
+            "srcTokenBlockchain": "TON"
+            "dstTokenAddress": "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs",
+            "dstTokenBlockchain": "TON",
+            "referrer": "rubic.exchange"
+          }
+    });
+    const data = await response.json();
+    const { estimate, transaction, id } = data;
+    console.log(estimate);
+    // {
+    //     This is an estimated amount you will get after the swap.
+    //     "destinationTokenAmount": "59.859216",
+    //     "destinationTokenMinAmount": "59.260624",
+    //
+    //     "destinationUsdAmount": 59.86,
+    //     "destinationUsdMinAmount": 59.26,
+    //
+    //     "destinationWeiAmount": "59859216",
+    //     "destinationWeiMinAmount": "59260624",
+    //
+    //     "durationInMinutes": 5,
+    //     "priceImpact": 0.21,
+    //     "slippage": 0.01
+    // }
+    console.log(id);
+    // This is the swap ID. It will be needed later for swap request.
+    return data;
+}
+```
+
+You can get more information about quote endpoint here: [Request Quote](https://dev-docs.rubic.exchange/docs/api-docs/request-quote)
+
+## Retrieving Data to Execute a Transaction
+
+To perform a token swap through Rubic API, we need to get the necessary data for the transaction.
+
+**Endpoint:** `POST https://api-v2.rubic.exchange/api/routes/swap`
+
+```javascript
+async function getSwapData() {
+    const response = await fetch("https://api-v2.rubic.exchange/api/routes/swap", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: {
+            "srcTokenAddress": "0x0000000000000000000000000000000000000000",
+            "srcTokenAmount": "10",
+            "srcTokenBlockchain": "TON"
+            "dstTokenAddress": "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs",
+            "dstTokenBlockchain": "TON",
+            "referrer": "rubic.exchange"
+            "fromAddress": "USER WALLET ADDRESS",
+            "id": "ID FROM QUOTE STEP",
+            "receiver": "RECEIVER ADDRESS"
+          }
+    });
+    const result = await response.json();
+    const { transaction } = result;
+    console.log(transaction);
+    // {
+    //     "tonMessages": [{
+    //                        "address": "0:1150b518b2626ad51899f98887f8824b70065456455f7fe2813f012699a4061f",
+    //                        "amount": "10270000000",
+    //                        "payload": "te6cckEBAgEAqgABbw+KfqUAA...VtY85yV2h5cGA/o2ZlxGelAhaWKht7fpKSyms="
+    //                    }]
+    // }
+    return result;
+}
+```
+
+You can get more information about swap endpoint here: [Request Data](https://dev-docs.rubic.exchange/docs/api-docs/request-data)
+
+## Executing a Transaction with the API Response Data
+
+Using the data obtained from the Rubic API, you can now execute the transaction.
+
+```javascript
+import { base64 } from 'ethers/lib/utils';
+import { VersionedTransaction } from '@solana/web3.js';
+
+async function executeSwap(
+    // Transaction object, obtained on previous step from Rubic API
+    transaction,
+    // Connection object
+    tonConnect
+) {
+    const { boc } = await tonConnect.sendTransaction({
+        validUntil: Math.floor(Date.now() / 1000) + 360,
+        messages: transaction.messages
+    });
+    return boc;       
+}
+```
+
+## Track your transaction
+
+Now you can track your transaction status
+
+**Endpoint:** `GET https://api-v2.rubic.exchange/api/routes/status`
+
+```javascript
+async function getStatus(
+    // Your transaction hash, otained while executing transaction
+    hash
+) {
+    const response = await fetch(`https://api-v2.rubic.exchange/api/info/status?srcTxHash=${hash}`);
+    const data = await response.json();
+    const { status, destinationTxHash } = data;
+    console.log(status);
+    // Current TX status can be one of
+    // 'PENDING' | 'LONG_PENDING' | 'REVERT' |
+    // 'REVERTED' | 'FAIL' | 'READY_TO_CLAIM' |
+    // 'SUCCESS' | 'NOT_FOUND';
+    console.log(status);
+    // shows the hash on the target network if the transaction
+    // is successfully completed
+    return status;
+}
+```
+
+You can get more information about status endpoint here: [Get cross-chain status](https://dev-docs.rubic.exchange/docs/api-docs/get-crosschain-status)
