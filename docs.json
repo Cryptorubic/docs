@@ -36,12 +36,12 @@
           {
             "group": "Integration Examples",
             "pages": [
-              "/docs/api-docs/integration-examples/swaps-from-evm.mdx",
-              "/docs/api-docs/integration-examples/swaps-from-solana.mdx",
-              "/docs/api-docs/integration-examples/swaps-from-ton.mdx",
-              "/docs/api-docs/integration-examples/swaps-from-tron.mdx",
-              "/docs/api-docs/integration-examples/swaps-from-bitcoin.mdx",
-              "/docs/api-docs/integration-examples/swaps-via-deposit.mdx"
+              "docs/api-docs/integration-examples/swaps-from-evm.mdx",
+              "docs/api-docs/integration-examples/swaps-from-solana.mdx",
+              "docs/api-docs/integration-examples/swaps-from-ton.mdx",
+              "docs/api-docs/integration-examples/swaps-from-tron.mdx",
+              "docs/api-docs/integration-examples/swaps-from-bitcoin.mdx",
+              "docs/api-docs/integration-examples/swaps-via-deposit.mdx"
             ]
           },
           {
