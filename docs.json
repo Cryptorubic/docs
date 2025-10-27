@@ -94,13 +94,13 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "https://t.me/RubicPartnershipBot"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Contact BD",
+      "href": "https://t.me/RubicPartnershipBot"
     }
   },
   "contextual": {
@@ -117,9 +117,9 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/CryptoRubic",
+      "github": "https://github.com/Cryptorubic",
+      "discord": "https://discord.com/invite/7EYzPbWKFQ"
     }
   }
 }
