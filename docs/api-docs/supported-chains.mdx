@@ -656,12 +656,11 @@ This endpoint returns a list of supported blockchains available for exchange and
 
 ## Response params
 
-| Field          | Type                                        | Description                                                     | Example                                                           |         |                    |     |
-| -------------- | ------------------------------------------- | --------------------------------------------------------------- | ----------------------------------------------------------------- | ------- | ------------------ | --- |
-| id             | number                                      | Blockchain identifier                                           | 1                                                                 |         |                    |     |
-| name           | string                                      | Blockchain name used by Rubic                                   | ETH                                                               |         |                    |     |
-| providers      | `{crossChain: string[];onChain: string[];}` | A list of providers supported by this blockchain                | `{crossChain: ['symbiosis'],onChain: ['ONE_INCH', 'OPEN_OCEAN']}` |         |                    |     |
-|                |                                             |                                                                 |                                                                   |         |                    |     |
-| proxyAvailable | boolean                                     | Do we able to collect fees on network with our contracts or not | true                                                              |         |                    |     |
-| type           | 'EVM'                                       | 'TRON'                                                          | 'SOLANA'                                                          | 'Other' | Type of blockchain | EVM |
-| testnet        | boolean                                     | Include testnets in list or not default: false                  | false                                                             |         |                    |     |
+| Field          | Type                                        | Description                                                     | Example                                                            |
+| -------------- | ------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------ |
+| id             | number                                      | Blockchain identifier                                           | 1                                                                  |
+| name           | string                                      | Blockchain name used by Rubic                                   | ETH                                                                |
+| providers      | `{crossChain: string[]; onChain: string[]}` | A list of providers supported by this blockchain                | `{crossChain: ['symbiosis'], onChain: ['ONE_INCH', 'OPEN_OCEAN']}` |
+| proxyAvailable | boolean                                     | Do we able to collect fees on network with our contracts or not | true                                                               |
+| type           | `'EVM'`, `'TRON'`, `'SOLANA'`, Other        | Type of blockchain                                              | `'EVM'`                                                            |
+| testnet        | boolean                                     | Include testnets in list or not (default: false)                | false                                                              |
