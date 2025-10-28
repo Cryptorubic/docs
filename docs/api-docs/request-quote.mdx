@@ -1,6 +1,6 @@
 ---
-title: 'Request Quote'
-icon: '1'
+title: "Request Quote"
+icon: "1"
 ---
 
 ## Quote Best
@@ -10,191 +10,182 @@ Using the quote method, you can get a preview of the best route for this cross-c
 Here is an example of quoting swap 1.05 ETH in Ethereum Blockchain for Matic in Polygon Blockchain
 
 <Tabs>
-<Tab title="Node.JS (Axios) Request">
-
-```typescript
-const response = await axios.post('https://api-v2.rubic.exchange/api/routes/quoteBest', {
-</strong>  params: {
-    "dstTokenAddress": "0x0000000000000000000000000000000000000000",
-    "dstTokenBlockchain": "POLYGON",
-    "referrer": "rubic.exchange",
-    "srcTokenAddress": "0x0000000000000000000000000000000000000000",
-    "srcTokenAmount": "1.05",
-    "srcTokenBlockchain": "ETH"
-  }
-});
-```
-
-</Tab>
-
-<Tab title="cURL Request">
-
-```bash
-curl -X 'POST' \
-  'https://api-v2.rubic.exchange/api/routes/quoteBest' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "dstTokenAddress": "0x0000000000000000000000000000000000000000",
-  "dstTokenBlockchain": "POLYGON",
-  "referrer": "rubic.exchange",
-  "srcTokenAddress": "0x0000000000000000000000000000000000000000",
-  "srcTokenAmount": "1.05",
-  "srcTokenBlockchain": "ETH"
-}'
-```
-
-</Tab>
-
-<Tab title="Example Response">
-
-```json
-{
-  "estimate": {
-    "destinationTokenAmount": "6899.286207817309581298",
-    "destinationTokenMinAmount": "6692.307621582790293859",
-    "destinationUsdAmount": 2807.03,
-    "destinationUsdMinAmount": 2722.82,
-    "destinationWeiAmount": "6899286207817309581298",
-    "destinationWeiMinAmount": "6692307621582790293859",
-    "durationInMinutes": 5,
-    "priceImpact": null,
-    "slippage": 0.03
-  },
-  "fees": {
-    "gasTokenFees": {
-      "gas": {
-        "gasLimit": "0",
-        "gasPrice": "0",
-        "totalUsdAmount": 0,
-        "totalWeiAmount": "0"
-      },
-      "nativeToken": {
-        "address": "0x0000000000000000000000000000000000000000",
-        "blockchainId": 1,
-        "decimals": 18,
-        "name": "Ethereum",
-        "symbol": "ETH"
-      },
-      "protocol": {
-        "fixedAmount": "0.000780454302449455",
-        "fixedUsdAmount": 2.08,
-        "fixedWeiAmount": "780454302449455"
-      },
-      "provider": {
-        "fixedAmount": "0",
-        "fixedUsdAmount": 0,
-        "fixedWeiAmount": "0"
+  <Tab title="Node.JS (Axios) Request">
+    ```typescript
+    const response = await axios.post('https://api-v2.rubic.exchange/api/routes/quoteBest', {
+    </strong>  params: {
+        "dstTokenAddress": "0x0000000000000000000000000000000000000000",
+        "dstTokenBlockchain": "POLYGON",
+        "referrer": "rubic.exchange",
+        "srcTokenAddress": "0x0000000000000000000000000000000000000000",
+        "srcTokenAmount": "1.05",
+        "srcTokenBlockchain": "ETH"
       }
-    },
-    "percentFees": {
-      "percent": 0,
-      "token": {
-        "address": "0x0000000000000000000000000000000000000000",
-        "blockchainId": 1,
-        "decimals": 18,
-        "name": "Ethereum",
-        "symbol": "ETH"
-      }
+    });
+    ```
+  </Tab>
+  <Tab title="cURL Request">
+    ```bash
+    curl -X 'POST' \
+      'https://api-v2.rubic.exchange/api/routes/quoteBest' \
+      -H 'accept: application/json' \
+      -H 'Content-Type: application/json' \
+      -d '{
+      "dstTokenAddress": "0x0000000000000000000000000000000000000000",
+      "dstTokenBlockchain": "POLYGON",
+      "referrer": "rubic.exchange",
+      "srcTokenAddress": "0x0000000000000000000000000000000000000000",
+      "srcTokenAmount": "1.05",
+      "srcTokenBlockchain": "ETH"
+    }'
+    ```
+  </Tab>
+  <Tab title="Example Response">
+    ```json
+    {
+      "estimate": {
+        "destinationTokenAmount": "6899.286207817309581298",
+        "destinationTokenMinAmount": "6692.307621582790293859",
+        "destinationUsdAmount": 2807.03,
+        "destinationUsdMinAmount": 2722.82,
+        "destinationWeiAmount": "6899286207817309581298",
+        "destinationWeiMinAmount": "6692307621582790293859",
+        "durationInMinutes": 5,
+        "priceImpact": null,
+        "slippage": 0.03
+      },
+      "fees": {
+        "gasTokenFees": {
+          "gas": {
+            "gasLimit": "0",
+            "gasPrice": "0",
+            "totalUsdAmount": 0,
+            "totalWeiAmount": "0"
+          },
+          "nativeToken": {
+            "address": "0x0000000000000000000000000000000000000000",
+            "blockchainId": 1,
+            "decimals": 18,
+            "name": "Ethereum",
+            "symbol": "ETH"
+          },
+          "protocol": {
+            "fixedAmount": "0.000780454302449455",
+            "fixedUsdAmount": 2.08,
+            "fixedWeiAmount": "780454302449455"
+          },
+          "provider": {
+            "fixedAmount": "0",
+            "fixedUsdAmount": 0,
+            "fixedWeiAmount": "0"
+          }
+        },
+        "percentFees": {
+          "percent": 0,
+          "token": {
+            "address": "0x0000000000000000000000000000000000000000",
+            "blockchainId": 1,
+            "decimals": 18,
+            "name": "Ethereum",
+            "symbol": "ETH"
+          }
+        }
+      },
+      "providerType": "router",
+      "quote": {
+        "nativeBlacklist": [],
+        "foreignBlacklist": {
+          "lifi": [],
+          "rango": []
+        },
+        "timeout": 30,
+        "referrer": "rubic.exchange",
+        "showFailedRoutes": false,
+        "dstTokenAddress": "0x0000000000000000000000000000000000000000",
+        "dstTokenBlockchain": "POLYGON",
+        "srcTokenAddress": "0x0000000000000000000000000000000000000000",
+        "srcTokenAmount": "1.05",
+        "srcTokenBlockchain": "ETH",
+        "integratorAddress": "0x3fFF9bDEb3147cE13A7FFEf85Dae81874E0AEDbE",
+        "slippage": 0.03
+      },
+      "routing": [
+        {
+          "path": [
+            {
+              "address": "0x0000000000000000000000000000000000000000",
+              "amount": "1.05",
+              "blockchainId": 1,
+              "decimals": 18,
+              "name": "Ethereum",
+              "symbol": "ETH"
+            },
+            {
+              "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+              "amount": "1050000000000000000",
+              "blockchainId": 1,
+              "decimals": 18,
+              "name": "Wrapped Ether",
+              "symbol": "WETH"
+            }
+          ],
+          "provider": "ROUTER_SWAP",
+          "type": "on-chain"
+        },
+        {
+          "path": [
+            {
+              "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+              "amount": "1050000000000000000",
+              "blockchainId": 1,
+              "decimals": 18,
+              "name": "Wrapped Ether",
+              "symbol": "WETH"
+            },
+            {
+              "address": "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
+              "amount": "1049906329165283215",
+              "blockchainId": 137,
+              "decimals": 18,
+              "name": "Wrapped Ether",
+              "symbol": "WETH"
+            }
+          ],
+          "provider": "router",
+          "type": "cross-chain"
+        },
+        {
+          "path": [
+            {
+              "address": "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
+              "amount": "1049906329165283215",
+              "blockchainId": 137,
+              "decimals": 18,
+              "name": "Wrapped Ether",
+              "symbol": "WETH"
+            },
+            {
+              "address": "0x0000000000000000000000000000000000000000",
+              "amount": "6899.286207817309581298",
+              "blockchainId": 137,
+              "decimals": 18,
+              "name": "Matic Network",
+              "symbol": "MATIC"
+            }
+          ],
+          "provider": "ROUTER_SWAP",
+          "type": "on-chain"
+        }
+      ],
+      "swapType": "cross-chain",
+      "transaction": {
+        "approvalAddress": "0x3335733c454805df6a77f825f266e136FB4a3333"
+      },
+      "warnings": [],
+      "id": "08df660f-49e5-42fd-a1f1-cdf0af5eac4c"
     }
-  },
-  "providerType": "router",
-  "quote": {
-    "nativeBlacklist": [],
-    "foreignBlacklist": {
-      "lifi": [],
-      "rango": []
-    },
-    "timeout": 30,
-    "referrer": "rubic.exchange",
-    "showFailedRoutes": false,
-    "dstTokenAddress": "0x0000000000000000000000000000000000000000",
-    "dstTokenBlockchain": "POLYGON",
-    "srcTokenAddress": "0x0000000000000000000000000000000000000000",
-    "srcTokenAmount": "1.05",
-    "srcTokenBlockchain": "ETH",
-    "integratorAddress": "0x3fFF9bDEb3147cE13A7FFEf85Dae81874E0AEDbE",
-    "slippage": 0.03
-  },
-  "routing": [
-    {
-      "path": [
-        {
-          "address": "0x0000000000000000000000000000000000000000",
-          "amount": "1.05",
-          "blockchainId": 1,
-          "decimals": 18,
-          "name": "Ethereum",
-          "symbol": "ETH"
-        },
-        {
-          "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-          "amount": "1050000000000000000",
-          "blockchainId": 1,
-          "decimals": 18,
-          "name": "Wrapped Ether",
-          "symbol": "WETH"
-        }
-      ],
-      "provider": "ROUTER_SWAP",
-      "type": "on-chain"
-    },
-    {
-      "path": [
-        {
-          "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-          "amount": "1050000000000000000",
-          "blockchainId": 1,
-          "decimals": 18,
-          "name": "Wrapped Ether",
-          "symbol": "WETH"
-        },
-        {
-          "address": "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
-          "amount": "1049906329165283215",
-          "blockchainId": 137,
-          "decimals": 18,
-          "name": "Wrapped Ether",
-          "symbol": "WETH"
-        }
-      ],
-      "provider": "router",
-      "type": "cross-chain"
-    },
-    {
-      "path": [
-        {
-          "address": "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
-          "amount": "1049906329165283215",
-          "blockchainId": 137,
-          "decimals": 18,
-          "name": "Wrapped Ether",
-          "symbol": "WETH"
-        },
-        {
-          "address": "0x0000000000000000000000000000000000000000",
-          "amount": "6899.286207817309581298",
-          "blockchainId": 137,
-          "decimals": 18,
-          "name": "Matic Network",
-          "symbol": "MATIC"
-        }
-      ],
-      "provider": "ROUTER_SWAP",
-      "type": "on-chain"
-    }
-  ],
-  "swapType": "cross-chain",
-  "transaction": {
-    "approvalAddress": "0x3335733c454805df6a77f825f266e136FB4a3333"
-  },
-  "warnings": [],
-  "id": "08df660f-49e5-42fd-a1f1-cdf0af5eac4c"
-}
-```
-
-</Tab>
-
+    ```
+  </Tab>
 </Tabs>
 
 [Open Rubic Swagger](https://api-v2.rubic.exchange/api/swagger/#/Router/RouterController_getQuoteBest)
@@ -206,22 +197,20 @@ Using the quote method, you can get a preview of all possible routes for this cr
 Here is an example of quoting swap 1.05 ETH in Ethereum Blockchain for Matic in Polygon Blockchain
 
 <Tabs>
-<Tab title="Node.JS (Axios) Request">
-
-```typescript
-const response = await axios.post('https://api-v2.rubic.exchange/api/routes/quoteAll', {
-</strong>  params: {
-    "dstTokenAddress": "0x0000000000000000000000000000000000000000",
-    "dstTokenBlockchain": "POLYGON",
-    "referrer": "rubic.exchange",
-    "srcTokenAddress": "0x0000000000000000000000000000000000000000",
-    "srcTokenAmount": "1.05",
-    "srcTokenBlockchain": "ETH"
-  }
-});
-```
-
-</Tab>
+  <Tab title="Node.JS (Axios) Request">
+    ```typescript
+    const response = await axios.post('https://api-v2.rubic.exchange/api/routes/quoteAll', {
+    </strong>  params: {
+        "dstTokenAddress": "0x0000000000000000000000000000000000000000",
+        "dstTokenBlockchain": "POLYGON",
+        "referrer": "rubic.exchange",
+        "srcTokenAddress": "0x0000000000000000000000000000000000000000",
+        "srcTokenAmount": "1.05",
+        "srcTokenBlockchain": "ETH"
+      }
+    });
+    ```
+  </Tab>
 </Tabs>
 
 [Open Rubic Swagger](https://api-v2.rubic.exchange/api/swagger/#/Router/RouterController_getQuoteAll)
@@ -230,12 +219,41 @@ const response = await axios.post('https://api-v2.rubic.exchange/api/routes/quot
 
 #### Required params
 
-<table><thead><tr><th width="205">Field</th><th width="191">Type</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td>srcTokenAddress<mark style="color:red;">*</mark></td><td>string</td><td>Source token address</td><td>0x0000000000000000000000000000000000000000</td></tr><tr><td>srcTokenBlockchain<mark style="color:red;">*</mark></td><td>string</td><td>Source token blockchain</td><td>ETH</td></tr><tr><td>srcTokenAmount<mark style="color:red;">*</mark></td><td>string</td><td>Source token amount with decimals</td><td>1.05</td></tr><tr><td>dstTokenAddress<mark style="color:red;">*</mark></td><td>string</td><td>Destination token address</td><td>0x0000000000000000000000000000000000000000</td></tr><tr><td>dstTokenBlockchain<mark style="color:red;">*</mark></td><td>string</td><td>Destination token blockchain</td><td>Polygon</td></tr><tr><td>referrer<mark style="color:red;">*</mark></td><td>string</td><td>Referrer address</td><td>rubic.exchange</td></tr></tbody></table>
+| Field                | Type   | Description                       | Example                                    |
+| -------------------- | ------ | --------------------------------- | ------------------------------------------ |
+| srcTokenAddress\*    | string | Source token address              | 0x0000000000000000000000000000000000000000 |
+| srcTokenBlockchain\* | string | Source token blockchain           | ETH                                        |
+| srcTokenAmount\*     | string | Source token amount with decimals | 1.05                                       |
+| dstTokenAddress\*    | string | Destination token address         | 0x0000000000000000000000000000000000000000 |
+| dstTokenBlockchain\* | string | Destination token blockchain      | Polygon                                    |
+| referrer\*           | string | Referrer address                  | rubic.exchange                             |
 
 #### Optional fields
 
-<table><thead><tr><th width="151.296875">Field</th><th width="191">Type</th><th width="230.359375">Description</th><th>Example</th></tr></thead><tbody><tr><td>nativeBlacklist</td><td>string[]</td><td>Native providers to exclude from calculation</td><td>["xy", "symbiosis"]</td></tr><tr><td>showFailedRoutes</td><td>boolean</td><td>Show failed routes in response or not</td><td>false</td></tr><tr><td>integratorAddress</td><td>string</td><td>Integrator address to set fees</td><td>Get the address from our BD team</td></tr><tr><td>slippage</td><td>number<br>minimum: 0.01<br>maximum: 0.5</td><td>Slippage tolerance in percents for trade, 0.01 equals 1%</td><td>0.02</td></tr><tr><td>receiver</td><td>string</td><td>Wallet address to send tokens to on the destination blockchain</td><td>0x0000000000000000000000000000000000000000</td></tr><tr><td>preferredProvider</td><td>string</td><td>Preferred provider for calculation</td><td>lifi</td></tr><tr><td>foreignBlacklist</td><td><p></p><p>{</p><p>  lifi?: string[];</p><p>  rango?: string[];</p><p>}</p></td><td>Foreign providers to exclude from calculation</td><td>{<br>  lifi: ["stargate"]<br>}</td></tr><tr><td>timeout</td><td>number<br>minimum: 5<br>maximum: 60</td><td>Calculation timeout in seconds</td><td>32</td></tr><tr><td>enableTestnets</td><td>boolean</td><td>Include testnet in calculations</td><td>false</td></tr><tr><td>fromAddress</td><td>string</td><td>Wallet address to send funds from</td><td>0x0000000000000000000000000000000000000000</td></tr><tr><td>showDangerousRoutes</td><td>boolean</td><td>Show routes with priceImpact > 20% and &#x3C; -5% and with slippage > 20%. </td><td>false</td></tr><tr><td>skipFeeProviders</td><td>boolean</td><td><p></p><p>Skip providers with fee in route(show only routes where <strong>fees.gasTokenFees.provider.fixedAmount  = 0</strong>)</p></td><td>false</td></tr></tbody></table>
+| Field               | Type                                   | Description                                                                                             | Example                                    |
+| ------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| nativeBlacklist     | string[]                               | Native providers to exclude from calculation                                                            | ["xy", "symbiosis"]                        |
+| showFailedRoutes    | boolean                                | Show failed routes in response or not                                                                   | false                                      |
+| integratorAddress   | string                                 | Integrator address to set fees                                                                          | Get the address from our BD team           |
+| slippage            | number minimum: 0.01 maximum: 0.5      | Slippage tolerance in percents for trade, 0.01 equals 1%                                                | 0.02                                       |
+| receiver            | string                                 | Wallet address to send tokens to on the destination blockchain                                          | 0x0000000000000000000000000000000000000000 |
+| preferredProvider   | string                                 | Preferred provider for calculation                                                                      | lifi                                       |
+| foreignBlacklist    | `{lifi?: string[]; rango?: string[];}` | Foreign providers to exclude from calculation                                                           | `{ lifi: ["stargate"] }`                   |
+| timeout             | number  minimum: 5  maximum: 60        | Calculation timeout in seconds                                                                          | 32                                         |
+| enableTestnets      | boolean                                | Include testnet in calculations                                                                         | false                                      |
+| fromAddress         | string                                 | Wallet address to send funds from                                                                       | 0x0000000000000000000000000000000000000000 |
+| showDangerousRoutes | boolean                                | Show routes with priceImpact \> 20% and \< -5% and with slippage \> 20%.                                | false                                      |
+| skipFeeProviders    | boolean                                | Skip providers with fee in route(show only routes where **fees.gasTokenFees.provider.fixedAmount = 0**) | false                                      |
 
 ## Quote response params
 
-<table><thead><tr><th width="170.6484375">Field</th><th width="221">Type</th><th>Description</th><th width="174.13671875">Example</th></tr></thead><tbody><tr><td>id</td><td>string</td><td>Trade identifier</td><td>60e513d5-8a2d-4e0d-b513-6236d86bc7da</td></tr><tr><td>quote</td><td><a href="#quote-request-params">QuoteRequestDto</a></td><td>Quote params that you send</td><td></td></tr><tr><td>swapType</td><td>'cross-chain' | 'on-chain'</td><td>Type of swap</td><td>cross-chain</td></tr><tr><td>providerType</td><td><a href="models/crosschaintradetype">CrossChainTradeType</a> | <a href="models/onchaintradetype">OnChainTradeType</a></td><td>Inner provider which we use to swap</td><td>Rango</td></tr><tr><td>fees</td><td><a href="models/feesdto">FeesDto</a></td><td>Different fees used for swap</td><td></td></tr><tr><td>routing</td><td><a href="models/routingdto">RoutingDto</a>[]</td><td>The path tokens take during the swap process</td><td></td></tr><tr><td>transaction</td><td><a href="models/transactiondto">TransactionDto</a></td><td>Transaction config to perform approve</td><td><p>{</p><p>  approvalAddress: string<br>}</p></td></tr><tr><td>warnings</td><td><a href="models/errordto">ErrorDto</a>[]</td><td>Specific info about quote params provider</td><td>[<br>{<br>  code: 301,<br>  reason: amountTooLow,<br>  data: {<br>    minAmount: 0.1 eth<br>  }<br>}<br>]</td></tr></tbody></table>
+| Field        | Type                                                                                             | Description                                  | Example                                                                      |
+| ------------ | ------------------------------------------------------------------------------------------------ | -------------------------------------------- | ---------------------------------------------------------------------------- |
+| id           | string                                                                                           | Trade identifier                             | 60e513d5-8a2d-4e0d-b513-6236d86bc7da                                         |
+| quote        | [QuoteRequestDto](#quote-request-params)                                                         | Quote params that you send                   |                                                                              |
+| swapType     | 'cross-chain' \| 'on-chain'                                                                      | Type of swap                                 | cross-chain                                                                  |
+| providerType | [CrossChainTradeType](models/crosschaintradetype) \| [OnChainTradeType](models/onchaintradetype) | Inner provider which we use to swap          | Rango                                                                        |
+| fees         | [FeesDto](models/feesdto)                                                                        | Different fees used for swap                 |                                                                              |
+| routing      | [RoutingDto](models/routingdto)[]                                                                | The path tokens take during the swap process |                                                                              |
+| transaction  | [TransactionDto](models/transactiondto)                                                          | Transaction config to perform approve        | `{approvalAddress: string }`                                                 |
+| warnings     | [ErrorDto](models/errordto)                                                                      | Specific info about quote params provider    | `[ {  code: 301,reason: amountTooLow,  data: {  <br>minAmount: 0.1 eth } }]` |
