@@ -25,12 +25,22 @@
               "docs/api-docs/supported-providers",
               "docs/api-docs/request-quote",
               "docs/api-docs/request-data",
-              "docs/api-docs/integration-examples",
               "docs/api-docs/swagger",
               "docs/api-docs/models",
               "docs/api-docs/errors",
               "docs/api-docs/dangerous-routes",
               "docs/api-docs/deposit-providers-endpoint"
+            ]
+          },
+          {
+            "group": "Integration Examples",
+            "pages": [
+              "docs/api-docs/integration-examples/swaps-from-evm",
+              "docs/api-docs/integration-examples/swaps-from-solana",
+              "docs/api-docs/integration-examples/swaps-from-ton",
+              "docs/api-docs/integration-examples/swaps-from-tron",
+              "docs/api-docs/integration-examples/swaps-from-bitcoin",
+              "docs/api-docs/integration-examples/swaps-via-deposit"
             ]
           },
           {
@@ -89,8 +99,8 @@
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Contact BD",
+      "href": "https://t.me/RubicPartnershipBot"
     }
   },
   "contextual": {
@@ -109,7 +119,8 @@
     "socials": {
       "x": "https://x.com/CryptoRubic",
       "github": "https://github.com/Cryptorubic",
-      "linkedin": "https://www.linkedin.com/company/cryptorubic/"
+      "linkedin": "https://www.linkedin.com/company/cryptorubic/",
+      "discord": "https://discord.com/invite/7EYzPbWKFQ"
     }
   }
 }

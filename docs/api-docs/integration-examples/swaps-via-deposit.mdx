@@ -1,0 +1,110 @@
+---
+title: Swaps via Deposit
+description: This page explains how to execute a transaction via deposit using Rubic API.
+icon: "square-down"
+---
+
+<Note>
+Swap via deposit does not require a wallet connection. User should make a deposit by himself.
+</Note>
+
+## Retrieving Token Quotes
+
+Now that the wallet is connected, we can request token quotes from Rubic API.
+
+**Endpoint:** `POST https://api-v2.rubic.exchange/api/routes/quoteBest`
+
+```javascript
+async function quoteBest() {
+    const response = await fetch("https://api-v2.rubic.exchange/api/routes/quoteBest", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: {
+            "srcTokenAddress": "0x0000000000000000000000000000000000000000",
+            "srcTokenAmount": "3",
+            "srcTokenBlockchain": "COSMOS",
+            "dstTokenAddress": "0x0000000000000000000000000000000000000000",
+            "dstTokenBlockchain": "TRON",
+            "referrer": "rubic.exchange"
+          }
+    });
+    const data = await response.json();
+    const { estimate, transaction, id } = data;
+    console.log(estimate);
+    // {
+    //     This is an estimated amount you will get after the swap.
+    //     "destinationTokenAmount": "56.797373",
+    //     "destinationTokenMinAmount": "55.093452",
+    //
+    //     "destinationUsdAmount": 13.26,
+    //     "destinationUsdMinAmount": 12.86,
+    //
+<strong>    //     "destinationWeiAmount": "56797373",
+</strong>    //     "destinationWeiMinAmount": "55093452",
+    //
+    //     "durationInMinutes": 5,
+    //     "priceImpact": 3.29,
+    //     "slippage": 0.03
+    // }
+    
+    console.log(id);
+    // This is the swap ID. It will be needed later for swap request.
+    return data;
+}
+```
+
+You can get more information about quote endpoint here: [Request Quote](https://dev-docs.rubic.exchange/docs/api-docs/request-quote)
+
+## Retrieving Data to Execute a Transaction
+
+To perform a token swap through Rubic API, we need to get the necessary data for the transaction.
+
+**Endpoint:** `POST https://api-v2.rubic.exchange/api/routes/swap`
+
+```javascript
+async function getSwapData() {
+    const response = await fetch("https://api-v2.rubic.exchange/api/routes/swap", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: {
+            "srcTokenAddress": "0x0000000000000000000000000000000000000000",
+            "srcTokenAmount": "3",
+            "srcTokenBlockchain": "COSMOS"
+            "dstTokenAddress": "0x0000000000000000000000000000000000000000",
+            "dstTokenBlockchain": "TRON",
+            "referrer": "rubic.exchange",
+            "fromAddress": "USER WALLET ADDRESS",
+            "id": "ID FROM QUOTE STEP",
+            "receiver": "RECEIVER ADDRESS"
+          }
+    });
+    const result = await response.json();
+    const { transaction } = result;
+    console.log(transaction);
+    // {
+    //     "depositAddress": "cosmos1hgp84me0lze8t4jfrwsr05aep2kr57zrk4gecx",
+    //     "amountToSend": "3"
+    //     "exchangeId": "jz4flw7ub37tr78b",
+    //     
+    //     "extraFields": {        // can be null
+    //        "name": "Memo",
+    //        "value": "7799954959159693"
+    //      }
+    // },
+    return result;
+}
+```
+
+You can get more information about swap endpoint here: [Request Data](https://dev-docs.rubic.exchange/docs/api-docs/request-data)
+
+## Executing a Transaction with the API Response Data
+
+You should display the `depositAddress`, `amountToSend`, `exchangeId` and `extraFields` fields from the `transaction` object in your UI. The user should send amount to the received depositAddress from his wallet by himself.&#x20;
+
+<Note>
+User should pass the extraFields.value field otherwise the transaction may fail.
+</Note>

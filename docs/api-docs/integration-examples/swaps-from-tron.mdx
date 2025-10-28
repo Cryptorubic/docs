@@ -1,0 +1,208 @@
+---
+title: 'Swaps from Tron'
+description: 'This page explains how to connect a Web3 wallet, retrieve token quotes, approve tokens, and execute a transaction using Rubic API, with examples using ethers.js, web3.js, and viem.'
+icon: "hexagon-check"
+---
+
+## Connecting a Web3 Wallet
+
+To interact with the blockchain, we first need to connect a wallet. Here are examples using `tronWeb.`
+
+```javascript
+const TronWeb = require('tronweb');
+
+async function connectWallet() {
+    if (window.tronLink) {
+        const response = await window.tronLink.request({ method: 'tron_requestAccounts' });
+       return window.tronLink.tronWeb.defaultAddress.base58;
+    } else {
+        console.error("Tron provider not found. Please install TronLink.");
+    }
+}
+```
+
+## Retrieving Token Quotes
+
+Now that the wallet is connected, we can request token quotes from Rubic API.
+
+**Endpoint:** `POST https://api-v2.rubic.exchange/api/routes/quoteBest`
+
+```javascript
+async function quoteBest() {
+    const response = await fetch("https://api-v2.rubic.exchange/api/routes/quoteBest", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: {
+            "srcTokenAddress": "0x0000000000000000000000000000000000000000",
+            "srcTokenAmount": "1000.05",
+            "srcTokenBlockchain": "TRON",
+            "dstTokenAddress": "0x0000000000000000000000000000000000000000",
+            "dstTokenBlockchain": "ETH",
+            "referrer": "rubic.exchange"
+          }
+    });
+    const data = await response.json();
+    const { estimate, transaction, id } = data;
+    console.log(estimate);
+    // {
+    //     This is an estimated amount you will get after the swap.
+    //     "destinationTokenAmount": "8248.453781656313882666",
+    //     "destinationTokenMinAmount": "8001.000168206624466186",
+    //
+    //     "destinationUsdAmount": 2637.13,
+    //     "destinationUsdMinAmount": 2558.02,
+    //
+    //     "destinationWeiAmount": "8248453781656313882666",
+    //     "destinationWeiMinAmount": "8001000168206624466186",
+    //
+    //     "durationInMinutes": 5,
+    //     "priceImpact": 0.14,
+    //     "slippage": 0.03
+    // }
+    console.log(transaction.approvalAddress);
+    // This is the address you need to give approve to spend tokens.
+    // See next section for details.
+    // TMmBsvNipjm4VTqt5gydp72i7Facbzk1Ee
+    console.log(id);
+    // This is the swap ID. It will be needed later for swap request.
+    return data;
+}
+```
+
+You can get more information about quote endpoint here: [Request Quote](https://dev-docs.rubic.exchange/docs/api-docs/request-quote)
+
+## Approving Tokens for Transaction
+
+Before sending a transaction, you need to approve the token. `Approve` allows a user to authorize a contract or application to manage a specified amount of their tokens, which is necessary for secure interaction with decentralized applications such as exchanges or DeFi protocols. This gives users control over how many tokens can be used, providing an additional layer of security.
+
+Below are examples for different libraries.&#x20;
+
+```javascript
+const tronWeb = require('tronweb');
+import { TRC20_CONTRACT_ABI } from "./TokenABI"; // replace with the correct ABI
+
+async function approveToken(
+    // Token address
+    tokenAddress,
+    // Contract to give approve to.
+    // Put here transaction.approvalAddress obtained on previous step
+    spenderAddress,
+    // Amount of tokens to approve.
+    // For security reasons it's better to set approve
+    // amount equal to from amount
+    amount
+) {
+    const contract = await tronWeb.contract(TRC20_CONTRACT_ABI, tokenAddress);
+    const tx = await tokenContract.approve(spenderAddress, amount);
+    console.log("Approval successful:", tx.hash);
+}
+```
+
+## Retrieving Data to Execute a Transaction
+
+To perform a token swap through Rubic API, we need to get the necessary data for the transaction.
+
+**Endpoint:** `POST https://api-v2.rubic.exchange/api/routes/swap`
+
+```javascript
+async function getSwapData() {
+    const response = await fetch("https://api-v2.rubic.exchange/api/routes/swap", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: {
+            "srcTokenAddress": "0x0000000000000000000000000000000000000000",
+            "srcTokenAmount": "1000.05",
+            "srcTokenBlockchain": "TRON",
+            "dstTokenAddress": "0x0000000000000000000000000000000000000000",
+            "dstTokenBlockchain": "ETH",
+            "referrer": "rubic.exchange"
+            "fromAddress": "USER WALLET ADDRESS",
+            "id": "ID FROM QUOTE STEP",
+            "receiver": "RECEIVER ADDRESS"
+          }
+    });
+    const result = await response.json();
+    const { transaction } = result;
+    console.log(transaction);
+    // EXAMPLE WITH RANDOM VALUES, don't supposed to be as a response for TRON->ETH swap
+    // {
+    //     "approvalAddress": "TMmBsvNipjm4VTqt5gydp72i7Facbzk1Ee",
+    //     "arguments": [<called method arg 1>, <called method arg 1>, ...],
+    //     "signature": "06fdde03",
+    //     "to": "TMmBsvNipjm4VTqt5gydp72i7Facbzk1Ee",
+    //     "rawParameter"?: "0a020add22086c2763abadf9ed2940c8d5deea822e5a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a15418840e6c55b9ada326d211d818c34a994aeced808121541d3136787e667d1e055d2cd5db4b5f6c880563049186470ac89dbea822e",
+    //     "callValue"?: "1138554300",
+    //     "feeLimit"?: 10000000000
+    // },
+    return result;
+}
+```
+
+You can get more information about swap endpoint here: [Request Data](https://dev-docs.rubic.exchange/docs/api-docs/request-data)
+
+## Executing a Transaction with the API Response Data
+
+Using the data obtained from the Rubic API, you can now execute the transaction.
+
+```javascript
+async function executeSwap(
+    // Signer object, obtained while ethers.js initializing
+    tronWeb,
+    // User wallet address
+    fromAddress
+    // Address of called contract
+    contractAddress: string,
+    // Method selector
+    methodSignature: string,
+    // tx arguments array
+    parameters: Array<{type: string; value: string | TronParameters;}>,
+    // tx options
+    options: {feeLimit?: number; callValue?: string; rawParameter?: string;}
+) {
+    const tronTx = await tronWeb.transactionBuilder.triggerSmartContract(
+        contractAddress,
+        methodSignature,
+        options,
+        parameters,
+        fromAddress
+    );
+    const signedTransaction = await tronWeb.trx.sign(tronTx.transaction);
+
+    const receipt: TronTransactionReceipt = await this.tronWeb.trx.sendRawTransaction(
+        signedTransaction
+    return receipt.txid;
+}
+```
+
+## Track your transaction
+
+Now you can track your transaction status
+
+**Endpoint:** `GET https://api-v2.rubic.exchange/api/routes/status`
+
+```javascript
+async function getStatus(
+    // Your transaction hash, otained while executing transaction
+    hash
+) {
+    const response = await fetch(`https://api-v2.rubic.exchange/api/info/status?srcTxHash=${hash}`);
+    const data = await response.json();
+    const { status, destinationTxHash } = data;
+    console.log(status);
+    // Current TX status can be one of
+    // 'PENDING' | 'LONG_PENDING' | 'REVERT' |
+    // 'REVERTED' | 'FAIL' | 'READY_TO_CLAIM' |
+    // 'SUCCESS' | 'NOT_FOUND';
+    console.log(status);
+    // shows the hash on the target network if the transaction
+    // is successfully completed
+    return status;
+}
+```
+
+You can get more information about status endpoint here:
+[Get cross-chain status](https://dev-docs.rubic.exchange/docs/api-docs/get-crosschain-status)
