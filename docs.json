@@ -75,7 +75,7 @@
         },
         {
           "anchor": "Contact BD Team",
-          "href": "https://t.me/RubicPartnershipBot",
+          "href": "https://t.me/RubicPartnership",
           "icon": "comment-dots"
         },
         {
@@ -94,13 +94,13 @@
     "links": [
       {
         "label": "Support",
-        "href": "https://t.me/RubicPartnershipBot"
+        "href": "https://t.me/RubicPartnership"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Contact BD",
-      "href": "https://t.me/RubicPartnershipBot"
+      "href": "https://t.me/RubicPartnership"
     }
   },
   "contextual": {
