@@ -12,7 +12,12 @@
     "tabs": [
       {
         "tab": "API Reference",
-        "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json"
+        "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json",
+        "servers": [
+          {
+            "url": "https://api-v2.rubic.exchange/api"
+          }
+        ]
       },
       {
         "tab": "API Documentation",
