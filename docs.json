@@ -11,6 +11,10 @@
   "navigation": {
     "tabs": [
       {
+        "tab": "OLD API DOCS",
+        "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json"
+      },
+      {
         "tab": "API Documentation",
         "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json",
         "groups": [
@@ -59,7 +63,6 @@
               "GET /api/info/chains",
               "GET /api/info/providers",
               "GET /api/info/statusExtended",
-              "GET /api/tokens/",
               {
                 "group": "Utility",
                 "pages": [
