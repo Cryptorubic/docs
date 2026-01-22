@@ -21,7 +21,7 @@
           {
             "group": "About",
             "pages": [
-              "docs/about/overview"
+              "api-docs/about/overview"
             ]
           },
           {
@@ -47,7 +47,7 @@
           {
             "group": "API Documentation",
             "pages": [
-              "docs/about/overview"
+              "api-docs/about/overview"
             ]
           },
           {
