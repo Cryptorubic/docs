@@ -24,9 +24,7 @@
               "docs/api-docs/supported-chains",
               "docs/api-docs/supported-providers",
               "POST /api/routes/quoteAll",
-              "POST /routes/quoteAll",
-              "POST /api/routes/quoteBest",
-              "POST /routes/quoteBest"
+              "POST /api/routes/quoteBest"
             ]
           }
         ]
