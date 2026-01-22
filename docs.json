@@ -25,8 +25,8 @@
               "api-docs/about/referrer",
               {
                 "group": "Monetization",
+                "expanded": true,
                 "pages": [
-                  "api-docs/about/menetization/monetization",
                   "api-docs/about/menetization/evm",
                   "api-docs/about/menetization/non-evm"
                 ]
