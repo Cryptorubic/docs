@@ -60,7 +60,6 @@
           {
             "group": "General",
             "pages": [
-              "GET /api/tokens",
               "GET /api/info/chains",
               "GET /api/info/providers",
               "GET /api/info/statusExtended",
