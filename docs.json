@@ -12,10 +12,24 @@
     "tabs": [
       {
         "tab": "API Reference",
-        "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json",
-        "servers": [
+        "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json"
+      },
+      {
+        "tab": "API Reference 2",
+        "groups": [
           {
-            "url": "https://api-v2.rubic.exchange/api"
+            "group": "Users API",
+            "openapi": {
+              "source": "/path/to/users-openapi.json",
+              "directory": "users-api-reference"
+            }
+          },
+          {
+            "group": "Admin API",
+            "openapi": {
+              "source": "/path/to/admin-openapi.json",
+              "directory": "admin-api-reference"
+            }
           }
         ]
       },
