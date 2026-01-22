@@ -67,7 +67,7 @@
                 "expanded": true,
                 "pages": [
                   "GET /api/info/statusExtended",
-                  "general/status/explain"
+                  "api-docs/general/status/explain"
                 ]
               },
               {
