@@ -56,7 +56,20 @@
           {
             "group": "General",
             "pages": [
-              "GET /api/info/chains"
+              "GET /api/info/chains",
+              "GET /api/info/providers",
+              "GET /api/info/statusExtended",
+              {
+                "group": "Utility",
+                "pages": [
+                  "GET /api/utility/healthcheck",
+                  "GET /api/utility/allowance",
+                  "GET /api/utility/checkApprove",
+                  "GET /api/utility/celerRefund",
+                  "GET /api/utility/claim",
+                  "GET /api/utility/authWalletMessage"
+                ]
+              }
             ]
           },
           {
