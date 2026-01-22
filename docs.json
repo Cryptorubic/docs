@@ -21,6 +21,10 @@
           {
             "group": "API WW",
             "pages": [
+              "api-docs/about/overview",
+              "api-docs/about/overview",
+              "api-docs/about/overview",
+              "api-docs/about/overview",
               "api-docs/about/overview"
             ]
           },
@@ -48,14 +52,6 @@
               "docs/api-docs/integration-examples/swaps-from-tron",
               "docs/api-docs/integration-examples/swaps-from-bitcoin",
               "docs/api-docs/integration-examples/swaps-via-deposit"
-            ]
-          },
-          {
-            "group": "Monetization and Fees",
-            "pages": [
-              "docs/monetization/monetization",
-              "docs/monetization/evm",
-              "docs/monetization/non-evm"
             ]
           },
           {
