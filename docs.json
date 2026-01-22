@@ -62,7 +62,14 @@
             "pages": [
               "GET /api/info/chains",
               "GET /api/info/providers",
-              "GET /api/info/statusExtended",
+              {
+                "group": "Transaction status",
+                "expanded": false,
+                "pages": [
+                  "GET /api/info/statusExtended",
+                  "general/status/explain"
+                ]
+              },
               {
                 "group": "Utility",
                 "pages": [

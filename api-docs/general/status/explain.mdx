@@ -1,0 +1,15 @@
+---
+description: "This page explains the meaning of each transaction status you may encounter while tracking a cross-chain transaction. Use it to understand the current state of a transaction, identify potential issues, and determine whether any additional action is required."
+title: "Transaction Statuses Explained"
+---
+
+| Status           | Explanation                                                                                                         |
+| :--------------- | :------------------------------------------------------------------------------------------------------------------ |
+| 💤 PENDING       | Transaction is in progress                                                                                          |
+| 💤 LONG_PENDING  | Transaction is in progress, probably stuck                                                                          |
+| 💤 NOT_FOUND     | Transaction indexing is in progress                                                                                 |
+| ✴️ REVERT        | Transaction on the destination chain was successful. You should revert the transaction and collect funds            |
+| ✴️ REVERTED      | Transaction was reverted. A refund was issued on either the source or the target network, depending on the provider |
+| ✅ READY_TO_CLAIM | Transaction on the destination chain was successful. You can now claim tokens (applicable to Arbitrum Bridge)       |
+| ✅ SUCCESS        | Transaction on the destination chain was successful                                                                 |
+| ❌ FAIL           | Transaction on the destination chain failed                                                                         |
