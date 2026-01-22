@@ -18,12 +18,16 @@
         "tab": "API Reference 2",
         "groups": [
           {
-            "group": "Users API",
-            "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json"
-          },
-          {
-            "group": "Admin API",
-            "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json"
+            "group": "API2 Documentation",
+            "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json",
+            "pages": [
+              "docs/api-docs/supported-chains",
+              "docs/api-docs/supported-providers",
+              "POST /api/routes/quoteAll",
+              "POST /routes/quoteAll",
+              "POST /api/routes/quoteBest",
+              "POST /routes/quoteBest"
+            ]
           }
         ]
       },
