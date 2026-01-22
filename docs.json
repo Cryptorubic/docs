@@ -27,7 +27,7 @@
                 "group": "Monetization",
                 "expanded": true,
                 "pages": [
-                  "api-docs/about/monetization/overview.mdx",
+                  "api-docs/about/monetization/overview",
                   "api-docs/about/monetization/evm",
                   "api-docs/about/monetization/non-evm"
                 ]
