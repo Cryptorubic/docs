@@ -64,7 +64,7 @@
               "GET /api/info/providers",
               {
                 "group": "Transaction status",
-                "expanded": false,
+                "expanded": true,
                 "pages": [
                   "GET /api/info/statusExtended",
                   "general/status/explain"
@@ -72,6 +72,7 @@
               },
               {
                 "group": "Utility",
+                "expanded": true,
                 "pages": [
                   "GET /api/utility/healthcheck",
                   "GET /api/utility/allowance",
