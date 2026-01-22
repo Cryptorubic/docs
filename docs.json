@@ -35,6 +35,27 @@
             ]
           },
           {
+            "group": "Router",
+            "pages": [
+              {
+                "group": "Request quote",
+                "pages": [
+                  "POST /api/routes/quoteAll",
+                  "POST /api/routes/quoteBest",
+                  "POST /api/routes/quoteDepositTrades"
+                ]
+              },
+              {
+                "group": "Get transaction",
+                "pages": [
+                  "POST /api/routes/swap",
+                  "POST /api/routes/swapDepositTrade",
+                  "POST /api/routes/swapBest"
+                ]
+              }
+            ]
+          },
+          {
             "group": "API QQ",
             "pages": [
               "docs/api-docs/supported-chains",
