@@ -19,13 +19,18 @@
         "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json",
         "groups": [
           {
-            "group": "API WW",
+            "group": "About",
             "pages": [
               "api-docs/about/overview",
-              "api-docs/about/overview",
-              "api-docs/about/overview",
-              "api-docs/about/overview",
-              "api-docs/about/overview"
+              "api-docs/about/referrer",
+              {
+                "group": "Monetization",
+                "pages": [
+                  "api-docs/about/menetization/monetization",
+                  "api-docs/about/menetization/evm",
+                  "api-docs/about/menetization/non-evm"
+                ]
+              }
             ]
           },
           {
@@ -52,12 +57,6 @@
               "docs/api-docs/integration-examples/swaps-from-tron",
               "docs/api-docs/integration-examples/swaps-from-bitcoin",
               "docs/api-docs/integration-examples/swaps-via-deposit"
-            ]
-          },
-          {
-            "group": "Referrer and Rate Limit",
-            "pages": [
-              "docs/referrer/referrer"
             ]
           },
           {
