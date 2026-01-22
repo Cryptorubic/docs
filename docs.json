@@ -19,17 +19,11 @@
         "groups": [
           {
             "group": "Users API",
-            "openapi": {
-              "source": "/path/to/users-openapi.json",
-              "directory": "users-api-reference"
-            }
+            "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json"
           },
           {
             "group": "Admin API",
-            "openapi": {
-              "source": "/path/to/admin-openapi.json",
-              "directory": "admin-api-reference"
-            }
+            "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json"
           }
         ]
       },
