@@ -21,10 +21,7 @@
           {
             "group": "About",
             "pages": [
-              "docs/api-docs/supported-chains",
-              "docs/api-docs/supported-providers",
-              "POST /api/routes/quoteAll",
-              "POST /api/routes/quoteBest"
+              "docs/about/overview"
             ]
           },
           {
@@ -50,7 +47,7 @@
           {
             "group": "API Documentation",
             "pages": [
-              "docs/about/"
+              "docs/about/overview"
             ]
           },
           {
