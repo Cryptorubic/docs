@@ -15,43 +15,17 @@
         "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json"
       },
       {
-        "tab": "NEW API",
-        "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json",
-        "groups": [
-          {
-            "group": "About",
-            "pages": [
-              "api-docs/about/overview"
-            ]
-          },
-          {
-            "group": "API2 Documentation",
-            "groups": [
-              {
-                "group": "Test",
-                "pages": [
-                  "docs/api-docs/supported-chains",
-                  "docs/api-docs/supported-providers",
-                  "POST /api/routes/quoteAll",
-                  "POST /api/routes/quoteBest"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
         "tab": "API Documentation",
         "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "API WW",
             "pages": [
               "api-docs/about/overview"
             ]
           },
           {
-            "group": "API Documentation",
+            "group": "API QQ",
             "pages": [
               "docs/api-docs/supported-chains",
               "docs/api-docs/supported-providers",
