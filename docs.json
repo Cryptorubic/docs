@@ -59,6 +59,7 @@
               "GET /api/info/chains",
               "GET /api/info/providers",
               "GET /api/info/statusExtended",
+              "GET /api/tokens/",
               {
                 "group": "Utility",
                 "pages": [
