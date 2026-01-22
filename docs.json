@@ -11,10 +11,6 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "API Reference",
-        "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json"
-      },
-      {
         "tab": "API Documentation",
         "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json",
         "groups": [
@@ -25,7 +21,7 @@
               "api-docs/about/referrer",
               {
                 "group": "Monetization",
-                "expanded": true,
+                "expanded": false,
                 "pages": [
                   "api-docs/about/monetization/overview",
                   "api-docs/about/monetization/evm",
@@ -39,6 +35,7 @@
             "pages": [
               {
                 "group": "Request quote",
+                "expanded": true,
                 "pages": [
                   "POST /api/routes/quoteAll",
                   "POST /api/routes/quoteBest",
@@ -47,6 +44,7 @@
               },
               {
                 "group": "Get transaction",
+                "expanded": true,
                 "pages": [
                   "POST /api/routes/swap",
                   "POST /api/routes/swapDepositTrade",
