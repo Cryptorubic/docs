@@ -11,10 +11,6 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "OLD API DOCS",
-        "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json"
-      },
-      {
         "tab": "API Documentation",
         "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json",
         "groups": [
@@ -82,6 +78,13 @@
                   "GET /api/utility/authWalletMessage"
                 ]
               }
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "api-docs/guides/dangerous-routes",
+              "api-docs/guides/deposit-providers-endpoint"
             ]
           },
           {

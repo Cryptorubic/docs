@@ -1,0 +1,31 @@
+---
+title: "Prevent dangerous routes"
+description: "How to prevent swaps via routes with high slippage or price impact"
+---
+
+In `/quote` and `/quoteBest` you can pass a parameter `showDangerousRoutes: false` to filter routes with priceImpact more than -5% and less than +20% and slippage more than 20%(slippage: 0.2). Price impact is estimated as:
+
+```javascript
+srcTokenAmountInUsd = srcTokenAmount * srcTokenPrice
+dstTokenAmountInUsd = dstTokenAmount * dstTokenPrice
+priceImpact = ((srcTokenAmountInUsd - dstTokenAmountInUsd) / dstTokenAmountInUsd) * 100
+```
+
+By default `showDangerousRoutes` is optional property and set to `false`.
+
+If you pass `showDangerousRoutes: true` - you will receive in response every route that was successully found in spite of priceImpact and slippage values.
+
+Example of request to show only safe routes:
+
+```javascript
+{
+    "dstTokenAddress":"0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
+    "dstTokenBlockchain":"ETH",
+    "integratorAddress":"0x3019BD6BA7CEE183298385958dDE8d67DfCc2340",
+    "referrer":"arbitragescanner",
+    "srcTokenAddress":"0xdac17f958d2ee523a2206206994597c13d831ec7",
+    "srcTokenAmount":"100000000",
+    "srcTokenBlockchain":"ETH",
+    "showDangerousRoutes": false
+}
+```
