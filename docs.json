@@ -20,6 +20,15 @@
               "api-docs/about/overview",
               "api-docs/about/referrer",
               {
+                "group": "Core concepts",
+                "expanded": true,
+                "pages": [
+                  "api-docs/about/core-concepts/understanding-flow-execution",
+                  "api-docs/about/core-concepts/refunds",
+                  "api-docs/about/core-concepts/error-handling"
+                ]
+              },
+              {
                 "group": "Monetization",
                 "expanded": false,
                 "pages": [
