@@ -1,3 +1,107 @@
 ---
 title: "Overview"
+description: "Rubic API is a unified interface for building on-chain and cross-chain swap integrations.
+It allows applications to discover available routes, calculate swap results, execute swaps, and track transaction status across multiple blockchains and providers.
+
+The API abstracts away provider-specific logic and execution differences, exposing a consistent flow for integrators."
 ---
+
+## **What Rubic API is used for**
+
+Rubic API is designed to help developers:
+
+- build token swap functionality
+- support cross-chain transfers
+- aggregate liquidity from multiple providers
+- handle both EVM and non-EVM blockchains through a single API
+- avoid direct integration with multiple DEXes and bridges
+
+The API focuses on **route discovery, execution data generation, and transaction status tracking**, while leaving UI and user interaction fully under the integrator’s control.
+
+## **Who Rubic API is for**
+
+Rubic API is intended for:
+
+- wallets
+- DeFi applications
+- aggregators
+- trading interfaces
+- backend services executing swaps on behalf of users
+- 
+
+It is suitable for both frontend and backend integrations and does not impose UI or UX constraints.
+
+## **Supported execution models**
+
+Rubic API supports different execution models depending on the selected route and blockchain combination:
+
+- EVM contract-based swaps
+- EVM deposit-based swaps
+- non-EVM native transactions (TON, TRON, Solana, Sui)
+- manual deposit-based execution for non-EVM routes
+
+All execution details are returned by the API and must be executed by the integrator.
+
+## **Core integration flow**
+
+A typical integration with Rubic API consists of three main stages:
+
+1. **Quote**
+2. **Swap**
+3. **Transaction status tracking**
+
+## **Step 1: Quote**
+
+The quote endpoints are used to calculate possible swap routes and expected output amounts.
+
+At this stage, the API:
+
+- evaluates available DEXes, bridges, and providers
+- calculates output amounts and fees
+- returns route information and estimated results
+
+Quotes are **indicative** and may change before execution.
+
+## **Step 2: Swap**
+
+The swap endpoints are used to request **execution data** for a selected route.
+
+At this stage, the API:
+
+- recalculates the output amount
+- returns the exact data required to execute the swap
+- provides execution instructions depending on the route type
+
+The API does **not automatically execute transactions**.
+
+The integrator is responsible for sending transactions or performing deposit transfers.
+
+If the output amount differs from the quoted amount, the integrator must handle user confirmation before proceeding.
+
+## **Step 3: Transaction status check**
+
+After execution is initiated, the integrator can track swap progress using the provided identifiers.
+
+Transaction status tracking allows:
+
+- monitoring cross-chain execution
+- checking whether the destination transaction was completed
+- handling partial execution or failures
+
+Status tracking is especially important for cross-chain and deposit-based routes. 
+
+## **Typical integration flow**
+
+1. User selects tokens and amount
+2. Application requests a quote
+3. User confirms the quote
+4. Application requests swap execution data
+5. Application executes the transaction or deposit
+6. Application tracks transaction status until completion
+
+## **Important notes**
+
+- Quotes are not guaranteed and may change
+- Swap execution may return updated amounts
+- Integrators must handle user confirmations explicitly
+- Execution logic differs by provider and blockchain

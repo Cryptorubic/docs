@@ -1,0 +1,119 @@
+---
+title: "Handling amount changes during swap"
+description: "During swap execution, the output amount may differ from the amount returned during the quote step. This behavior is expected and can occur due to price movements, liquidity changes, or provider recalculation."
+---
+
+The API **does not explicitly indicate** that the amount has changed beyond an acceptable threshold.
+
+It always returns the **latest calculated amount**, and it is the **integrator’s responsibility** to detect significant changes and request user confirmation.
+
+## **Key responsibility of the integrator**
+
+When performing a swap, the integrator must:
+
+- store the output amount returned by quote
+- compare it with the output amount returned by swap
+- detect significant deviations
+- explicitly confirm the new amount with the user
+- send a **new swap request** only after user approval
+
+Automatic execution without user confirmation is **not recommended** when the amount changes significantly.
+
+## **Why amount changes happen**
+
+| **Reason**             | **Description**                                    |
+| :--------------------- | :------------------------------------------------- |
+| Market movement        | Token prices may change between quote and swap     |
+| Liquidity updates      | Available liquidity on DEXes or bridges may change |
+| Provider recalculation | Providers may recalculate output during execution  |
+
+Because of this, the amount returned by swap should always be treated as **final and authoritative**.
+
+## **Recommended deviation threshold**
+
+Rubic recommends using a **±0.5%** deviation threshold.
+
+If the new amount exceeds this range compared to the quoted amount, the integrator should pause execution and request user confirmation.
+
+## **Recommended execution flow**
+
+| **Step** | **Action**                                            |
+| :------- | :---------------------------------------------------- |
+| 1        | Call quote and store toTokenAmount                    |
+| 2        | User confirms and initiates swap                      |
+| 3        | Call swap and receive updated toTokenAmount           |
+| 4        | Compare quote amount with swap amount                 |
+| 5        | If deviation is above threshold, show confirmation UI |
+| 6        | If user approves, send a **new swap request**         |
+| 7        | If user rejects, cancel execution                     |
+
+## **Amount comparison example**
+
+The following example checks whether the new amount differs from the quoted amount by more than 0.5%.
+
+```typescript
+const changePercent = 0.5;
+const acceptablePercent = new BigNumber(changePercent).dividedBy(100);
+
+const oldAmount = new BigNumber(oldWeiAmount);
+const newAmount = new BigNumber(newWeiAmount);
+
+const upperBound = oldAmount.multipliedBy(acceptablePercent.plus(1));
+const lowerBound = oldAmount.multipliedBy(new BigNumber(1).minus(acceptablePercent));
+
+const isOutOfRange =
+  newAmount.lt(lowerBound) || newAmount.gt(upperBound);
+
+if (isOutOfRange) {
+  throw new AmountChangeWarning(oldWeiAmount, newWeiAmount);
+}
+```
+
+## **Handling amount change on the client**
+
+When an amount change is detected, the integrator should pause execution and notify the user.
+
+### **Example handling logic**
+
+```typescript
+if (err instanceof AmountChangeWarning) {
+  const rateChangeInfo = {
+    oldAmount: Token.fromWei(err.oldAmount, trade.to.decimals),
+    newAmount: Token.fromWei(err.newAmount, trade.to.decimals),
+    tokenSymbol: trade.to.symbol
+  };
+
+  const allowSwap = await onRateChange(rateChangeInfo);
+
+  if (allowSwap) { 
+    // retry swap
+  }
+}
+```
+
+## **User confirmation UI**
+
+The integrator may choose any UI approach, as long as the confirmation is **explicit**.
+
+### **Common UI patterns**
+
+- confirmation modal
+- inline warning with accept / cancel buttons
+- full-screen confirmation step (mobile)
+
+### **Recommended confirmation content**
+
+| **Field**       | **Description**   |
+| :-------------- | :---------------- |
+| Previous amount | Amount from quote |
+| New amount      | Amount from swap  |
+| Token symbol    | Destination token |
+| Action          | Continue / Cancel |
+
+## **Important notes**
+
+- The API **does not signal** that the amount change is significant
+- The integrator must perform the comparison manually
+- Users must explicitly approve any significant change
+- A new swap request is required after confirmation
+- Silent or automatic acceptance is strongly discouraged

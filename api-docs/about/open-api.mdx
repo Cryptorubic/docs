@@ -1,0 +1,83 @@
+---
+title: "Swagger & OpenAPI"
+description: "Rubic API provides an interactive Swagger UI generated from its OpenAPI specification.
+Swagger is intended to help integrators explore available endpoints, inspect request and response schemas, and test API calls."
+---
+
+## **Swagger UI**
+
+The Swagger UI is available at:
+
+https://api-v2.rubic.exchange/api/swagger/
+
+It always reflects the **current state of the API** and is generated directly from the OpenAPI specification.
+
+## **OpenAPI specification**
+
+Rubic API is described using **OpenAPI 3.x**.
+
+The specification defines:
+
+- available endpoints and HTTP methods
+- request parameters and request bodies
+- response schemas
+- error response formats
+
+Swagger UI is a visual representation of this specification.
+
+## **Raw OpenAPI files**
+
+In addition to Swagger UI, Rubic provides direct access to the raw OpenAPI specification files.
+
+These files can be used for:
+
+- generating API clients
+- importing into tools like Postman or Insomnia
+- validating requests and responses
+- offline inspection of the API schema
+
+Available formats:
+
+- JSON:
+
+  https://api-v2.rubic.exchange/api/routes/swagger-json
+- YAML:
+
+  https://api-v2.rubic.exchange/api/routes/swagger-yaml
+
+## **What Swagger is useful for**
+
+Swagger is best suited for:
+
+- discovering available endpoints
+- understanding request and response structures
+- checking required and optional fields
+- testing API calls in an isolated environment
+
+It is especially useful during early integration and debugging.
+
+## **Using Swagger for testing**
+
+You can execute requests directly from Swagger UI.
+
+Typical flow:
+
+1. Open the Swagger UI
+2. Select an endpoint
+3. Click **Try it out**
+4. Fill in the required parameters
+5. Execute the request
+6. Inspect the response
+
+Responses returned by Swagger are identical to real API responses.
+
+## **Versioning and updates**
+
+The Swagger UI and OpenAPI files always represent the **latest version** of the API.
+
+As the API evolves:
+
+- new fields or endpoints may be added
+- existing fields may become deprecated
+
+Integrators should follow the documentation and changelog when updating integrations.
