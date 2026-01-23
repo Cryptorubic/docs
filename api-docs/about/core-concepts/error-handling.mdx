@@ -1,0 +1,173 @@
+---
+title: "Error Handling"
+description: "This page explains how errors are structured in the Rubic API, how error codes are formed, and how they should be handled during quote and swap execution."
+---
+
+## **Error code format**
+
+Each error code is a **6-digit number** composed of two parts:
+
+| **Part**            | **Description**                               |
+| :------------------ | :-------------------------------------------- |
+| Error domain        | Identifies the stage where the error occurred |
+| Specific error code | Describes the exact failure reason            |
+
+The final error code is formed by concatenating both parts and converting them to a number.
+
+**Example**
+
+If a requested token pair is not supported:
+
+- Error domain: 002
+- Specific error code: 001
+- Final error code: **2001**
+
+Errors are always tied to a specific stage of the API flow, such as:
+
+- quote calculation
+- swap execution
+- smart contract interaction
+
+## **Error domains**
+
+| **Domain**            | **Code** | **Description**                         |
+| :-------------------- | :------- | :-------------------------------------- |
+| PARAMS_ERRORS         | 001      | Request validation and input parameters |
+| CALCULATION_ERRORS    | 002      | Route discovery and quote calculation   |
+| SWAP_ERRORS           | 003      | Swap execution                          |
+| RUBIC_CONTRACT_ERRORS | 004      | Rubic smart contracts                   |
+| UNKNOWN_ERRORS        | 999      | Unexpected or unknown errors            |
+
+## **Params errors (001)**
+
+Errors related to invalid or missing request parameters.
+
+| **Code** | **Name**                   | **Description**                            |
+| :------- | :------------------------- | :----------------------------------------- |
+| 001      | REQUIRED_RECEIVER          | Receiver address is required               |
+| 002      | EQUAL_TOKENS               | Source and destination tokens are the same |
+| 003      | DIFFERENT_QUOTES           | Quote data mismatch                        |
+| 004      | MISS_ID                    | Required identifier is missing             |
+| 005      | NO_REQUIRED_FIELD          | One or more required fields are missing    |
+| 006      | NOT_CORRECT_WALLET_ADDRESS | Invalid wallet address                     |
+| 999      | WRONG_OR_MISSED_FIELD      | Invalid or malformed field                 |
+
+## **Calculation errors (002)**
+
+Errors occurring during route discovery or quote calculation.
+
+| **Code** | **Name**                    | **Description**                             |
+| :------- | :-------------------------- | :------------------------------------------ |
+| 001      | NO_ROUTES                   | No routes found for the provided parameters |
+| 002      | BLOCKCHAIN_TEMPORARILY_DOWN | Blockchain is temporarily unavailable       |
+| 003      | PROVIDER_RATE_LIMIT         | Provider rate limit exceeded                |
+| 004      | MAX_AMOUNT                  | Amount exceeds provider limits              |
+| 005      | MIN_AMOUNT                  | Amount below provider limits                |
+| 006      | MAX_DECIMALS                | Token decimals exceed allowed limit         |
+| 007      | NO_AUTH_WALLET              | Wallet authorization is required            |
+| 999      | UNKNOWN                     | Unknown calculation error                   |
+
+## **Swap execution errors (003)**
+
+Errors occurring during swap execution.
+
+| **Code** | **Name**                  | **Description**                          |
+| :------- | :------------------------ | :--------------------------------------- |
+| 001      | NEED_APPROVE              | ERC20 approval is required               |
+| 002      | NEED_PERMIT2_APPROVE      | Permit2 approval is required             |
+| 003      | NOT_ENOUGH_BALANCE        | Insufficient token balance               |
+| 004      | NOT_ENOUGH_NATIVE_BALANCE | Insufficient native currency for fees    |
+| 005      | SIMULATION_FAILED         | Transaction simulation failed            |
+| 006      | UNSUPPORTED_RECEIVER      | Receiver address is not supported        |
+| 007      | NO_DATA                   | Execution data is missing                |
+| 100      | WRONG_ARB_BRIDGE_HASH     | Invalid Arbitrum bridge transaction hash |
+| 999      | UNKNOWN                   | Unknown swap execution error             |
+
+## **Rubic contract errors (004)**
+
+Errors related to Rubic smart contract configuration.
+
+| **Code** | **Name**         | **Description**                      |
+| :------- | :--------------- | :----------------------------------- |
+| 001      | NO_DIRECT_ROUTES | No direct routes available           |
+| 002      | NO_SELECTOR      | Required function selector not found |
+| 003      | NO_CONTRACT      | Contract not deployed or unavailable |
+| 004      | UNLISTED         | Contract or token is not listed      |
+
+## **Error response formats**
+
+The API may return errors in different formats depending on the error domain.
+
+## **Validation errors (PARAMS_ERRORS)**
+
+Validation errors may contain **multiple issues** in a single response.
+
+| **Field** | **Description**                  |
+| :-------- | :------------------------------- |
+| code      | Error code                       |
+| reason    | Human-readable error description |
+
+Example:
+
+- Invalid sender address
+- Invalid receiver address
+
+## **Standard error response**
+
+All errors except validation errors follow a unified response structure.
+
+| **Field**                       | **Description**                   |
+| :------------------------------ | :-------------------------------- |
+| error.code                      | Numeric error code                |
+| error.reason                    | Human-readable error description  |
+| [error.data](http://error.data) | Optional additional error details |
+| id                              | Swap or execution identifier      |
+
+The id field can be used to track the swap or retrieve its status if execution was partially completed.
+
+---
+
+## **Common error examples**
+
+### **No routes available**
+
+| **Field** | **Value**                                |
+| :-------- | :--------------------------------------- |
+| code      | 2001                                     |
+| reason    | No routes found. Try to use other tokens |
+
+### **Approval required**
+
+Returned when the user does not have enough allowance for a required spender.
+
+| **Field**            | **Value**                                |
+| :------------------- | :--------------------------------------- |
+| code                 | 3001                                     |
+| reason               | Not enough allowance for spender address |
+| data.contractAddress | Spender contract address                 |
+
+### **Insufficient native balance (EVM)**
+
+| **Field**     | **Description**                                    |
+| :------------ | :------------------------------------------------- |
+| code          | 3004                                               |
+| reason        | Not enough native currency to pay transaction fees |
+| data.gasLimit | Estimated gas limit                                |
+| data.gasPrice | Estimated gas price                                |
+| data.value    | Transaction value                                  |
+
+### **Insufficient native balance (TON)**
+
+| **Field**  | **Description**                                |
+| :--------- | :--------------------------------------------- |
+| code       | 3004                                           |
+| reason     | Not enough native currency to pay network fees |
+| data.gas   | Estimated gas amount                           |
+| data.value | Transaction value                              |
+
+## **Notes**
+
+- Not all errors include the data field
+- Error lists may expand as the API evolves
+- Refund handling depends on the selected provider
+- Some providers (for example, Celer) require manual refund actions via a dedicated endpoint or support

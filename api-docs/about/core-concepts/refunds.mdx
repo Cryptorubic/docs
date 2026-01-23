@@ -1,0 +1,33 @@
+---
+title: "Refunds"
+description: "Refund handling depends on the selected provider.
+
+In most cases, refunds are processed automatically by the provider and do not require any action from the client or the user."
+---
+
+### **Automatic refunds**
+
+For the majority of providers:
+
+- refunds are triggered automatically
+- no additional API calls are required
+- the client only needs to track the transaction status until it is resolved
+
+### **Manual refunds (Celer)**
+
+For **Celer-based routes**, refunds require an explicit action.
+
+Rubic provides a [dedicated refund endpoint](https://docs.relay.link) that returns the transaction data required to execute a refund on-chain.
+
+
+
+**Available options**
+
+- Use the dedicated **Celer refund endpoint** described in this documentation
+- Contact **Rubic support** if manual assistance is required
+
+### **Notes**
+
+- Refund availability and execution logic are **provider-specific**
+- Not all routes support manual refunds
+- If a refund endpoint is not available for a provider, refunds are handled automatically or via support

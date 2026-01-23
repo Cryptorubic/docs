@@ -1,0 +1,86 @@
+---
+title: "Understanding Flow Execution"
+---
+
+Rubic does not split swaps into multiple exec
+
+### **1) EVM (decentralized)**
+
+**Description**
+
+Decentralized EVM routes are executed via a smart contract call.
+
+**Returned data**
+
+- to — contract address
+- data — encoded contract call
+- value — native value attached to the transaction
+
+**Client behavior**
+
+- Send an EVM transaction using to, data, and value
+- Track the transaction until completion
+
+### **2) EVM (deposit)**
+
+**Description**
+
+Deposit-based EVM routes are executed by transferring funds to a deposit address on an EVM chain.
+
+**Returned data**
+
+- to — token contract address (or deposit address for native token swap)
+- data — encoded transfer (or 0x for native token swap)
+- value — 0 (or transfer amount for native token swap)
+
+**Client behavior**
+
+- Send an EVM transaction transferring value to to with the provided data
+- Track execution using the provided identifiers
+
+### **3) non-EVM (decentralized)**
+
+**Description**
+
+Decentralized non-EVM routes are executed using a **native transaction format** specific to the target blockchain.
+
+**Returned data**
+
+- a blockchain-specific transaction object
+
+**Supported networks**
+
+- TON
+- Tron
+- Solana
+- Sui
+
+**Client behavior**
+
+- Sign and send the returned transaction using the native wallet / SDK of the corresponding blockchain
+- Track the transaction until completion
+
+### **4) non-EVM (deposit)**
+
+**Description**
+
+Deposit-based non-EVM routes are executed via a **manual deposit transfer**.
+
+**Returned data**
+
+- depositAddress
+- amountToSend
+
+**Client behavior**
+
+- Transfer amountToSend to depositAddress from the user wallet
+- Track execution using the provided identifiers
+
+## **Summary**
+
+| **Execution type**      | **User action**               |
+| :---------------------- | :---------------------------- |
+| EVM (decentralized)     | Contract call                 |
+| EVM (deposit)           | Transfer to deposit address   |
+| non-EVM (decentralized) | Native blockchain transaction |
+| non-EVM (deposit)       | Manual deposit transfer       |
