@@ -1,14 +1,32 @@
 ---
-title: 'Referrer and Rate limits'
-icon: 'gear'
+title: "Referrer and Rate limits"
+icon: "gear"
 ---
 
 ## Referrer
 
-<Note>
-The **referrer** is a unique identifier included in requests to the Rubic API that helps us track the origin of API calls.
-</Note>
+<Info>
+  The **referrer** is a unique identifier included in requests to the Rubic API that helps us track the origin of API calls.
+</Info>
 
-Please indicate the `referrer` parameter in each API request in accordance with your project's title. For example, your project is "ABC\_Swap", in this case, please pass `abc_swap` as a referrer.
+Please indicate the `referrer` parameter in each API request in accordance with your project's title. For example, your project is "TestSwap", in this case, please pass `testswap` as a referrer.
 
 This will help us identify that transactions are calculated and performed on your platform.
+
+## Rate limits
+
+| ### Rubic API domains                                                 | ### Endpoint        | ### Limits   |
+| --------------------------------------------------------------------- | ------------------- | ------------ |
+| **Standard Rubic API endpoint **(no API key)                          | `api-v2`            | 10 RPM       |
+| **Rubic API endpoint with increased limits **(an API key is required) | `pro-api-v2`        | 400 RPM      |
+| **Dedicated Rubic API domain **(an API key is required)               | `integrator-api-v2` | Customizable |
+
+If the rate limits of the standard Rubic API endpoint are not sufficient for your use case, access to **pro-api-v2** with extended limits can be provided. To obtain access to **pro-api-v2**, please contact our [**<u>Business Development team</u>**](https://t.me/RubicPartnership) to discuss the details and receive an API key.
+
+The API key for **pro-api-v2** (as well as for a dedicated subdomain, if applicable) should be passed via request headers:
+
+```javascript
+headers={
+    "apikey": "rubic...cubic"
+}
+```
