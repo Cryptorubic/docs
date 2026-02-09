@@ -13,7 +13,7 @@ Fee sharing for transactions performed via deposit-based providers consists of s
 
 1. The integrator sends requests to the Rubic API, indicating their previously whitelisted EVM `integratorAddress` and `referrer`.
 2. Based on the provided address, Rubic identifies that the trade was executed through the corresponding integrator.
-3. Users perform transactions on the integrators’ platforms and pay fees, which providers credit to the Rubic address. Only the percentage-based fee model is applied. 
+3. Users perform transactions on the integrators’ platforms and pay fees, which providers credit to the Rubic address. Only the percentage-based fee model is applied.
 4. Rubic calculates the integrator’s share based on internal swap statistics.
 5. The commission is transferred manually once per month to the `integratorAddress`, based on the internal swap statistics.
 
@@ -33,18 +33,18 @@ The total commission for transactions via deposit-based providers  is 1%, share
 
 4. **How often do integrators receive commissions for transactions via ChangeNOW?**
 
-Once a month, the fees are transferred to the whitelisted `integratorAddress`. For address listing, please contact our [Business Development team](https://t.me/RubicPartnership). 
+Once a month, the fees are transferred to the whitelisted `integratorAddress`. For address listing, please contact our [Business Development team](https://t.me/RubicPartnership).
 
-5. **Do integrators need to indicate non-EVM addresses for swaps from non-EVM networks in the **`integratorAddres`**field?** 
+5. **Do integrators need to indicate non-EVM addresses for swaps from non-EVM networks in the **`integratorAddres`**field?**
 
 No – commissions are always paid in USDT on BNB Chain or Ethereum, so non-EVM addresses are not required.
 
-6. **Should integrators continue passing the whitelisted EVM address even for transactions from non-EVM chains?**
+6. **What if we have multiple addresses for collecting commissions? Which address will be used for fee sharing?**
+
+In this case, you need to inform the Rubic team which listed address should be used to receive commissions for transactions processed via deposit-based providers.
+
+7. **Should integrators continue passing the whitelisted EVM address even for transactions from non-EVM chains?**
 
 Yes - the listed  EVM wallet address is used by Rubic to link swaps to the integrator. This address should be passed consistently across all chains in the `integratorAddress` field.
 
 In addition, including the `referrer` parameter in API requests is required to properly track the origin of each transaction.
-
-7. **What if we have multiple addresses for collecting commissions? Which address will be used for fee sharing?**
-
-In this case, you need to inform the Rubic team which listed address should be used to receive commissions for transactions processed via deposit-based providers.
