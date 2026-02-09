@@ -143,10 +143,6 @@
   },
   "navbar": {
     "links": [
-      {
-        "label": "Support",
-        "href": "https://t.me/RubicPartnership"
-      }
     ],
     "primary": {
       "type": "button",
