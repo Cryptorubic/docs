@@ -46,6 +46,10 @@
             "group": "Legal documentation",
             "expanded": false,
             "pages": [
+              {
+                "group": "Privacy policy",
+                "href": "https://dev-docs.rubic.exchange/rubic-overview/legal-documentation/privacy-policy"
+              },
               "rubic/legal-documentation/privacy-policy",
               "rubic/legal-documentation/terms-of-use"
             ]
