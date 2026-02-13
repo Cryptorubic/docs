@@ -16,19 +16,19 @@
           {
             "group": "Rubic",
             "pages": [
-              "rubic-overview/overview/overview",
-              "rubic-overview/overview/ecosystem",
-              "rubic-overview/overview/security",
-              "rubic-overview/overview/tokenomics",
-              "rubic-overview/overview/roadmap",
-              "rubic-overview/overview/mev-bot-protection",
-              "rubic-overview/overview/b2b-tools",
+              "rubic/overview/overview",
+              "rubic/overview/ecosystem",
+              "rubic/overview/security",
+              "rubic/overview/tokenomics",
+              "rubic/overview/roadmap",
+              "rubic/overview/mev-bot-protection",
+              "rubic/overview/b2b-tools",
               {
                 "group": "Support",
                 "expanded": true,
                 "pages": [
-                  "rubic-overview/overview/support-stuck-transactions",
-                  "rubic-overview/overview/support-kyc"
+                  "rubic/overview/support-stuck-transactions",
+                  "rubic/overview/support-kyc"
                 ]
               }
             ]
@@ -36,23 +36,23 @@
           {
             "group": "Contacts",
             "pages": [
-              "rubic-overview/contacts/pr-marketing",
-              "rubic-overview/contacts/business-development",
-              "rubic-overview/contacts/support"
+              "rubic/contacts/pr-marketing",
+              "rubic/contacts/business-development",
+              "rubic/contacts/support"
             ]
           },
           {
             "group": "Legal documentation",
             "expanded": false,
             "pages": [
-              "rubic-overview/legal-documentation/privacy-policy",
-              "rubic-overview/legal-documentation/terms-of-use"
+              "rubic/legal-documentation/privacy-policy",
+              "rubic/legal-documentation/terms-of-use"
             ]
           },
           {
             "group": "Audits",
             "pages": [
-              "rubic-overview/audits/audits"
+              "rubic/audits/audits"
             ]
           }
         ]
