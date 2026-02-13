@@ -1,0 +1,115 @@
+---
+title: "Security"
+---
+
+As one of the seasoned players in the cross-chain market, Rubic has elaborated on the robust practices of maintaining security for its users along with API and SDK integrators.
+
+A high level of security is one of Rubic’s top priorities, and this is what makes Rubic stand out from the crowd in terms of security:
+
+- The integration of multiple bridges and DEXs allows Rubic to **switch off the provider that gets out of operation**, and redirect the user to a different, working one.
+- Rubic has a large infrastructure, team, and developer support, which allows for elaborating on more innovative measures to ensure the safety of swaps.
+
+Rubic never keeps users' funds on its frontend, every transaction is performed via API by sending calls to other smart contracts.
+
+Rubic's staking and treasury smart contracts use Gnosis Safe enabling secure asset management.
+
+[**Rubic's Latest Security Audit By MixBytes**](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-Mfc9p91Kib4qwOqBj11%2Fuploads%2FsuPyInwWpXE7zLDbsE4c%2FRubic%20Security%20Audit%20Report.pdf?alt=media&token=6a2ab5a9-f36c-45e5-b14f-43ca2bccf10b)
+
+## **Rubic’s Security Principles**
+
+<Frame>
+  ![Rubicsecurity](/images/rubicsecurity.jpeg)
+</Frame>
+
+### **Sustainability**
+
+Due to the aggregation of 340+ bridges and DEXs, Rubic guarantees swaps and sufficient liquidity for a swap even if some of the providers stop operating, run out of liquidity, or get hacked. Thanks to Rubic’s model architecture (Cross-Chain, On-Chain, Status Manager, Token Manager, Revert Manager), it continues to execute basic functions even if there’s something wrong with other modules.
+
+### **Decentralization**
+
+Rubic doesn’t exploit any external servers: _only Frontend and Blockchain_. This significantly decreases attack vectors (like DDOS). To find the best swap deal for most of the cross-chain and on-chain providers, Rubic appeals to the provider’s API, and then the data is processed through their services.
+
+### **Open-Source Software**
+
+We’re built on open-source software: Our site, validators code, and smart contracts are publicly visible for maximum transparency ([Github](https://github.com/Cryptorubic)).
+
+### **Grants**
+
+Rubic has received grants from major blockchain platforms: Celer, deBridge, NEAR, Harmony One, Symbiosis, Bitgert, Polygon, and Telos.
+
+### **Team**
+
+The Rubic team has 20+ members. Our founders have large amounts of experience in the crypto space - starting in 2017 - and you can follow them on their socials. Check out LinkedIn or Twitter.
+
+#### **Security Measures**
+
+- Audit by [MixBytes](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-Mfc9p91Kib4qwOqBj11%2Fuploads%2FsuPyInwWpXE7zLDbsE4c%2FRubic%20Security%20Audit%20Report.pdf?alt=media&token=6a2ab5a9-f36c-45e5-b14f-43ca2bccf10b)
+- [Bug Bounty Program](https://immunefi.com/bug-bounty/rubic/)
+- Status Monitoring
+- Additional security practices: performance monitoring, accident management, and Rubic’s SDK Process Management.
+
+## **Rubic’s Security Pillars**
+
+<Frame>
+  ![Rubicsecuritypillars](/images/rubicsecuritypillars.jpeg)
+</Frame>
+
+### **Performance Monitoring**
+
+To ensure the high performance of Rubic’s cross-chain tools, Rubic’s team utilizes Provider/Blockchain Monitoring Dashboard, scores providers for stuck transactions, daily volume, refunds, and checks out SDK live status.
+
+Rubic utilizes automated tools for monitoring social networks for any potential risks with bridges or chains. If any issues arise, we use direct channels of communication with all bridges and providers to react quickly.
+
+### **Accident Management**
+
+If any critical issue arises with one of Rubic’s integrated providers/blockchains, Rubic’s platform as well as Rubic’s SDK/Widget continue to function by taking the following measures: All of Rubic’s integrators are immediately notified (via Discord, Telegram).
+
+1. A compromised provider/bridge is paused in the smart contract and switched off for all integrators, whereas Rubic continues operating by redirecting transactions to other providers.
+2. In case of any issues with Rubic’s SDK, Rubic takes the same actions — immediate notification of its integrators and switching off of the compromised provider/bridge. Rubic’s technical support is also ready to assist 24/7.
+
+### **Rubic’s SDK Process Management**
+
+Continuous integration and collaboration with other projects allow Rubic to build up the most robust principles of **testing**, **staging**, and **production environment**. Seamless, fast, and secure SDK management is fulfilled by the following:
+
+1. A code approval process includes the review of several developers and a release approval process includes the review of the Product Manager and QA.
+2. The smart contracts are audited.
+3. Rubic uses direct communication channels for updates (new version release updates, comments) to reduce the possibility of installing a compromised version.
+
+Rubic is not just a platform enabling cross-chain swaps for individuals, but also a cross-chain toolkit for crypto projects, and all of these principles work for Rubic’s SDK/Widget integrators as well.
+
+Read in more detail how Rubic maintains security for its cross-chain swaps: https://cryptorubic.medium.com/how-rubic-provides-security-for-its-cross-chain-swaps-37d3a408afe7
+
+Check out Rubic’s stats: https://dune.com/rubic/rubic-general-dashboard
+
+### **Token Security Feature**
+
+Rubic App token selector has a special sign in front of every token.
+
+The sign shows whether the token is reliable, or if it could be a scam (as per the [GoPlus](https://gopluslabs.io/) database).
+
+<Frame>
+  ![Goplus](/images/goplus.png)
+</Frame>
+
+There are 4 categories of token reliability/ security:
+
+1. The token is in the Go+ Trust List.
+2. The token has no elements of concern.
+3. The token code contains some low-risk elements of concern.
+4. The token code contains some high-risk elements of concern.
+
+You can click on a shield icon if you want to know more details about the token’s reliability. You’ll be transferred to the [GoPlus](https://gopluslabs.io/) page devoted to that particular token security status.
+
+GoPlus acts as a “security infrastructure” for Web3, providing open, permissionless, user-driven Security Services.
+
+## **Bug Bounty Program**
+
+_Rubic aims to operate as a secure, sustainable Cross-Chain Tech Aggregator that anyone can rely on to exchange and move cryptocurrencies across chains. In the interest of further security improvement, we are launching the Rubic Bug Bounty Program with _[_Immunefy_](https://immunefi.com/bounty/rubic/)_._
+
+The program is focused on our smart contracts, with a primary interest in the prevention of user fund loss and the provision of protocol stability.
+
+We encourage anyone interested to review the code and find bugs or vulnerabilities which bad actors could exploit. The only eligible level is **_Critical, _**we will specify the award amount later together with the start of the program.
+
+### **Details:**
+
+#### Rubic's Security Architecture: https://cryptorubic.medium.com/rubics-new-security-architecture-94115c6ad1f9

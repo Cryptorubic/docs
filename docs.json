@@ -12,6 +12,46 @@
     "tabs": [
       {
         "tab": "Overview",
+        "groups": [
+          {
+            "group": "Rubic",
+            "pages": [
+              "rubic-overview/overview/overview",
+              "rubic-overview/overview/ecosystem",
+              "rubic-overview/overview/security",
+              "rubic-overview/overview/tokenomics",
+              "rubic-overview/overview/roadmap",
+              "rubic-overview/overview/mev-bot-protection",
+              "rubic-overview/overview/b2b-tools",
+              "rubic-overview/overview/support",
+              "rubic-overview/overview/support-stuck-transactions"
+            ]
+          },
+          {
+            "group": "Contacts",
+            "pages": [
+              "rubic-overview/contacts/pr-marketing",
+              "rubic-overview/contacts/business-development",
+              "rubic-overview/contacts/support"
+            ]
+          },
+          {
+            "group": "Legal documentation",
+            "expanded": false,
+            "pages": [
+              "rubic-overview/legal-documentation/privacy-policy",
+              "rubic-overview/legal-documentation/terms-of-use"
+            ]
+          },
+          {
+            "group": "Audits",
+            "pages": [
+              "rubic-overview/audits/audits"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "API Documentation",
         "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json",
         "groups": [

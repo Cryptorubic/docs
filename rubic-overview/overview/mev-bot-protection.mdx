@@ -1,0 +1,69 @@
+---
+title: "MEV-bot protection"
+---
+
+With measures in place to prevent front-running, enhance transaction rates, and prioritize user privacy, Rubic continues to contribute to the advancement of a safer and more secure crypto ecosystem.
+
+## **Solution Details**
+
+MEV Protect Engine by [bloXroute,](https://bloxroute.com/) the latest addition to Rubic’s arsenal, aims to improve the DeFi ecosystem on Ethereum, BNB Smart Chain and Polygon by introducing the Frontrunning Prevention feature to professional and retail traders in scale and benefit the contributors in the process.
+
+_bloXroute connects you directly with validator nodes to securely hand off your transactions to protect you from frontrunning._
+
+Read Full Article: https://cryptorubic.medium.com/enhancing-crypto-security-rubic-integrates-private-rpc-feature-to-prevent-mev-bot-attacks-9dd5366a3d1a
+
+Important to note, that it works only for swaps **on and from Ethereum, BNB Smart Chain & Polygon**.
+
+### **This is how it works:**
+
+1. Private Transaction Submission:
+
+- Users submit private transactions on Rubic.
+
+2. bloXroute Processing in BDN:
+
+- bloXroute, within its Blockchain Distribution Network (BDN), processes private transactions.
+
+3. Direct Routing:
+
+- Private transactions are routed directly to specific destinations:
+- Ethereum: Sent to the partner block builder.
+- BSC: Sent to bloXroute’s block builder.
+- Polygon: A just-in-time delivery mechanism is used to reduce the chance of frontrunning.
+
+4. Avoiding Public Mempool (For Ethereum and BNB Chain):
+
+- Private transactions are not propagated to the public mempool.
+- This mitigates the risk of frontrunning and sandwich attacks.
+
+_In essence, bloXroute processes private transactions, routes them to designated destinations, labels them as private, and ensures they are not exposed to the public mempool, enhancing security against frontrunning and sandwich attacks._
+
+## **User-Centric Approach**
+
+At Rubic, we prioritize simplicity and user-friendliness in every aspect of our platform. To ensure a seamless experience, we have introduced an effortless switch on process for Private RPC.
+
+When you engage in a swap exceeding \$1,000, our platform takes a proactive approach to safeguard your funds. A specially designed window will automatically appear, presenting you with the option to activate Private RPC for enhanced fund protection.
+
+Activating Private RPC is as easy as flipping a switch. No complex procedures or unnecessary steps — just a straightforward, user-friendly experience. Refer to the screenshot below for a visual guide.
+
+**Please note:** If you enable the MEV Bot Protection feature on Rubic, it’s crucial to add new chains with Private RPC and implement transactions through them. Ensure that the new Private RPC Chains are configured as follows:
+
+1. Ethereum:
+
+- RPC Endpoint: https://rubic-eth.rpc.blxrbdn.com
+
+2. Binance Smart Chain (BSC):
+
+- RPC Endpoint: https://rubic-bnb.rpc.blxrbdn.com
+
+3. Polygon:
+
+- RPC Endpoint: https://rubic-polygon.rpc.blxrbdn.com
+
+## **User Benefits:**
+
+- Enhanced Security Measures: Activate Private RPC to fortify the security of your funds, especially for high-value swaps.
+- User-Friendly Controls: A simple switch is all it takes to enable this advanced security feature, ensuring a hassle-free experience for every user.
+- Transparent Security Options: The special window provides clear and transparent options, empowering you to make informed decisions about your fund protection preferences.
+
+Rubic is committed to provide the best user experience, and MEV-bot protections is another significant step in building this. We want you to feel confident while swapping by automating the process for big amounts’ swaps and easily activating the feature in our app’s UI. Your security is our priority, and with Private RPC, we ensure that protecting your funds is both intuitive and effective.
