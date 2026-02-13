@@ -23,8 +23,14 @@
               "rubic-overview/overview/roadmap",
               "rubic-overview/overview/mev-bot-protection",
               "rubic-overview/overview/b2b-tools",
-              "rubic-overview/overview/support",
-              "rubic-overview/overview/support-stuck-transactions"
+              {
+                "group": "Support",
+                "expanded": true,
+                "pages": [
+                  "rubic-overview/overview/support-stuck-transactions",
+                  "rubic-overview/overview/support-kyc"
+                ]
+              }
             ]
           },
           {
