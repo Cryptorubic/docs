@@ -157,26 +157,7 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Rubic Application",
-          "href": "https://rubic.exchange/",
-          "icon": "cube"
-        },
-        {
-          "anchor": "Contact BD Team",
-          "href": "https://t.me/RubicPartnership",
-          "icon": "comment-dots"
-        },
-        {
-          "anchor": "API Announcements",
-          "href": "https://t.me/+lNMUcuqwsZk3MWU6",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "logo/rubic-logo-light.svg",
