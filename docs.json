@@ -27,7 +27,6 @@
                 "group": "Support",
                 "expanded": true,
                 "pages": [
-                  "rubic/overview/contact-support",
                   "rubic/overview/support-stuck-transactions",
                   "rubic/overview/support-kyc"
                 ]
@@ -48,7 +47,7 @@
             "pages": [
               {
                 "group": "Privacy policy",
-                "href": "https://dev-docs.rubic.exchange/rubic-overview/legal-documentation/privacy-policy"
+                "pages": []
               },
               "rubic/legal-documentation/privacy-policy",
               "rubic/legal-documentation/terms-of-use"
