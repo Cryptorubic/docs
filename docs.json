@@ -46,22 +46,17 @@
             "expanded": false,
             "pages": [
               {
-                "title": "Privacy policy",
-                "url": "public/Privacy%20Policy.pdf"
+                "group": "Privacy policy",
+                "pages": []
               },
-              {
-                "title": "Terms of Use",
-                "url": "public/Terms%20Of%20Use.pdf"
-              }
+              "rubic/legal-documentation/privacy-policy",
+              "rubic/legal-documentation/terms-of-use"
             ]
           },
           {
             "group": "Audits",
             "pages": [
-                {
-                "title": "MixBytes Audit",
-                "url": "public/audit.pdf"
-              }
+              "rubic/audits/audits"
             ]
           }
         ]
