@@ -47,11 +47,11 @@
             "pages": [
               {
                 "title": "Privacy policy",
-                "url": "/public/Privacy%20Policy.pdf"
+                "url": "public/Privacy%20Policy.pdf"
               },
               {
                 "title": "Terms of Use",
-                "url": "/public/Terms%20Of%20Use.pdf"
+                "url": "public/Terms%20Of%20Use.pdf"
               }
             ]
           },
@@ -60,7 +60,7 @@
             "pages": [
                 {
                 "title": "MixBytes Audit",
-                "url": "/public/audit.pdf"
+                "url": "public/audit.pdf"
               }
             ]
           }
