@@ -166,6 +166,12 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "SDK Documentation",
+        "pages": [
+          "rubic-sdk"
+        ]
       }
     ]
   },
