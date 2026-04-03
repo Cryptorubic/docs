@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Rubic API",
+  "name_for_model": "rubic_swap_api",
+  "description_for_human": "Cross-chain and on-chain token swap aggregator API.",
+  "description_for_model": "Use this plugin to get swap quotes, execute cross-chain transfers, and track transaction status across EVM and non-EVM blockchains. Always call /quote first, then /swap for execution data, then /status to track. Never execute a swap without user confirmation if the output amount changes.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://dev-docs.rubic.exchange/openapi.yaml"
+  },
+  "logo_url": "https://rubic.exchange/favicon.ico",
+  "contact_email": "support@rubic.exchange",
+  "legal_info_url": "https://rubic.exchange/terms"
+}
