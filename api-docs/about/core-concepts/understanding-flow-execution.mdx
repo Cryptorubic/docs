@@ -13,9 +13,9 @@ Decentralized EVM routes are executed via a smart contract call.
 
 **Returned data**
 
-- to — contract address
-- data — encoded contract call
-- value — native value attached to the transaction
+- `to` — contract address
+- `data` — encoded contract call
+- `value` — native value attached to the transaction
 
 **Client behavior**
 
@@ -30,9 +30,9 @@ Deposit-based EVM routes are executed by transferring funds to a deposit address
 
 **Returned data**
 
-- to — token contract address (or deposit address for native token swap)
-- data — encoded transfer (or 0x for native token swap)
-- value — 0 (or transfer amount for native token swap)
+- `to` — token contract address (or deposit address for native token swap)
+- `data` — encoded transfer (or 0x for native token swap)
+- `value` — 0 (or transfer amount for native token swap)
 
 **Client behavior**
 
@@ -69,19 +69,19 @@ Deposit-based non-EVM routes are executed via a **manual deposit transfer**.
 
 **Returned data**
 
-- depositAddress
-- amountToSend
+- `depositAddress`
+- `amountToSend`
 
 **Client behavior**
 
-- Transfer amountToSend to depositAddress from the user wallet
+- Transfer `amountToSend` to `depositAddress` from the user wallet
 - Track execution using the provided identifiers
 
 ## **Summary**
 
-| **Execution type**      | **User action**               |
-| :---------------------- | :---------------------------- |
-| EVM (decentralized)     | Contract call                 |
-| EVM (deposit)           | Transfer to deposit address   |
+| **Execution type** | **User action** |
+| :-- | :-- |
+| EVM (decentralized) | Contract call |
+| EVM (deposit) | Transfer to deposit address |
 | non-EVM (decentralized) | Native blockchain transaction |
-| non-EVM (deposit)       | Manual deposit transfer       |
+| non-EVM (deposit) | Manual deposit transfer |
