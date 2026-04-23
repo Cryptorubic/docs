@@ -1,0 +1,63 @@
+---
+title: 'Overview'
+---
+
+# Rubic SDK Lite — Overview
+
+Rubic SDK Lite is a lightweight TypeScript wrapper around the [Rubic API](https://api-v2.rubic.exchange/api). It provides a typed, ergonomic interface for integrating cross-chain and on-chain token swaps into any JavaScript or TypeScript application — without bundling the full Rubic SDK.
+
+## Why SDK Lite?
+
+| | SDK Lite | Full SDK |
+|---|---|---|
+| Bundle size | Minimal — thin HTTP wrapper | Large — includes on-chain logic, web3 clients |
+| Dependencies | `axios` only (optional) | Many |
+| Use case | Server-side, lightweight frontends, bots | Full-featured dApps |
+| Bring your own HTTP client | ✅ | ❌ |
+| TypeScript types | ✅ Full | ✅ Full |
+
+## What it covers
+
+- **Quoting** — get all routes or the best route for a swap
+- **Swapping** — get transaction data ready to sign and send
+- **Deposit trades** — routes that don't require a source wallet (send funds to a deposit address)
+- **Status tracking** — poll transaction status until it settles, with a built-in `waitForStatus` helper
+- **Utility** — allowance, approve, claim, refund, wallet auth
+- **Info** — supported chains and providers
+
+## Architecture
+
+```
+Your App
+   │
+   ▼
+SDK.create({ referrer, apiKey, ... })
+   │
+   ├── routes/     quoteAll · quoteBest · quoteDepositTrades
+   │               swap · swapBest · swapDepositTrade
+   │
+   ├── info/       getChains · getProviders · getStatusExtended
+   │               waitForStatus (polling helper)
+   │
+   └── utility/    allowance · checkApprove · claim
+                   celerRefund · authWalletMessage · healthcheck
+```
+
+## Supported swap types
+
+| Type | Description |
+|---|---|
+| **Cross-chain** | Swap tokens across different blockchains via bridges |
+| **On-chain** | Swap tokens within the same blockchain via DEXes |
+| **Deposit trades** | Cross-chain swaps where you send funds to a deposit address (no wallet required on source) |
+
+## Pages
+
+- [Getting Started](./getting-started.md)
+- [Configuration](./configuration.md)
+- [Quoting Routes](./quoting.md)
+- [Executing Swaps](./swapping.md)
+- [Tracking Status](./status-tracking.md)
+- [Info Methods](./info.md)
+- [Utility Methods](./utility.md)
+- [Error Handling](./error-handling.md)

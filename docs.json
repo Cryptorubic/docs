@@ -171,7 +171,8 @@
       {
         "tab": "SDK Documentation",
         "pages": [
-          "rubic-sdk"
+          "rubic-sdk",
+          "overview"
         ]
       }
     ]
