@@ -1,0 +1,175 @@
+---
+title: 'Quote'
+---
+
+# Quoting Routes
+
+Quoting calculates available swap routes **without executing anything on-chain**. Use quotes to show users their options before they confirm a transaction.
+
+---
+
+## Common request parameters
+
+All quote methods accept these base fields:
+
+| Field | Type | Description |
+|---|---|---|
+| `srcTokenBlockchain` | `BlockchainName` | Source blockchain (e.g. `'ETH'`, `'BSC'`, `'POLYGON'`) |
+| `srcTokenAddress` | `string` | Token address on the source chain. Use `0xEeee...EEeE` for native tokens |
+| `srcTokenAmount` | `string` | Amount to swap in token units (not wei) |
+| `dstTokenBlockchain` | `BlockchainName` | Destination blockchain |
+| `dstTokenAddress` | `string` | Token address on the destination chain |
+| `fromAddress` | `string` | *(optional)* Sender wallet address. Required by some providers for accurate quotes |
+| `receiver` | `string` | *(optional)* Recipient address on the destination chain |
+| `slippage` | `number` | *(optional)* Max slippage in percent (e.g. `1` = 1%) |
+| `integratorAddress` | `string` | *(optional)* Overrides the SDK-level integrator address for this request |
+| `preferredProvider` | `string` | *(optional)* Force a specific provider |
+| `enableChecks` | `boolean` | *(optional)* Enable balance/gas checks. Default: `true` |
+| `showFailedRoutes` | `boolean` | *(optional)* Include failed routes in `quoteAll` response. Default: `false` |
+
+---
+
+## quoteBest
+
+Returns the single route with the highest expected output.
+
+```typescript
+const quote = await sdk.quoteBest(params: QuoteRequestInterface): Promise<QuoteResponseInterface>
+```
+
+### Example
+
+```typescript
+const quote = await sdk.quoteBest({
+    srcTokenBlockchain: 'ETH',
+    srcTokenAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    srcTokenAmount: '1',
+    dstTokenBlockchain: 'BSC',
+    dstTokenAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+});
+
+console.log(quote.id);                                    // → 'uuid-...'
+console.log(quote.providerType);                          // → 'across'
+console.log(quote.swapType);                              // → 'cross-chain'
+console.log(quote.estimate.destinationTokenAmount);       // → '0.412'
+console.log(quote.estimate.destinationTokenMinAmount);    // → '0.408'
+console.log(quote.estimate.durationInMinutes);            // → 3
+console.log(quote.estimate.slippage);                     // → 1
+```
+
+### Response: QuoteResponseInterface
+
+| Field | Type | Description |
+|---|---|---|
+| `id` | `string` | Trade identifier — pass this to `swap()` |
+| `providerType` | `string` | Bridge or DEX used (e.g. `'across'`, `'uniswap-v3'`) |
+| `swapType` | `'cross-chain' \| 'on-chain'` | Type of the swap |
+| `tokens.from` | `TokenInterface` | Source token info + amount |
+| `tokens.to` | `TokenInterface` | Destination token info + expected amount |
+| `estimate.destinationTokenAmount` | `string` | Expected output in token units |
+| `estimate.destinationTokenMinAmount` | `string` | Minimum output after slippage |
+| `estimate.durationInMinutes` | `number` | Estimated completion time |
+| `estimate.priceImpact` | `number \| null` | Price impact in percent |
+| `fees.gasTokenFees` | `object` | Gas fee breakdown |
+| `fees.percentFees` | `object` | Protocol and integrator fee breakdown |
+| `routing` | `RoutingInterface[]` | Step-by-step route path |
+| `warnings` | `ErrorInterface[]` | Non-fatal provider warnings |
+| `useRubicContract` | `boolean` | Whether the swap goes through Rubic proxy contracts |
+
+---
+
+## quoteAll
+
+Returns **all available routes**, sorted by expected output (best first).
+
+```typescript
+const result = await sdk.quoteAll(params: QuoteRequestInterface): Promise<QuoteAllInterface>
+```
+
+### Example
+
+```typescript
+const result = await sdk.quoteAll({
+    srcTokenBlockchain: 'ETH',
+    srcTokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
+    srcTokenAmount: '1000',
+    dstTokenBlockchain: 'POLYGON',
+    dstTokenAddress: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174', // USDC
+    showFailedRoutes: true,
+});
+
+// Best route
+const best = result.routes[0];
+console.log(best.providerType, best.estimate.destinationTokenAmount);
+
+// All routes
+result.routes.forEach(route => {
+    console.log(route.providerType, '→', route.estimate.destinationTokenAmount);
+});
+
+// Failed routes (when showFailedRoutes: true)
+result.failed?.forEach(fail => {
+    console.log(fail.providerType, 'failed:', fail.data.reason);
+});
+```
+
+### Response: QuoteAllInterface
+
+| Field | Type | Description |
+|---|---|---|
+| `quote` | `QuoteRequestInterface` | Echo of the original request |
+| `routes` | `QuoteResponseInterface[]` | Successful routes, sorted best-first |
+| `failed` | `FailedQuoteInterface[]` | Failed routes (only if `showFailedRoutes: true`) |
+
+---
+
+## quoteDepositTrades
+
+Returns routes where the user **sends funds directly to a deposit address** — no on-chain transaction is required from the source wallet. Useful for CEXes, hardware wallets, or any scenario where the user can't sign a transaction.
+
+```typescript
+const result = await sdk.quoteDepositTrades(params): Promise<QuoteAllInterface>
+```
+
+> The request is the same as `quoteAll` but `fromAddress` is optional and the response only contains deposit-based providers (e.g. ChangeNOW, Exolix, SimpleSwap).
+
+### Example
+
+```typescript
+const result = await sdk.quoteDepositTrades({
+    srcTokenBlockchain: 'BTC',
+    srcTokenAddress: '0x0000000000000000000000000000000000000000',
+    srcTokenAmount: '0.1',
+    dstTokenBlockchain: 'ETH',
+    dstTokenAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    receiver: '0xYourEthereumAddress',
+});
+
+const route = result.routes[0];
+console.log('Provider:', route.providerType);
+console.log('You receive:', route.estimate.destinationTokenAmount, 'ETH');
+```
+
+---
+
+## Comparing providers
+
+```typescript
+const result = await sdk.quoteAll({ /* params */ });
+
+const comparison = result.routes.map(r => ({
+    provider: r.providerType,
+    receive: r.estimate.destinationTokenAmount,
+    minReceive: r.estimate.destinationTokenMinAmount,
+    estimatedTime: r.estimate.durationInMinutes + ' min',
+    priceImpact: r.estimate.priceImpact + '%',
+}));
+
+console.table(comparison);
+```
+
+---
+
+## Next step
+
+Once you have a quote and its `id`, pass it to [`swap()`](./swap) to get transaction data.

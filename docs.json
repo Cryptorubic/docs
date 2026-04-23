@@ -172,7 +172,20 @@
         "tab": "SDK Documentation",
         "pages": [
           "rubic-sdk",
-          "overview"
+          "overview",
+          "getting-started",
+          "configuration",
+          {
+            "group": "Routing",
+            "pages": [
+              "quote",
+              "swap",
+              "statuses"
+            ]
+          },
+          "info",
+          "utility",
+          "error-handling"
         ]
       }
     ]

@@ -1,0 +1,171 @@
+---
+title: 'Error handling'
+---
+
+# Error Handling
+
+## RubicApiError
+
+All API-level errors thrown by the default HTTP client are wrapped into `RubicApiError`, a typed subclass of `Error`.
+
+```typescript
+import { RubicApiError } from '@cryptorubic/sdk-lite';
+```
+
+### Fields
+
+| Field | Type | Description |
+|---|---|---|
+| `name` | `'RubicApiError'` | Always `'RubicApiError'` |
+| `message` | `string` | Same as `reason` — compatible with `Error.message` |
+| `code` | `number` | Numeric error code from the API |
+| `reason` | `string` | Human-readable error description |
+| `data` | `object \| undefined` | Extra context returned by the API (e.g. which field failed validation) |
+| `traceId` | `string \| undefined` | Internal request ID — include in bug reports |
+
+---
+
+## Catching errors
+
+```typescript
+import { SDK, RubicApiError } from '@cryptorubic/sdk-lite';
+
+try {
+    const quote = await sdk.quoteBest({ /* ... */ });
+} catch (err) {
+    if (err instanceof RubicApiError) {
+        console.error(`[${err.code}] ${err.reason}`);
+        // → '[1001] Insufficient liquidity for the requested amount'
+
+        if (err.traceId) {
+            console.error('Trace ID:', err.traceId);
+        }
+    } else {
+        // Network error, timeout, etc.
+        throw err;
+    }
+}
+```
+
+---
+
+## Common error codes
+
+| Code | Reason | Typical cause |
+|---|---|---|
+| `1001` | Insufficient liquidity | Amount too large for the selected route |
+| `1002` | Minimum amount not reached | `srcTokenAmount` is below the provider minimum |
+| `1003` | Trade expired | The quote `id` has expired — re-quote and try again |
+| `1004` | Unsupported token pair | The token pair is not supported by any provider |
+| `1101` | Invalid `fromAddress` | Wallet address format is incorrect |
+| `1102` | Invalid `receiver` | Receiver address format is incorrect |
+| `1103` | Balance too low | Wallet doesn't have enough tokens |
+| `1104` | Insufficient gas | Wallet doesn't have enough native token for gas |
+| `2001` | Invalid blockchain | `srcTokenBlockchain` or `dstTokenBlockchain` is not supported |
+| `2002` | Invalid token address | Token address format is invalid for the given blockchain |
+
+> These codes are illustrative. Always check `err.reason` for the exact message from the API.
+
+---
+
+## Error patterns by method
+
+### Quote expired — re-quote
+
+Quote IDs expire after a short period. If you get an expiry error on `swap`, re-run the quote:
+
+```typescript
+async function swapWithRetry(quoteParams, swapParams, maxRetries = 2) {
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            const quote = await sdk.quoteBest(quoteParams);
+            return await sdk.swap({ ...swapParams, id: quote.id });
+        } catch (err) {
+            if (err instanceof RubicApiError && err.code === 1003 && i < maxRetries - 1) {
+                console.warn('Trade expired, re-quoting...');
+                continue;
+            }
+            throw err;
+        }
+    }
+}
+```
+
+### Minimum amount
+
+```typescript
+try {
+    const quote = await sdk.quoteBest({ srcTokenAmount: '0.001', /* ... */ });
+} catch (err) {
+    if (err instanceof RubicApiError && err.code === 1002) {
+        showError('Amount is too small. Please enter a larger amount.');
+    }
+}
+```
+
+### Network / timeout errors
+
+```typescript
+try {
+    const quote = await sdk.quoteBest({ /* ... */ });
+} catch (err) {
+    if (err instanceof RubicApiError) {
+        // API returned an error response
+        handleApiError(err);
+    } else if (err.name === 'AbortError' || err.message?.includes('timeout')) {
+        showError('Request timed out. Please try again.');
+    } else {
+        showError('Network error. Check your connection.');
+    }
+}
+```
+
+---
+
+## Polling timeout
+
+`waitForStatus` rejects with a plain `Error('Polling timeout')` (not a `RubicApiError`) when the total timeout is exceeded:
+
+```typescript
+try {
+    const status = await sdk.waitForStatus(
+        { id: swapData.id, srcTxHash: tx.hash },
+        { timeout: 300_000 }
+    );
+} catch (err) {
+    if (err instanceof Error && err.message === 'Polling timeout') {
+        showError('Swap is taking longer than expected. Check the explorer for updates.');
+    } else if (err instanceof RubicApiError) {
+        showError(`Status check failed: ${err.reason}`);
+    }
+}
+```
+
+---
+
+## Custom HTTP client — error forwarding
+
+If you use a [custom HTTP client](./configuration#custom-http-client), you are responsible for parsing API errors. Use `RubicApiError.fromApiResponse` to convert the raw response body:
+
+```typescript
+import { RubicApiError } from '@cryptorubic/sdk-lite';
+
+const myClient: HttpClient = {
+    async post(url, body, options) {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', ...options?.headers },
+            body: JSON.stringify(body),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            throw RubicApiError.fromApiResponse(data);
+        }
+
+        return data;
+    },
+    // ... get
+};
+```

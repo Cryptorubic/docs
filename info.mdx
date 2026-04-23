@@ -1,0 +1,132 @@
+---
+title: "Info"
+---
+
+# Info Methods
+
+Info methods return metadata — supported blockchains, providers, and service health.
+
+---
+
+## getChains
+
+Returns a list of all blockchains supported by Rubic.
+
+```typescript
+const chains = await sdk.getChains(includeTestnets?: boolean): Promise<ChainInterface[]>
+```
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `includeTestnets` | `boolean` | `false` | Include testnet blockchains in the response |
+
+### Example
+
+```typescript
+const chains = await sdk.getChains();
+
+chains.forEach(chain => {
+    console.log(chain.name, chain.type, chain.id);
+});
+// → 'ETH'     'evm'     1
+// → 'BSC'     'evm'     56
+// → 'SOLANA'  'solana'  null
+// → ...
+```
+
+### ChainInterface
+
+| Field | Type | Description |
+|---|---|---|
+| `name` | `BlockchainName` | Blockchain identifier used in all SDK requests |
+| `type` | `string` | Chain type: `'evm'`, `'solana'`, `'tron'`, `'ton'`, `'bitcoin'`, etc. |
+| `id` | `number \| null` | Chain ID (EVM only; `null` for non-EVM chains) |
+| `proxyAvailable` | `boolean` | Whether fee collection via Rubic proxy contracts is available |
+| `testnet` | `boolean` | Whether this is a testnet |
+
+### Example — get EVM chains only
+
+```typescript
+const chains = await sdk.getChains();
+const evmChains = chains.filter(c => c.type === 'evm' && !c.testnet);
+console.log('EVM mainnet chains:', evmChains.map(c => c.name));
+```
+
+### Example — with testnets
+
+```typescript
+const allChains = await sdk.getChains(true);
+const testnets = allChains.filter(c => c.testnet);
+console.log('Testnets:', testnets.map(c => c.name));
+```
+
+---
+
+## getProviders
+
+Returns all available swap providers grouped by type.
+
+```typescript
+const providers = await sdk.getProviders(includeTestnets?: boolean): Promise<ProvidersInterface>
+```
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `includeTestnets` | `boolean` | `false` | Include providers that only support testnets |
+
+### Example
+
+```typescript
+const providers = await sdk.getProviders();
+
+// Cross-chain providers (bridges, aggregators)
+providers.crossChain.forEach(p => {
+    console.log(p.name, '→ supports', p.chains.length, 'chains');
+});
+
+// On-chain providers (DEXes)
+providers.onChain.forEach(p => {
+    console.log(p.name, '→ supports', p.chains.length, 'chains');
+});
+```
+
+### ProvidersInterface
+
+| Field | Type | Description |
+|---|---|---|
+| `crossChain` | `CrossChainProviderInterface[]` | Bridge and aggregator providers |
+| `onChain` | `OnChainProviderInterface[]` | DEX providers |
+
+Each provider has:
+
+| Field | Type | Description |
+|---|---|---|
+| `name` | `string` | Provider identifier (e.g. `'across'`, `'uniswap-v3'`) |
+| `chains` | `ProviderChainInterface[]` | Blockchains this provider supports |
+
+### Example — check if a provider supports a chain pair
+
+```typescript
+const providers = await sdk.getProviders();
+
+const across = providers.crossChain.find(p => p.name === 'across');
+const supportsEth = across?.chains.some(c => c.from === 'ETH' && c.to === 'ARBITRUM');
+console.log('Across supports ETH→ARB:', supportsEth);
+```
+
+---
+
+## healthcheck
+
+Checks whether the Rubic API is up and responsive.
+
+```typescript
+const result = await sdk.healthcheck(): Promise<string>
+```
+
+Returns `'I am alive'` when the service is healthy.
+
+```typescript
+const health = await sdk.healthcheck();
+// → 'I am alive'
+```

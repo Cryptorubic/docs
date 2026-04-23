@@ -1,0 +1,209 @@
+---
+title: 'Utility'
+---
+
+# Utility Methods
+
+Utility methods handle approvals, allowances, refunds, and wallet authentication.
+
+---
+
+## allowance
+
+Returns the current ERC-20 token allowance granted by a wallet to a spender contract.
+
+```typescript
+const result = await sdk.allowance(params: AllowanceRequestInterface): Promise<AllowanceResponseInterface>
+```
+
+### Parameters
+
+| Field | Type | Description |
+|---|---|---|
+| `blockchain` | `BlockchainName` | Blockchain where the token lives |
+| `tokenAddress` | `string` | ERC-20 token contract address |
+| `walletAddress` | `string` | Token owner address |
+| `spenderAddress` | `string` | Spender contract address (e.g. Rubic router) |
+
+### Example
+
+```typescript
+const result = await sdk.allowance({
+    blockchain: 'ETH',
+    tokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
+    walletAddress: '0xYourWallet',
+    spenderAddress: '0xRubicRouterAddress',
+});
+
+console.log('Allowance (wei):', result.allowance); // → '1000000000' (1000 USDC)
+```
+
+---
+
+## checkApprove
+
+Determines whether an ERC-20 approval is needed and, if so, returns the approval transaction data ready to send.
+
+```typescript
+const result = await sdk.checkApprove(params: ApproveRequestInterface): Promise<ApproveResponseInterface>
+```
+
+### Parameters
+
+Extends `AllowanceRequestInterface`, plus:
+
+| Field | Type | Description |
+|---|---|---|
+| `blockchain` | `BlockchainName` | Blockchain where the token lives |
+| `tokenAddress` | `string` | ERC-20 token address |
+| `walletAddress` | `string` | Wallet that will approve |
+| `spenderAddress` | `string` | Spender to approve |
+| `amount` | `string` | Token amount to approve in **token units** (not wei) |
+
+### Response: ApproveResponseInterface
+
+| Field | Type | Description |
+|---|---|---|
+| `needApprove` | `boolean` | Whether an approval transaction is needed |
+| `transaction` | `TransactionInterface \| undefined` | Approval tx data (present only if `needApprove` is `true`) |
+| `message` | `string` | Human-readable explanation |
+
+### Example
+
+```typescript
+const approveInfo = await sdk.checkApprove({
+    blockchain: 'ETH',
+    tokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
+    walletAddress: '0xYourWallet',
+    spenderAddress: swapData.transaction.approvalAddress!,
+    amount: '500', // 500 USDC
+});
+
+if (approveInfo.needApprove) {
+    console.log('Approval needed:', approveInfo.message);
+
+    // Send the approval transaction
+    const approveTx = await signer.sendTransaction({
+        to: approveInfo.transaction!.to,
+        data: approveInfo.transaction!.data,
+    });
+    await approveTx.wait();
+
+    console.log('Approved. Now proceed with the swap.');
+} else {
+    console.log('No approval needed:', approveInfo.message);
+}
+```
+
+> **Tip:** The `approvalAddress` field in the `swap` response contains the address to approve tokens for. Always use that value, as it may differ per provider.
+
+---
+
+## claim
+
+Returns transaction data for claiming tokens that are ready to be redeemed via the **Arbitrum Bridge** (ETH ↔ Arbitrum).
+
+Used when `waitForStatus` resolves with `status === 'READY_TO_CLAIM'`.
+
+```typescript
+const tx = await sdk.claim(params: ClaimRequestInterface): Promise<TransactionInterface>
+```
+
+### Parameters
+
+| Field | Type | Description |
+|---|---|---|
+| `sourceTransactionHash` | `string` | The source chain transaction hash |
+| `fromBlockchain` | `EvmBlockchainName` | Source blockchain: `'ETHEREUM'` or `'ARBITRUM'` |
+
+### Example
+
+```typescript
+const status = await sdk.waitForStatus({ id: swapData.id, srcTxHash: tx.hash });
+
+if (status.status === 'READY_TO_CLAIM') {
+    const claimTx = await sdk.claim({
+        sourceTransactionHash: tx.hash,
+        fromBlockchain: 'ETHEREUM',
+    });
+
+    const claimResult = await signer.sendTransaction(claimTx);
+    console.log('Claimed:', claimResult.hash);
+}
+```
+
+---
+
+## celerRefund
+
+Returns transaction data for refunding a **failed Celer Bridge** cross-chain swap.
+
+```typescript
+const tx = await sdk.celerRefund(params: CelerRefundRequestInterface): Promise<TransactionInterface>
+```
+
+### Parameters
+
+| Field | Type | Description |
+|---|---|---|
+| `sourceTransactionHash` | `string` | The source chain transaction hash |
+| `fromBlockchain` | `CbridgeSupportedBlockchain` | Source blockchain |
+
+### Example
+
+```typescript
+const refundTx = await sdk.celerRefund({
+    sourceTransactionHash: '0xFailedTxHash',
+    fromBlockchain: 'ETH',
+});
+
+await signer.sendTransaction(refundTx);
+```
+
+---
+
+## authWalletMessage
+
+Returns a message that the user must sign with their wallet for **Retrobridge** provider authentication. The resulting signature must be passed in the `signature` field of the `swap` request.
+
+```typescript
+const result = await sdk.authWalletMessage(walletAddress: string): Promise<AuthWalletResponseInterface>
+```
+
+### Example
+
+```typescript
+const { messageToAuth } = await sdk.authWalletMessage('0xYourWallet');
+
+// Sign the message with the user's wallet
+const signature = await signer.signMessage(messageToAuth);
+
+// Use the signature in the swap request
+const swapData = await sdk.swap({
+    // ... other params ...
+    signature,
+});
+```
+
+---
+
+## healthcheck
+
+Verifies the API is online.
+
+```typescript
+const result = await sdk.healthcheck(): Promise<string>
+// → 'I am alive'
+```
+
+Useful for readiness checks before showing the UI:
+
+```typescript
+try {
+    await sdk.healthcheck();
+    // setApiAvailable(true);
+} catch {
+    // setApiAvailable(false);
+    // showMaintenanceBanner();
+}
+```

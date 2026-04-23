@@ -1,0 +1,254 @@
+---
+title: 'Swap'
+---
+
+# Executing Swaps
+
+Swap methods return transaction data that you send via your wallet or web3 library. **No transaction is broadcast by the SDK** — it only builds the calldata.
+
+---
+
+## swap
+
+Builds transaction data for a route that was previously calculated with `quoteBest` or selected from `quoteAll`.
+
+```typescript
+const swapData = await sdk.swap(params: SwapRequestInterface): Promise<SwapResponseInterface>
+```
+
+### Request parameters
+
+Extends all [quote parameters](./quoting.md#common-request-parameters), plus:
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `id` | `string` | ✅ | Trade ID from the quote response |
+| `fromAddress` | `string` | ✅ | Wallet that will sign and send the transaction |
+| `receiver` | `string` | ✅ | Recipient address on the destination chain |
+| `enableChecks` | `boolean` | | Validate balance and gas before building. Default: `true` |
+| `signature` | `string` | | Wallet auth signature (required for Retrobridge) |
+| `publicKey` | `string` | | Bitcoin wallet public key (Bitcoin trades only) |
+| `refundAddress` | `string` | | Refund address for failed deposit trades |
+
+### Example
+
+```typescript
+// Step 1 — quote
+const quote = await sdk.quoteBest({
+    srcTokenBlockchain: 'ETH',
+    srcTokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
+    srcTokenAmount: '500',
+    dstTokenBlockchain: 'ARBITRUM',
+    dstTokenAddress: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831', // USDC on Arbitrum
+    fromAddress: '0xYourWallet',
+    receiver: '0xYourWallet',
+});
+
+// Step 2 — build tx
+const swapData = await sdk.swap({
+    srcTokenBlockchain: 'ETH',
+    srcTokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+    srcTokenAmount: '500',
+    dstTokenBlockchain: 'ARBITRUM',
+    dstTokenAddress: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
+    fromAddress: '0xYourWallet',
+    receiver: '0xYourWallet',
+    id: quote.id,
+});
+
+// Step 3 — send (example with ethers.js)
+const tx = await signer.sendTransaction({
+    to: swapData.transaction.to,
+    data: swapData.transaction.data,
+    value: swapData.transaction.value ?? '0x0',
+});
+
+console.log('Sent:', tx.hash);
+```
+
+### Response: SwapResponseInterface
+
+| Field | Type | Description |
+|---|---|---|
+| `id` | `string` | Trade ID — use this for status tracking |
+| `transaction.to` | `string` | Contract address to call |
+| `transaction.data` | `string` | Encoded calldata |
+| `transaction.value` | `string` | Native token value to send (hex) |
+| `transaction.approvalAddress` | `string` | Token approval target (if approval needed) |
+| `estimate` | `EstimatesInterface` | Same as in quote response |
+| `fees` | `FeesInterface` | Fee breakdown |
+| `routing` | `RoutingInterface[]` | Step-by-step route |
+| `warnings` | `ErrorInterface[]` | Non-fatal warnings |
+| `uniqueInfo` | `object` | Provider-specific IDs (for support/tracking) |
+
+---
+
+## swapBest
+
+Combines `quoteBest` + `swap` into a single API call. Use when you don't need to show the user a quote preview.
+
+```typescript
+const swapData = await sdk.swapBest(params: SwapBestRequestInterface): Promise<SwapResponseInterface>
+```
+
+> Same parameters as `swap`, but **without `id`** — the API finds the best route internally.
+
+### Example
+
+```typescript
+const swapData = await sdk.swapBest({
+    srcTokenBlockchain: 'ETH',
+    srcTokenAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    srcTokenAmount: '0.5',
+    dstTokenBlockchain: 'BSC',
+    dstTokenAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    fromAddress: '0xYourWallet',
+    receiver: '0xYourWallet',
+});
+
+const tx = await signer.sendTransaction({
+    to: swapData.transaction.to,
+    data: swapData.transaction.data,
+    value: swapData.transaction.value,
+});
+```
+
+---
+
+## swapDepositTrade
+
+Returns a **deposit address** instead of calldata. The user manually sends funds to that address — no wallet signing of a smart contract call required. Used with deposit-based providers (ChangeNOW, Exolix, SimpleSwap, etc.).
+
+```typescript
+const data = await sdk.swapDepositTrade(params: SwapDepositRequestInterface): Promise<SwapResponseInterface>
+```
+
+> `fromAddress` is optional. `receiver` is required — it's the destination address where tokens will arrive.
+
+### Example
+
+```typescript
+// First quote deposit routes
+const quoteResult = await sdk.quoteDepositTrades({
+    srcTokenBlockchain: 'BTC',
+    srcTokenAddress: '0x0000000000000000000000000000000000000000',
+    srcTokenAmount: '0.05',
+    dstTokenBlockchain: 'ETH',
+    dstTokenAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    receiver: '0xYourEthWallet',
+});
+
+const bestDepositRoute = quoteResult.routes[0];
+
+// Then get the deposit address
+const depositData = await sdk.swapDepositTrade({
+    srcTokenBlockchain: 'BTC',
+    srcTokenAddress: '0x0000000000000000000000000000000000000000',
+    srcTokenAmount: '0.05',
+    dstTokenBlockchain: 'ETH',
+    dstTokenAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    receiver: '0xYourEthWallet',
+    id: bestDepositRoute.id,
+});
+
+// Show the user where to send funds
+console.log('Send BTC to:', depositData.transaction.depositAddress);
+console.log('Amount to send:', depositData.transaction.amountToSend);
+console.log('Exchange ID:', depositData.transaction.exchangeId);
+
+// Extra fields may contain memo, tag, or other provider-specific data
+if (depositData.transaction.extraFields) {
+    console.log('Extra:', depositData.transaction.extraFields);
+}
+```
+
+---
+
+## Token approvals
+
+ERC-20 swaps may require a token approval before the swap transaction. Use [`checkApprove`](../utility#checkapprove) to determine whether approval is needed, then send the approval transaction first.
+
+```typescript
+const approveInfo = await sdk.checkApprove({
+    blockchain: 'ETH',
+    tokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
+    walletAddress: '0xYourWallet',
+    spenderAddress: swapData.transaction.approvalAddress!,
+    amount: '500',
+});
+
+if (approveInfo.needApprove) {
+    // Send the approval tx first
+    await signer.sendTransaction(approveInfo.transaction!);
+    // Then send the swap tx
+}
+```
+
+---
+
+## Full example with approval check
+
+```typescript
+import { SDK, RubicApiError } from '@cryptorubic/sdk-lite';
+
+const sdk = await SDK.create({ referrer: 'my-app', apiKey: 'KEY' });
+
+try {
+    const quote = await sdk.quoteBest({
+        srcTokenBlockchain: 'ETH',
+        srcTokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+        srcTokenAmount: '100',
+        dstTokenBlockchain: 'POLYGON',
+        dstTokenAddress: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
+        fromAddress: wallet.address,
+        receiver: wallet.address,
+    });
+
+    const swapData = await sdk.swap({
+        srcTokenBlockchain: 'ETH',
+        srcTokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+        srcTokenAmount: '100',
+        dstTokenBlockchain: 'POLYGON',
+        dstTokenAddress: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
+        fromAddress: wallet.address,
+        receiver: wallet.address,
+        id: quote.id,
+    });
+
+    // Approval check
+    if (swapData.transaction.approvalAddress) {
+        const approveInfo = await sdk.checkApprove({
+            blockchain: 'ETH',
+            tokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+            walletAddress: wallet.address,
+            spenderAddress: swapData.transaction.approvalAddress,
+            amount: '100',
+        });
+
+        if (approveInfo.needApprove) {
+            const approveTx = await signer.sendTransaction(approveInfo.transaction!);
+            await approveTx.wait();
+        }
+    }
+
+    // Send swap
+    const tx = await signer.sendTransaction({
+        to: swapData.transaction.to,
+        data: swapData.transaction.data,
+        value: swapData.transaction.value,
+    });
+
+    // Track completion
+    const status = await sdk.waitForStatus(
+        { id: swapData.id, srcTxHash: tx.hash },
+        { onStatusUpdate: s => console.log(s.status) }
+    );
+
+    console.log('Final status:', status.status);
+
+} catch (err) {
+    if (err instanceof RubicApiError) {
+        console.error(`API error [${err.code}]: ${err.reason}`);
+    }
+}
+```

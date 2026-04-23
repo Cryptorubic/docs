@@ -1,0 +1,119 @@
+---
+title: 'Getting started'
+---
+
+# Getting Started
+
+## Installation
+
+```bash
+npm install @cryptorubic/sdk-lite
+# or
+yarn add @cryptorubic/sdk-lite
+# or
+pnpm add @cryptorubic/sdk-lite
+```
+
+`axios` is included as a dependency and used by default. If you prefer to bring your own HTTP client (e.g. `fetch`, `ky`, or a custom instance), see [Configuration → Custom HTTP client](./configuration#custom-http-client).
+
+---
+
+## Quick start
+
+The full flow of a cross-chain swap takes three steps:
+
+```
+quote  →  swap  →  sign & send
+```
+
+### 1. Initialize the SDK
+
+```typescript
+import { SDK } from '@cryptorubic/sdk-lite';
+
+const sdk = await SDK.create({
+    referrer: 'my-app',       // identifies your integration
+    apiKey: 'YOUR_API_KEY',   // obtain at https://t.me/RubicPartnership
+});
+```
+
+### 2. Get the best quote
+
+```typescript
+const quote = await sdk.quoteBest({
+    srcTokenBlockchain: 'ETH',
+    srcTokenAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // native ETH
+    srcTokenAmount: '1',
+    dstTokenBlockchain: 'POLYGON',
+    dstTokenAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // native MATIC
+});
+
+console.log('Provider:', quote.providerType);
+console.log('You receive:', quote.estimate.destinationTokenAmount, 'MATIC');
+console.log('Trade ID:', quote.id);
+```
+
+### 3. Get transaction data
+
+```typescript
+const swapData = await sdk.swap({
+    // reuse all quote params
+    srcTokenBlockchain: 'ETH',
+    srcTokenAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    srcTokenAmount: '1',
+    dstTokenBlockchain: 'POLYGON',
+    dstTokenAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    // required for swap
+    id: quote.id,
+    fromAddress: '0xYourWalletAddress',
+    receiver: '0xDestinationAddress',
+});
+
+// swapData.transaction contains: { to, data, value }
+// Send it with your wallet/web3 library:
+const tx = await signer.sendTransaction(swapData.transaction);
+```
+
+### 4. Wait for completion
+
+```typescript
+const finalStatus = await sdk.waitForStatus(
+    { id: swapData.id, srcTxHash: tx.hash },
+    {
+        interval: 5000,
+        onStatusUpdate: s => console.log('Status:', s.status),
+    }
+);
+
+if (finalStatus.status === 'SUCCESS') {
+    console.log('Done! Destination tx:', finalStatus.destinationTxHash);
+}
+```
+
+---
+
+## One-call swap (swapBest)
+
+If you don't need to inspect the quote before sending, `swapBest` combines quoting and transaction building into a single request:
+
+```typescript
+const swapData = await sdk.swapBest({
+    srcTokenBlockchain: 'ETH',
+    srcTokenAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    srcTokenAmount: '1',
+    dstTokenBlockchain: 'POLYGON',
+    dstTokenAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    fromAddress: '0xYourWalletAddress',
+    receiver: '0xDestinationAddress',
+});
+```
+
+---
+
+## Next steps
+
+- [Configuration](./configuration) — API key, integrator address, timeout, custom HTTP client
+- [Quoting Routes](./quoting) — compare all available routes
+- [Executing Swaps](./swapping) — swap, swapBest, deposit trades
+- [Tracking Status](./status-tracking) — poll until the transaction settles
+- [Error Handling](./error-handling) — handle `RubicApiError`

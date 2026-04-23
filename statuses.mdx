@@ -1,0 +1,189 @@
+---
+title: 'Statuses'
+---
+
+# Tracking Status
+
+After a swap transaction is broadcast, you need to track its completion on the destination chain. Rubic SDK provides both a direct status method and a higher-level polling helper.
+
+---
+
+## getStatusExtended
+
+Fetches the current status of a cross-chain transaction in a single request.
+
+```typescript
+const status = await sdk.getStatusExtended(params: ExtendedStatusRequestInterface): Promise<StatusResponseInterface>
+```
+
+### Request parameters
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `id` | `string` | ✅ | Trade ID from the `swap` / `swapBest` response |
+| `srcTxHash` | `string` | *(see below)* | Source chain transaction hash |
+
+> **When is `srcTxHash` required?**
+> - **Decentralized providers** (bridges, on-chain DEXes): both `id` and `srcTxHash` are required
+> - **Deposit-based providers** (ChangeNOW, Exolix, etc.): only `id` is needed
+
+### Example
+
+```typescript
+const status = await sdk.getStatusExtended({
+    id: 'trade-uuid-from-swap-response',
+    srcTxHash: '0xabc123...',
+});
+
+console.log(status.status);                   // → 'PENDING'
+console.log(status.destinationTxHash);        // → null (still pending) or '0x...'
+console.log(status.destinationNetworkTitle);  // → 'BSC'
+console.log(status.destinationNetworkChainId); // → 56
+```
+
+### Response: StatusResponseInterface
+
+| Field | Type | Description |
+|---|---|---|
+| `status` | `TransactionStatus` | Current status (see table below) |
+| `destinationTxHash` | `string \| null` | Destination chain tx hash (available on `SUCCESS`) |
+| `destinationNetworkTitle` | `string \| null` | Human-readable destination chain name |
+| `destinationNetworkChainId` | `number \| null` | Destination chain ID |
+
+---
+
+## Transaction statuses
+
+| Status | Terminal | Description |
+|---|---|---|
+| `PENDING` | | Transaction received, waiting for confirmation |
+| `LONG_PENDING` | | Taking longer than expected, still processing |
+| `WAITING_FOR_TRUSTLINE` | | Waiting for XRP/Stellar trustline to be established |
+| `WAITING_FOR_REFUND_TRUSTLINE` | | Waiting for trustline before a refund can be issued |
+| `SUCCESS` | ✅ | Swap completed successfully |
+| `READY_TO_CLAIM` | ✅ | Funds ready to claim on destination (manual claim needed) |
+| `FAIL` | ✅ | Transaction failed |
+| `REVERT` | ✅ | Transaction was reverted |
+| `REVERTED` | ✅ | Transaction was reverted (provider-specific variant) |
+| `NOT_FOUND` | ✅ | Transaction not found (invalid ID or too early) |
+| `INDETERMINATE` | ✅ | Status cannot be determined |
+
+Terminal statuses mean no further polling is needed.
+
+---
+
+## waitForStatus
+
+A built-in polling helper that calls `getStatusExtended` on an interval until a terminal status is reached.
+
+```typescript
+sdk.waitForStatus(
+    params: ExtendedStatusRequestInterface,
+    options?: WaitForStatusOptions
+): Promise<StatusResponseInterface>
+```
+
+### Options
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `interval` | `number` | `3000` | Polling interval in ms |
+| `timeout` | `number` | `300_000` | Max wait time in ms before rejecting with `Error('Polling timeout')` |
+| `onStatusUpdate` | `(status) => void` | — | Callback fired on every poll, including intermediate statuses |
+
+### Example — basic usage
+
+```typescript
+const finalStatus = await sdk.waitForStatus({
+    id: swapData.id,
+    srcTxHash: tx.hash,
+});
+
+if (finalStatus.status === 'SUCCESS') {
+    console.log('Destination tx:', finalStatus.destinationTxHash);
+}
+```
+
+### Example — with all options
+
+```typescript
+const finalStatus = await sdk.waitForStatus(
+    { id: swapData.id, srcTxHash: tx.hash },
+    {
+        interval: 5_000,      // poll every 5 seconds
+        timeout: 600_000,     // give up after 10 minutes
+        onStatusUpdate: (status) => {
+            console.log('[%s] Status: %s', new Date().toISOString(), status.status);
+            updateUI(status);
+        },
+    }
+);
+```
+
+### Example — handling all outcomes
+
+```typescript
+try {
+    const finalStatus = await sdk.waitForStatus(
+        { id: swapData.id, srcTxHash: tx.hash },
+        { interval: 5000, timeout: 300_000 }
+    );
+
+    switch (finalStatus.status) {
+        case 'SUCCESS':
+            showSuccess(finalStatus.destinationTxHash!);
+            break;
+
+        case 'READY_TO_CLAIM':
+            // User needs to manually claim tokens on the destination chain
+            showClaimButton(finalStatus);
+            break;
+
+        case 'FAIL':
+        case 'REVERT':
+        case 'REVERTED':
+            showError('Swap failed. Please try again.');
+            break;
+
+        case 'NOT_FOUND':
+        case 'INDETERMINATE':
+            showError('Status unknown. Check the explorer.');
+            break;
+    }
+} catch (err) {
+    if (err instanceof Error && err.message === 'Polling timeout') {
+        showError('Swap is taking too long. Check the explorer manually.');
+    } else {
+        throw err;
+    }
+}
+```
+
+### Example — deposit-based providers (no srcTxHash)
+
+```typescript
+const depositData = await sdk.swapDepositTrade({ /* params */ });
+
+// No tx hash — the user sent funds manually to the deposit address
+const finalStatus = await sdk.waitForStatus(
+    { id: depositData.id },    // srcTxHash is not needed
+    { interval: 10_000, timeout: 1_800_000 }
+);
+```
+
+---
+
+## READY_TO_CLAIM — Arbitrum Bridge
+
+When `status === 'READY_TO_CLAIM'`, the swap used the Arbitrum Bridge and requires a manual on-chain claim on the destination chain. Use [`claim()`](../utility#claim) to build the claim transaction:
+
+```typescript
+if (finalStatus.status === 'READY_TO_CLAIM') {
+    const claimTx = await sdk.claim({
+        sourceTransactionHash: tx.hash,
+        fromBlockchain: 'ETHEREUM',
+    });
+
+    await signer.sendTransaction(claimTx);
+}
+```
