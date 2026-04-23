@@ -19,11 +19,10 @@ The factory method is `async` because it dynamically imports `axios` when no cus
 | Field | Type | Required | Default | Description |
 |---|---|---|---|---|
 | `referrer` | `string` | ✅ | — | Identifies your integration. Sent as `referer` in every request body |
-| `apiKey` | `string` | | `''` | API key for the Rubic API. Get one at [app.rubic.exchange](https://t.me/RubicPartnership) |
-| `integratorAddress` | `object` | | See below | Wallet addresses that collect integrator fees |
+| `apiKey` | `string` | | `''` | API key for the Rubic API. Get one at [here](https://t.me/RubicPartnership) |
+| `integratorAddress` | `object` | | See below | Wallet addresses that collect integrator fees (text our [BD](https://t.me/RubicPartnership) first) |
 | `integratorAddress.crossChain` | `string` | | `0x3fFF...DbE` | Fee recipient for cross-chain swaps |
 | `integratorAddress.onChain` | `string` | | `0x3b9C...0d4` | Fee recipient for on-chain swaps |
-| `domain` | `string` | | `api-v2.rubic.exchange/api` | API domain. Override for staging/self-hosted deployments |
 | `timeout` | `number` | | `10000` | Request timeout in ms (default HTTP client only) |
 
 ### Example — full configuration
