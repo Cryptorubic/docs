@@ -1,0 +1,102 @@
+---
+title: "Overview"
+icon: "lightbulb-on"
+description: "A Model Context Protocol (MCP) server for Rubic that enables AI agents to search supported chains/tokens, build swap transactions, sign and broadcast EVM transactions, track cross-chain status, and generate pre-filled swap URLs."
+---
+
+Github repository: [https://github.com/Cryptorubic/rubic-mcp](https://github.com/Cryptorubic/rubic-mcp)
+
+## **Quickstart**
+
+Add to MCP config:
+
+```text
+{
+  "mcpServers": {
+    "rubic": {
+      "command": "npx",
+      "args": ["-y", "@cryptorubic/mcp"],
+      "env": {
+        "EVM_WALLET_PRIVATE_KEY": "YOUR_PRIVATE_KEY"
+      }
+    }
+  }
+}
+```
+
+`EVM_WALLET_PRIVATE_KEY` - EVM private key without `0x`. Enables signing/broadcast tools.
+
+## **Tools**
+
+Tools are split into **read-only** (work without a key) and **execution** (require `EVM_WALLET_PRIVATE_KEY`). In hosted mode, only read-only tools are available.
+
+| **Tool** | **Requires** `EVM_WALLET_PRIVATE_KEY` | **Description** |
+| :-- | :-- | :-- |
+| `rubic_get_instructions` | - | Returns Rubic MCP usage guide and workflow tips |
+| `rubic_get_balances` | - | Returns non-zero native and ERC-20 balances across supported EVM chains |
+| `rubic_get_supported_chains` | - | Lists supported blockchain names |
+| `rubic_search_tokens` | - | Searches tokens by symbol, name, or address |
+| `rubic_quote_routes` | - | Calculates best route or all routes |
+| `rubic_simulate_swap` | - | Simulates execution preview (route, fees summary, gas USD, risk level) without signing or broadcasting |
+| `rubic_build_swap_tx` | - | Builds executable swap transaction payload |
+| `rubic_sign_tx` | Yes | Signs EVM transaction payload |
+| `rubic_broadcast_tx` | - | Broadcasts a signed raw transaction |
+| `rubic_sign_and_broadcast_tx` | Yes | Signs and broadcasts in one call |
+| `rubic_quote_swap_sign_and_broadcast_tx` | Yes | Full flow: quote -\> build -\> sign -\> broadcast |
+| `rubic_track_status` | - | Tracks cross-chain status by route id and/or tx hash |
+| `rubic_get_swap_url` | - | Generates pre-filled Rubic app swap URL |
+
+## **Limitations**
+
+Rubic MCP Server does **not**:
+
+- **Custody or store private keys.** Keys exist only in your local env / process memory.
+- **Support non-EVM chains for signing.** `rubic_sign_tx` and `rubic_broadcast_tx` work only on EVM chains. For non-EVM chains (Solana, TRON, TON, Bitcoin), use `rubic_build_swap_tx` to get calldata and sign externally, or use `rubic_get_swap_url` for browser-based execution.
+- **Execute limit orders or DCA.** Only market swaps via routing aggregation.
+- **Guarantee complete portfolio coverage.** `rubic_get_balances` checks tokens from bundled `tokens.json`. Custom/unlisted tokens may require manual contract checks.
+- **Manage token approvals automatically.** If an ERC-20 approval is needed, `rubic_build_swap_tx` returns `approvalAddress` — the user must approve separately.
+- **Guarantee price.** Quotes are estimates; actual execution price may differ due to slippage, MEV, or market movement between quote and broadcast.
+- **Support fiat on/off-ramp.** No bank, card, or payment provider integration.
+
+## **Security Model**
+
+Rubic MCP Server is non-custodial:
+
+- **Private keys never leave your machine.** `EVM_WALLET_PRIVATE_KEY` is read from a local `.env` file or MCP client config, used for in-process signing via [<u>viem</u>](https://viem.sh/), and never transmitted over the network.
+- **The server constructs transaction calldata** (`rubic_build_swap_tx`) and returns it as a structured JSON object. Signing and broadcast are separate, opt-in steps.
+- **Without** `EVM_WALLET_PRIVATE_KEY`, the server operates in read-only mode: quotes, token search, chain discovery, and swap URL generation work normally. Signing tools return a clear error.
+- **The Rubic API** (`rubic-api-v2.rubic.exchange`) receives swap parameters and returns routing \+ calldata. It never receives your private key.
+
+## **Response format**
+
+All tools return a stable result envelope:
+
+```text
+{
+  "ok": true,
+  "traceId": "uuid",
+  "data": {},
+  "error": {
+    "code": "RUBIC_1001",
+    "message": "Human-readable reason",
+    "statusCode": 400,
+    "details": {}
+  }
+}
+```
+
+## **Error Codes**
+
+| **Code** | **Meaning** |
+| :-- | :-- |
+| `QUOTE_ROUTES_FAILED` | Rubic API could not calculate any route for the given pair |
+| `ROUTE_ID_NOT_FOUND` | Route id could not be extracted from quote response |
+| `BUILD_SWAP_TX_FAILED` | Transaction construction failed for the selected route |
+| `SIGN_TX_FAILED` | Transaction signing failed (key mismatch, invalid tx) |
+| `BROADCAST_TX_FAILED` | Signed transaction rejected by the network |
+| `WALLET_NOT_CONFIGURED` | Tool requires EVM\_WALLET\_PRIVATE\_KEY but it is not set |
+| `TOOL_TIMEOUT` | Tool execution exceeded configured timeout |
+| `HTTP_400` | Input validation failed |
+| `HTTP_NETWORK` | Network request to Rubic API failed |
+| `RUBIC_<N>` | Rubic API business error (code forwarded from API response) |
+| `INTERNAL_ERROR` | Unexpected server error |

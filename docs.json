@@ -187,6 +187,13 @@
           "utility",
           "error-handling"
         ]
+      },
+      {
+        "tab": "MCP Documentation",
+        "pages": [
+          "mcp-docs/overview",
+          "mcp-docs/configuration"
+        ]
       }
     ]
   },
