@@ -192,7 +192,8 @@
         "tab": "MCP Documentation",
         "pages": [
           "mcp-docs/overview",
-          "mcp-docs/configuration"
+          "mcp-docs/configuration",
+          "mcp-docs/examples"
         ]
       }
     ]
