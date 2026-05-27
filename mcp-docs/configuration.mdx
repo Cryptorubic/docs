@@ -1,0 +1,297 @@
+---
+title: "Configuration"
+icon: "gear"
+---
+
+## **Quickstart**
+
+Add to MCP config:
+
+```text
+{
+  "mcpServers": {
+    "rubic": {
+      "command": "npx",
+      "args": ["-y", "@cryptorubic/mcp"],
+      "env": {
+        "EVM_WALLET_PRIVATE_KEY": "YOUR_PRIVATE_KEY"
+      }
+    }
+  }
+}
+```
+
+`EVM_WALLET_PRIVATE_KEY` - EVM private key without `0x`. Enables signing/broadcast tools.
+
+## **Local Installation Options**
+
+For read-only mode, omit `EVM_WALLET_PRIVATE_KEY`.
+
+### **Option A: Node.js**
+
+Requires [<u>Node.js v18\+</u>](https://nodejs.org/).
+
+```text
+git clone https://github.com/Cryptorubic/rubic-mcp.git
+cd rubic-mcp
+npm install
+npm run build
+```
+
+### **Option B: Docker**
+
+Pull the published image:
+
+```text
+docker pull rubicfinance/rubic-mcp:latest
+```
+
+Or build from source:
+
+```text
+git clone https://github.com/Cryptorubic/rubic-mcp.git
+cd rubic-mcp
+docker build -t rubicfinance/rubic-mcp .
+```
+
+## **Configuration**
+
+In case of local Node.js installation, copy the example config:
+
+```text
+cp .env.example .env
+```
+
+Main settings:
+
+- `EVM_WALLET_PRIVATE_KEY` - EVM private key without `0x`. Enables signing/broadcast tools.
+- `RUBIC_API_BASE_URL` - Rubic API base URL (default `https://rubic-api-v2.rubic.exchange`).
+- `TOKENS_API_BASE_URL` - Rubic tokens API base URL (default `https://api.rubic.exchange/api`).
+- `MCP_TRANSPORT` - `stdio` (default) or `http`.
+- `MCP_HOST` / `MCP_PORT` - used in HTTP mode.
+- `API_TIMEOUT_MS` / `MCP_TOOL_TIMEOUT_MS` - request and tool execution timeouts.
+
+Without `EVM_WALLET_PRIVATE_KEY`, read-only and build tools work, but tools that sign transactions will return an error.
+
+## **Connecting to MCP Clients**
+
+[Quickstart](/mcp-docs/configuration#quickstart) section is enough for the most use cases. All of the instructions below are related to local installation options.
+
+All examples below use **stdio** mode.
+
+Replace `/full/path/to` with the actual path printed after `npm run build`.
+
+**Claude Code**
+
+```text
+# With private key
+claude mcp add rubic -e EVM_WALLET_PRIVATE_KEY=YOUR_PRIVATE_KEY -- node /full/path/to/dist/index.js
+
+# Read-only / unsigned mode
+claude mcp add rubic -- node /full/path/to/dist/index.js
+```
+
+Using Docker:
+
+```text
+claude mcp add rubic -e EVM_WALLET_PRIVATE_KEY=YOUR_PRIVATE_KEY -- docker run -i --rm rubicfinance/rubic-mcp:latest node dist/index.js
+```
+
+Verify: `claude mcp list`
+
+**Claude Desktop**
+
+Add to `claude_desktop_config.json`:
+
+Node.js:
+
+```text
+{
+  "mcpServers": {
+    "rubic": {
+      "command": "node",
+      "args": ["/full/path/to/dist/index.js"],
+      "env": { "EVM_WALLET_PRIVATE_KEY": "YOUR_KEY" }
+    }
+  }
+}
+```
+
+Docker:
+
+```text
+{
+  "mcpServers": {
+    "rubic": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "EVM_WALLET_PRIVATE_KEY=YOUR_KEY", "rubicfinance/rubic-mcp", "node", "dist/index.js"],
+      "env": {}
+    }
+  }
+}
+```
+
+**Cursor**
+
+Add to `.cursor/mcp.json` (project) or `~/.cursor/mcp.json` (global):
+
+```text
+{
+  "mcpServers": {
+    "rubic": {
+      "command": "node",
+      "args": ["/full/path/to/dist/index.js"],
+      "env": {
+        "EVM_WALLET_PRIVATE_KEY": "YOUR_PRIVATE_KEY"
+      }
+    }
+  }
+}
+```
+
+**Windsurf**
+
+Add to `~/.codeium/windsurf/mcp_config.json`:
+
+```text
+{
+  "mcpServers": {
+    "rubic": {
+      "command": "node",
+      "args": ["/full/path/to/dist/index.js"],
+      "env": { "EVM_WALLET_PRIVATE_KEY": "YOUR_KEY" }
+    }
+  }
+}
+```
+
+**GitHub Copilot (VS Code)**
+
+Add to `.vscode/mcp.json`:
+
+```text
+{
+  "mcpServers": {
+    "rubic": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/full/path/to/dist/index.js"],
+      "env": { "EVM_WALLET_PRIVATE_KEY": "YOUR_KEY" }
+    }
+  }
+}
+```
+
+**Cline**
+
+Open Cline settings → MCP Servers → Edit MCP Settings:
+
+```text
+{
+  "mcpServers": {
+    "rubic": {
+      "command": "node",
+      "args": ["/full/path/to/dist/index.js"],
+      "env": { "EVM_WALLET_PRIVATE_KEY": "YOUR_KEY" }
+    }
+  }
+}
+```
+
+**Continue**
+
+Add to `~/.continue/config.json`:
+
+```text
+{
+  "mcpServers": [
+    {
+      "name": "rubic",
+      "command": "node",
+      "args": ["/full/path/to/dist/index.js"],
+      "env": { "EVM_WALLET_PRIVATE_KEY": "YOUR_KEY" }
+    }
+  ]
+}
+```
+
+**Zed**
+
+Add to `~/.config/zed/settings.json`:
+
+```text
+{
+  "context_servers": {
+    "rubic": {
+      "command": {
+        "path": "node",
+        "args": ["/full/path/to/dist/index.js"],
+        "env": { "EVM_WALLET_PRIVATE_KEY": "YOUR_KEY" }
+      }
+    }
+  }
+}
+```
+
+### **Other clients (generic stdio)**
+
+Use command `node` \+ args `["/full/path/to/dist/index.js"]`, or Docker command:
+
+```text
+docker run -i --rm -e EVM_WALLET_PRIVATE_KEY=YOUR_PRIVATE_KEY rubicfinance/rubic-mcp:latest node dist/index.js
+```
+
+## **Hosted MCP**
+
+Use hosted read-only MCP endpoint:
+
+`https://mcp-api-v2.rubic.exchange/mcp`
+
+Example generic MCP config:
+
+```text
+{
+  "mcpServers": {
+    "rubic": {
+      "url": "https://mcp-api-v2.rubic.exchange/mcp"
+    }
+  }
+}
+```
+
+## **Transport modes**
+
+### **Node.js**
+
+```text
+# stdio (default)
+npm start
+
+# HTTP mode
+MCP_TRANSPORT=http npm run start:http
+```
+
+### **Docker**
+
+```text
+# stdio
+docker run -i --rm -e EVM_WALLET_PRIVATE_KEY=YOUR_PRIVATE_KEY rubicfinance/rubic-mcp:latest node dist/index.js
+
+# HTTP mode
+docker run -d -p 3333:3333 -e MCP_TRANSPORT=http rubicfinance/rubic-mcp:latest
+```
+
+Or with Docker Compose:
+
+```text
+docker compose up -d --build
+```
+
+## **Development**
+
+```text
+npm run dev          # stdio dev mode
+npm run dev:http     # HTTP dev mode
+npm run lint
+npm run typecheck
+```
