@@ -46,6 +46,15 @@ Tools are split into **read-only** (work without a key) and **execution** (requi
 | `rubic_track_status` | - | Tracks cross-chain status by route id and/or tx hash |
 | `rubic_get_swap_url` | - | Generates pre-filled Rubic app swap URL |
 
+## **Security Model**
+
+Rubic MCP Server is non-custodial:
+
+- **Private keys never leave your machine.** `EVM_WALLET_PRIVATE_KEY` is read from a local `.env` file or MCP client config, used for in-process signing via [<u>viem</u>](https://viem.sh/), and never transmitted over the network.
+- **The server constructs transaction calldata** (`rubic_build_swap_tx`) and returns it as a structured JSON object. Signing and broadcast are separate, opt-in steps.
+- **Without** `EVM_WALLET_PRIVATE_KEY`, the server operates in read-only mode: quotes, token search, chain discovery, and swap URL generation work normally. Signing tools return a clear error.
+- **The Rubic API** (`rubic-api-v2.rubic.exchange`) receives swap parameters and returns routing \+ calldata. It never receives your private key.
+
 ## **Limitations**
 
 Rubic MCP Server does **not**:
@@ -57,15 +66,6 @@ Rubic MCP Server does **not**:
 - **Manage token approvals automatically.** If an ERC-20 approval is needed, `rubic_build_swap_tx` returns `approvalAddress` — the user must approve separately.
 - **Guarantee price.** Quotes are estimates; actual execution price may differ due to slippage, MEV, or market movement between quote and broadcast.
 - **Support fiat on/off-ramp.** No bank, card, or payment provider integration.
-
-## **Security Model**
-
-Rubic MCP Server is non-custodial:
-
-- **Private keys never leave your machine.** `EVM_WALLET_PRIVATE_KEY` is read from a local `.env` file or MCP client config, used for in-process signing via [<u>viem</u>](https://viem.sh/), and never transmitted over the network.
-- **The server constructs transaction calldata** (`rubic_build_swap_tx`) and returns it as a structured JSON object. Signing and broadcast are separate, opt-in steps.
-- **Without** `EVM_WALLET_PRIVATE_KEY`, the server operates in read-only mode: quotes, token search, chain discovery, and swap URL generation work normally. Signing tools return a clear error.
-- **The Rubic API** (`rubic-api-v2.rubic.exchange`) receives swap parameters and returns routing \+ calldata. It never receives your private key.
 
 ## **Response format**
 
