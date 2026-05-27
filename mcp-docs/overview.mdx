@@ -26,6 +26,20 @@ Add to MCP config:
 
 `EVM_WALLET_PRIVATE_KEY` - EVM private key without `0x`. Enables signing/broadcast tools.
 
+## **Example Workflow**
+
+A typical cross-chain swap via the MCP server follows this flow:
+
+```text
+1. rubic_get_supported_chains        # List supported chains
+2. rubic_search_tokens               # Get token addresses
+3. rubic_quote_routes                # Get best route
+4. rubic_simulate_swap (optional)    # Simulate transaction
+5. rubic_build_swap_tx               # Build swap transaction
+6. rubic_sign_and_broadcast_tx       # Execute transaction
+7. rubic_track_status                # Track cross-chain progress
+```
+
 ## **Tools**
 
 Tools are split into **read-only** (work without a key) and **execution** (require `EVM_WALLET_PRIVATE_KEY`). In [hosted mode](/mcp-docs/configuration#hosted-mcp), only read-only tools are available.
