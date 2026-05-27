@@ -2,38 +2,308 @@
 title: "Examples"
 ---
 
-## Cross-Chain Token Swaps
+## **Get Token Details**
 
-> Swap 500 USDC from Ethereum to Arbitrum
+> Get USDC token info on Ethereum
 
-Ask an AI agent to swap tokens between supported chains, compare routes, simulate the outcome, and proceed only after approval.
+**Response:**
 
-## On-Chain Token Swaps
+```json
+{
+	"address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+	"decimals": 6,
+	"symbol": "USDC",
+	"name": "USD Coin",
+	"blockchain": "ETH",
+	"price": 0.999646
+}
+```
 
-> Swap ETH to USDC on Arbitrum
+## On-Chain Swap Quote
 
-Use Rubic’s MCP Server for same-chain token swaps where supported, with quoting, simulation, and transaction preparation via MCP tools.
+> Get a quote to swap 0.1 ETH to USDC on Arbitrum
 
-## Route Comparison with
+**Response:**
 
-> Show me all routes for 1 ETH to MATIC
+```json
+{
+    "mode": "best",
+    "result": {
+        "estimate": {
+            "destinationTokenAmount": "207.74483",
+            "destinationTokenMinAmount": "205.667382",
+            "destinationUsdAmount": 207.68,
+            "destinationUsdMinAmount": 205.6,
+            "durationInMinutes": 1,
+            "priceImpact": 0.06
+        },
+        "fees": {
+            "gasTokenFees": {
+                // gas fee info
+            },
+            "percentFees": {
+                // rubic's fee info
+            }
+        },
+        "providerType": "ODOS",
+        "routing": [
+            {
+                "path": [
+                    {
+                        "address": "0x0000000000000000000000000000000000000000",
+                        "amount": "0.1",
+                        "blockchain": "ARBITRUM",
+                        "blockchainId": 42161,
+                        "decimals": 18,
+                        "name": "ETH",
+                        "symbol": "ETH",
+                        "price": 2077.93
+                    },
+                    {
+                        "address": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
+                        "amount": "207.74483",
+                        "blockchain": "ARBITRUM",
+                        "blockchainId": 42161,
+                        "decimals": 6,
+                        "name": "USD Coin",
+                        "symbol": "USDC",
+                        "price": 1
+                    }
+                ],
+                "provider": "ODOS",
+                "type": "on-chain"
+            }
+        ],
+        "swapType": "on-chain",
+        "tokens": {
+            // tokens' info
+        },
+        "transaction": {
+            "approvalAddress": "0x3335733c454805df6a77f825f266e136FB4a3333"
+        },
+        "warnings": [],
+        "id": // rubic's id
+    }
+}
+```
 
-Compare swap routes by estimated output, fees, providers, duration, and execution risk before choosing how to proceed.
+In case your `EVM_PRIVATE_WALLET_KEY` is configured, agent will be able to execute transaction. Otherwise, you will receive Rubic's url to swap in browser.
 
-## Swap Simulation with
+## Cross-Chain Swap Quote
 
-> Simulate swapping 1 AVAX to ETH
+> Bridge 500 USDC from Ethereum to Arbitrum
 
-Preview expected output, total estimated cost, gas, price impact, route details, and risk before anything is signed or broadcasted.
+**Response:**
+
+```json
+{
+    "mode": "best",
+    "result": {
+        "estimate": {
+            "destinationTokenAmount": "497.979727",
+            "destinationTokenMinAmount": "483.040335",
+            "destinationUsdAmount": 497.79,
+            "destinationUsdMinAmount": 482.86,
+            "durationInMinutes": 1,
+            "priceImpact": null
+        },
+        "fees": {
+            "gasTokenFees": {
+                // gas fee info
+            },
+            "percentFees": {
+                // rubic's fee info
+            }
+        },
+        "providerType": "squidrouter",
+        "routing": [
+            {
+                "path": [
+                    {
+                        "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+                        "amount": "498",
+                        "blockchain": "ETH",
+                        "blockchainId": 1,
+                        "decimals": 6,
+                        "name": "USD Coin",
+                        "symbol": "USDC",
+                        "price": 1
+                    },
+                    {
+                        "address": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
+                        "amount": "497.979727",
+                        "blockchain": "ARBITRUM",
+                        "blockchainId": 42161,
+                        "decimals": 6,
+                        "name": "USD Coin",
+                        "symbol": "USDC",
+                        "price": 1
+                    }
+                ],
+                "provider": "squidrouter",
+                "type": "cross-chain"
+            }
+        ],
+        "swapType": "cross-chain",
+        "tokens": {
+            // tokens' info
+        },
+        "transaction": {
+            "approvalAddress": "0x3335733c454805df6a77f825f266e136FB4a3333"
+        },
+        "warnings": [],
+        "id": // rubic's id
+    }
+}
+```
+
+In case your `EVM_PRIVATE_WALLET_KEY` is configured, agent will be able to execute transaction. Otherwise, you will receive Rubic's url to swap in browser.
+
+## Swap Simulation
+
+> Simulate swapping 50 TRX to SOL
+
+**Response:**
+
+```json
+{
+    "swap": {
+        "estimate": {
+            "destinationTokenAmount": "0.220675833",
+            "destinationTokenMinAmount": "0.214055558",
+            "destinationUsdAmount": 18.44,
+            "destinationUsdMinAmount": 17.89,
+            "durationInMinutes": 1,
+            "priceImpact": 1.31,
+        },
+        "fees": {
+            "gasTokenFees": {
+                // gas fee info
+            },
+            "percentFees": {
+                // rubic's fee info
+            }
+        },
+        "providerType": "near_intents",
+        "routing": [
+            {
+                "path": [
+                    {
+                        "address": "0x0000000000000000000000000000000000000000",
+                        "amount": "50",
+                        "blockchain": "TRON",
+                        "blockchainId": 195,
+                        "decimals": 6,
+                        "name": "TRX",
+                        "symbol": "TRX",
+                        "price": 0.37
+                    },
+                    {
+                        "address": "So11111111111111111111111111111111111111111",
+                        "amount": "0.220675833",
+                        "blockchain": "SOLANA",
+                        "blockchainId": 7565164,
+                        "decimals": 9,
+                        "name": "Solana",
+                        "symbol": "SOL",
+                        "price": 83.58
+                    }
+                ],
+                "provider": "near_intents",
+                "type": "cross-chain"
+            }
+        ],
+        "swapType": "cross-chain",
+        "tokens": {
+            // tokens' info
+        },
+        "transaction": {
+            "depositAddress": "TGvLb21GVMXdKoWDdRJA5TbXrGdKaMdBXL",
+            "amountToSend": "50",
+            "exchangeId": "TGvLb21GVMXdKoWDdRJA5TbXrGdKaMdBXL"
+        },
+        "useRubicContract": false,
+        "warnings": []
+    },
+    "summary": {
+        "durationInMinutes": 1,
+        "estimatedGasUsd": null,
+        "expectedOutputAmount": "0.220675833",
+        "expectedOutputMinAmount": "0.214055558",
+        "expectedOutputUsd": 18.44,
+        "priceImpact": 1.31,
+        "reasons": [
+            "Price impact is elevated (>= 15%)."
+        ],
+        "riskLevel": "high",
+        "slippage": 0.03,
+        "totalCostUsd": 0,
+        "routeId": // rubic's id
+    }
+}
+```
 
 ## Portfolio and Balance Checks
 
 > Check my balances across supported chains
 
-Check token balances across supported EVM chains so the agent can understand available assets before building a swap.
+**Response:**
 
-## Browser Fallback with
+```json
+{
+    "address": /* your wallet address */,
+    "balances": [
+        {
+            "blockchain": "AVALANCHE",
+            "tokens": [
+                {
+                    "address": "",
+                    "balance": "0.099987509909665979",
+                    "decimals": 18,
+                    "name": "Avalanche",
+                    "symbol": "AVAX"
+                },
+                {
+                    "address": "0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e",
+                    "balance": "1.8",
+                    "decimals": 6,
+                    "name": "Circle USD",
+                    "symbol": "USDC"
+                }
+            ]
+        },
+        {
+            "blockchain": "ZK_SYNC",
+            "tokens": [
+                {
+                    "address": "",
+                    "balance": "0.0010359777915",
+                    "decimals": 18,
+                    "name": "Ether",
+                    "symbol": "ETH"
+                },
+                {
+                    "address": "0x493257fd37edb34451f62edf8d2a0c418852ba4c",
+                    "balance": "5.097301",
+                    "decimals": 6,
+                    "name": "Tether USD",
+                    "symbol": "USDT"
+                }
+            ]
+        }
+    ],
+    "summary": "Found 4 tokens with non-zero balance across 2 chains"
+}
+```
+
+## Browser Fallback
 
 > Open this swap route in Rubic
 
-Generate a Rubic URL when users need manual confirmation, non-EVM signing, or a browser-based fallback flow.
+**Response:**
+
+```json
+{
+    "data": "https://app.rubic.exchange/?fromChain=ARBITRUM&from=ETH&to=USDC&toChain=ARBITRUM&amount=0.1"
+}
+```
