@@ -57,7 +57,8 @@
           {
             "group": "Audits",
             "pages": [
-              "rubic/audits/audits"
+              "rubic/audits/audits",
+              "rubic/audits/stellar-audit"
             ]
           }
         ]
