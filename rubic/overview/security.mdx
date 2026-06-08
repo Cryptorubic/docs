@@ -2,7 +2,7 @@
 title: "Security"
 ---
 
-As one of the seasoned players in the cross-chain market, Rubic has elaborated on the robust practices of maintaining security for its users along with API and SDK integrators.
+As one of the seasoned players in the cross-chain market, Rubic has elaborated on the robust practices of maintaining security for its users along with API/SDK integrators.
 
 A high level of security is one of Rubic’s top priorities, and this is what makes Rubic stand out from the crowd in terms of security:
 
@@ -13,33 +13,45 @@ Rubic never keeps users' funds on its frontend, every transaction is performed v
 
 Rubic's staking and treasury smart contracts use Gnosis Safe enabling secure asset management.
 
-[**Rubic's Latest Security Audit By MixBytes**](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-Mfc9p91Kib4qwOqBj11%2Fuploads%2FsuPyInwWpXE7zLDbsE4c%2FRubic%20Security%20Audit%20Report.pdf?alt=media&token=6a2ab5a9-f36c-45e5-b14f-43ca2bccf10b)
+**[Rubic's Security Audit By MixBytes](https://github.com/mixbytes/audits_public/tree/master/Rubic) -** April, 2023
+
+[Rubic's Security Audit By Stellar](https://drive.google.com/file/d/1opOuoh0ozdfHuofL6TnVEiHeyk16TsQD/view?usp=sharing) - June, 2026
+
+## Security History 
+
+In early 2023, Rubic undertook the following security enhancements:
+
+- **Full contract rewrite** before redeployment.
+- **Independent audit by MixBytes**: all findings were reviewed and resolved in full.
+- **Bug Bounty program launched on Immunefi**, creating an ongoing channel for external security researchers to identify and responsibly disclose vulnerabilities.
+- **Dev team restructuring** to strengthen internal security practices and reduce organizational risks to platform security.
+- **Dedicated security engineer hired** to own security operations on an ongoing basis.
+- **Contract architecture redesign** to make user funds more secureб all smart contract management interfaces now operate behind multisig via Gnosis Safe.
+- **Operational hardening**: two-factor authentication enforced across the team, automated audit logging configured, and real-time alerts deployed for suspicious behavior.
+
+Since those steps were implemented, Rubic has maintained a clean record. The MixBytes audit, updated key management practices, and active bug bounty program are the direct results of lessons learned. We document this history because we believe transparency about past incidents, and a verifiable response to them, is more credible than silence.
 
 ## **Rubic’s Security Principles**
 
-<Frame>
-  ![Rubicsecurity](/images/rubicsecurity.jpeg)
-</Frame>
-
 ### **Sustainability**
 
-Due to the aggregation of 340+ bridges and DEXs, Rubic guarantees swaps and sufficient liquidity for a swap even if some of the providers stop operating, run out of liquidity, or get hacked. Thanks to Rubic’s model architecture (Cross-Chain, On-Chain, Status Manager, Token Manager, Revert Manager), it continues to execute basic functions even if there’s something wrong with other modules.
+Due to the aggregation of 340\+ bridges and DEXs, Rubic guarantees swaps and sufficient liquidity for a swap even if some of the providers stop operating, run out of liquidity, or get hacked. Thanks to Rubic’s model architecture (Cross-Chain, On-Chain, Status Manager, Token Manager, Revert Manager), it continues to execute basic functions even if there’s something wrong with other modules.
 
 ### **Decentralization**
 
-Rubic doesn’t exploit any external servers: _only Frontend and Blockchain_. This significantly decreases attack vectors (like DDOS). To find the best swap deal for most of the cross-chain and on-chain providers, Rubic appeals to the provider’s API, and then the data is processed through their services.
+To find the best swap deal for most of the cross-chain and on-chain providers, Rubic appeals to the provider’s API, and then the data is processed through their services.
 
-### **Open-Source Software**
+### **Open-Source Softwar**
 
 We’re built on open-source software: Our site, validators code, and smart contracts are publicly visible for maximum transparency ([Github](https://github.com/Cryptorubic)).
 
 ### **Grants**
 
-Rubic has received grants from major blockchain platforms: Celer, deBridge, NEAR, Harmony One, Symbiosis, Bitgert, Polygon, and Telos.
+Rubic has received grants from major blockchain platforms: Berachain, Celer, deBridge, NEAR, Harmony One, Symbiosis, Bitgert, Polygon, and Telos.
 
 ### **Team**
 
-The Rubic team has 20+ members. Our founders have large amounts of experience in the crypto space - starting in 2017 - and you can follow them on their socials. Check out LinkedIn or Twitter.
+Our founders and team have large amounts of experience in the crypto space - starting in 2017 - and you can follow them on their socials. Check out LinkedIn or Twitter.
 
 #### **Security Measures**
 
@@ -49,10 +61,6 @@ The Rubic team has 20+ members. Our founders have large amounts of experience in
 - Additional security practices: performance monitoring, accident management, and Rubic’s API & SDK Process Management.
 
 ## **Rubic’s Security Pillars**
-
-<Frame>
-  ![Rubicsecuritypillars](/images/rubicsecuritypillars.jpeg)
-</Frame>
 
 ### **Performance Monitoring**
 
@@ -77,9 +85,9 @@ Continuous integration and collaboration with other projects allow Rubic to buil
 
 Rubic is not just a platform enabling cross-chain swaps for individuals, but also a cross-chain toolkit for crypto projects, and all of these principles work for Rubic’s API & SDK integrators as well.
 
-Read in more detail how Rubic maintains security for its cross-chain swaps: https://cryptorubic.medium.com/how-rubic-provides-security-for-its-cross-chain-swaps-37d3a408afe7
+Read in more detail how Rubic maintains security for its cross-chain swaps: [https://cryptorubic.medium.com/how-rubic-provides-security-for-its-cross-chain-swaps-37d3a408afe7](https://cryptorubic.medium.com/how-rubic-provides-security-for-its-cross-chain-swaps-37d3a408afe7)
 
-Check out Rubic’s stats: https://dune.com/rubic/rubic-general-dashboard
+Check out Rubic’s stats: [https://dune.com/rubic/rubic-general-dashboard](https://dune.com/rubic/rubic-general-dashboard)
 
 ### **Token Security Feature**
 
@@ -93,7 +101,7 @@ The sign shows whether the token is reliable, or if it could be a scam (as per t
 
 There are 4 categories of token reliability/ security:
 
-1. The token is in the Go+ Trust List.
+1. The token is in the Go\+ Trust List.
 2. The token has no elements of concern.
 3. The token code contains some low-risk elements of concern.
 4. The token code contains some high-risk elements of concern.
@@ -104,12 +112,14 @@ GoPlus acts as a “security infrastructure” for Web3, providing open, permiss
 
 ## **Bug Bounty Program**
 
-[**_Rubic aims to operate as a secure, sustainable Cross-Chain Tech Aggregator that anyone can rely on to exchange and move cryptocurrencies across chains. In the interest of further security improvement, we are launching the Rubic Bug Bounty Program with Immunefy._**](https://immunefi.com/bounty/rubic/)
+[**_Rubic aims to operate as a secure, sustainable Cross-Chain Tech Aggregator that anyone can rely on to exchange and move cryptocurrencies across chains. In the interest of further security improvement, we launched the Rubic Bug Bounty Program with Immunefy._**](https://immunefi.com/bounty/rubic/)
 
 The program is focused on our smart contracts, with a primary interest in the prevention of user fund loss and the provision of protocol stability.
 
-We encourage anyone interested to review the code and find bugs or vulnerabilities which bad actors could exploit. The only eligible level is **Critical**. We will specify the award amount later together with the start of the program.
+We encourage anyone interested to review the code and find bugs or vulnerabilities which bad actors could exploit. The only eligible level is **Critical**, with a **\$25,000 maximum bounty.** 
 
 ### **Details:**
 
-#### Rubic's Security Architecture: https://cryptorubic.medium.com/rubics-new-security-architecture-94115c6ad1f9
+#### Rubic's Security Architecture: [https://cryptorubic.medium.com/rubics-new-security-architecture-94115c6ad1f9](https://cryptorubic.medium.com/rubics-new-security-architecture-94115c6ad1f9)
+
+Last updated: June, 2026. 
