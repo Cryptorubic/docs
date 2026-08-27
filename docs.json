@@ -65,7 +65,7 @@
       },
       {
         "tab": "API Documentation",
-        "openapi": "https://api-v2.rubic.exchange/api/routes/swagger-json",
+        "openapi": "https://api-v2.rubic.exchange/api/routes/swagger/json",
         "groups": [
           {
             "group": "About",
