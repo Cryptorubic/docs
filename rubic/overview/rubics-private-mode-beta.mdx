@@ -1,86 +1,43 @@
 ---
-title: "Rubic's Private Mode Beta"
+title: "Rubic's Private Mode"
 ---
 
-Privacy tools are highly fragmented and often difficult to navigate. To address this, Rubic aggregates 6 compliant privacy solutions: Zama, Hinkal Protocol, Railgun, Privacy Cash, Houdini Swap, and ClearSwap.
+Rubic Private Mode integrates privacy providers into Rubic Best Rate Finder, alongside DEXs, bridges, cross-chain providers, intent providers, and deposit-based providers. 
 
-<Info>
-  Beta Access Code: **1984** ➡️ [https://app.rubic.exchange/privacy](https://app.rubic.exchange/privacy)
-</Info>
+Supported privacy providers include ClearSwap, Houdini Swap, and RocketX, with more to come. Users can compare private and regular routes in one interface and choose a private swap to break the visible onchain link between sending and receiving wallets.
 
-Explore [Rubic's Privacy Manifesto](https://x.com/CryptoRubic/status/2036838886425379009). 
+Private routes are also available through Rubic's API, allowing integrators to offer them within their own products.
 
-## Overview
+Open [Rubic Private Mode](https://app.rubic.exchange/?from=ETH&fromChain=ETH&to=USDT&toChain=TRON&amount=0.1&privateOnly=false).
 
-Rubic Private Mode is the first privacy aggregator that enables users to access multiple privacy-preserving solutions in one place. Instead of navigating separate platforms, comparing fees, and evaluating execution times manually, users can interact with all supported providers through a unified interface.
+## **Why Privacy Aggregation Matters**
 
-Currently, Rubic Private Mode integrates:
+Privacy providers differ in supported networks and tokens, fees, execution time, and technology. Aggregating them expands coverage and lets users compare available routes without checking each provider separately.
 
-- Railgun
-- Zama
-- Houdini Swap
-- Privacy Cash
-- Hinkal Protocol
-- ClearSwap
+For the same transaction, one provider may offer a better price while another completes the swap faster. Users can choose according to their priorities.
 
-## Why Privacy Aggregation Matters
+## **How Rubic Private Mode Works**
 
-Privacy solutions in Web3 differ significantly in how they operate:
+Rubic supports three types of private transactions where available, each designed to break the visible onchain link between sending and receiving wallets:
 
-- **Technology**: Some solutions are fully decentralized, while others rely on CEX routing.
-- **Execution Time**: Transactions may complete in minutes or take up to an hour depending on the provider.
-- **Fees**: Costs vary based on protocol design and routing mechanisms.
-- **Supported Assets & Networks**: Each solution supports a different set of tokens and blockchains.
+- **Private Transfer:** Send the same token to another address on the same network.
+- **Private Same-Chain Swap:** Exchange one token for another on the same network and deliver it to the receiving wallet.
+- **Private Cross-Chain Swap:** Move value to another network, with or without changing the asset.
 
-Manually comparing these factors across multiple platforms can be complex and inefficient. Rubic Private Mode eliminates this friction by aggregating and standardizing this information.
+Rubic checks which privacy providers support the requested networks, tokens, and amount, then returns available routes. The selected provider executes the transaction, separating the deposit from the payout.
 
-## How Rubic Private Mode Works
+## **Rubic Private Mode Beta**
 
-The interface is consistent with the standard Rubic experience. Similar to how Rubic aggregates liquidity and finds optimal routes for cross-chain swaps, Private Mode aggregates privacy providers and presents them in a structured format.
+The original beta brought together six solutions with different privacy architectures: Railgun, Zama, Hinkal Protocol, Privacy Cash, Houdini Swap, and ClearSwap.
 
-## Key Differences Between Privacy Providers
+It remains available as a separate interface for Railgun, Privacy Cash, ClearSwap, and Houdini Swap. Zama and Hinkal Protocol are currently disabled.
 
-Rubic Private Mode emphasizes transparency by displaying the core differences between providers side by side.
+Users who need these solutions can access the beta through Rubic's navigation menu.
 
-### Available Evaluation Criteria
+Open [Private Mode Beta](https://app.rubic.exchange/privacy).
 
-**1. Technology**\
-Describes the underlying mechanism used to ensure privacy (e.g., encryption models, shielding mechanisms, or routing through intermediaries).
+## **Rubic's Privacy Roadmap**
 
-**2. Time**\
-Indicates the estimated duration required to complete the transaction.\
-For example, a higher time indicator may correspond to execution times of up to one hour.
+Six months of exploring different solutions and observing usage in the beta helped shape the current Private Mode.
 
-**3. Fees**\
-Represents the cost of using the selected provider.\
-Higher fee indicators correspond to higher transaction costs.
-
-**4. Steps to Target Action**\
-Specifies how many user interactions are required before completing the transaction.\
-Examples include:
-
-- Signing a message
-- Shielding tokens before execution
-- Completing intermediate steps
-
-Some providers allow direct swaps, while others require additional preparation.
-
-## Transparency by Design
-
-The goal of Rubic Private Mode is not only convenience but also clarity. By presenting all critical variables, technology, cost, speed, and required steps, in a single interface, users can make informed decisions based on their priorities.
-
-Rather than navigating multiple tools and workflows, Rubic enables users to choose the most suitable privacy solution based on what matters most to them:
-
-- Faster execution
-- Lower cost
-- Higher privacy guarantees
-
-## Rubic's Privacy Roadmap
-
-We’ve just taken our first steps into the privacy landscape.
-
-Next, we’ll expand our aggregation of privacy solutions and roll out a privacy-focused aggregation API. At the same time, we’ll keep refining the UX—making privacy simple, intuitive, and accessible for anyone.
-
-<Frame>
-  ![Image](/images/image-1.png)
-</Frame>
+We continue to integrate additional privacy providers, expand network and token coverage, and improve the experience for users and API integrators.
